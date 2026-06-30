@@ -536,6 +536,7 @@
       <!-- 互动演示：点击爻切换阴阳，实时显示上下卦和卦名 -->
       <div id="yaoBuilderWrap" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;">
         <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:14px;text-align:center;">🎯 互动演示：点击每根爻切换阴阳，看卦是怎么合成的</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;text-align:center;padding:4px 10px;background:var(--gold-light);border-radius:6px;">⚠️ 卦象=大方向指引 · 爻辞=前人经验参考 · 具体决策以己自解</div>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
           <!-- 六爻构建器 -->
           <div style="display:flex;flex-direction:column;align-items:center;gap:4px;" id="yaoBuilder">
@@ -642,6 +643,9 @@
           <span class="theme-gua-chip" onclick="showGua(4)">䷎ 谦·谦逊（全吉）</span>
           <span class="theme-gua-chip" onclick="showGua(8)">䷏ 豫·安乐</span>
           <span class="theme-gua-chip" onclick="showGua(13)">䷶ 丰·盛大</span>
+          <span class="theme-gua-chip" onclick="showGua(39)">䷙ 大畜·大有蓄积</span>
+          <span class="theme-gua-chip" onclick="showGua(61)">䷌ 同人·与人和同</span>
+          <span class="theme-gua-chip" onclick="showGua(35)">䷨ 损·减损有度</span>
         </div>
       </div>
 
@@ -657,6 +661,9 @@
           <span class="theme-gua-chip" onclick="showGua(5)">䷣ 明夷·光明受伤</span>
           <span class="theme-gua-chip" onclick="showGua(44)">䷷ 旅·漂泊在外</span>
           <span class="theme-gua-chip" onclick="showGua(12)">䷽ 小过·宜小不宜大</span>
+          <span class="theme-gua-chip" onclick="showGua(18)">䷜ 坎·重险陷溺</span>
+          <span class="theme-gua-chip" onclick="showGua(20)">䷦ 蹇·行路艰难</span>
+          <span class="theme-gua-chip" onclick="showGua(43)">䷥ 睽·乖违背离</span>
         </div>
       </div>
 
@@ -670,8 +677,11 @@
           <span class="theme-gua-chip" onclick="showGua(10)">䷧ 解·险难解除</span>
           <span class="theme-gua-chip" onclick="showGua(29)">䷰ 革·变革</span>
           <span class="theme-gua-chip" onclick="showGua(57)">䷘ 无妄·守正不妄</span>
-          <span class="theme-gua-chip" onclick="showGua(49)">䷩ 益·增益</span>
+          <span class="theme-gua-chip" onclick="showGua(49)">䷩ 益·增益扩展</span>
           <span class="theme-gua-chip" onclick="showGua(52)">䷴ 渐·循序渐进</span>
+          <span class="theme-gua-chip" onclick="showGua(42)">䷿ 未济·未成将成</span>
+          <span class="theme-gua-chip" onclick="showGua(17)">䷂ 屯·初创艰难</span>
+          <span class="theme-gua-chip" onclick="showGua(21)">䷾ 既济·已成守成</span>
         </div>
       </div>
 
@@ -683,10 +693,13 @@
         <div class="theme-guas">
           <span class="theme-gua-chip" onclick="showGua(28)">䷞ 咸·感应（爱情）</span>
           <span class="theme-gua-chip" onclick="showGua(14)">䷟ 恒·持久</span>
-          <span class="theme-gua-chip" onclick="showGua(53)">䷤ 家人·治家</span>
-          <span class="theme-gua-chip" onclick="showGua(43)">䷥ 睽·乖违</span>
+          <span class="theme-gua-chip" onclick="showGua(53)">䷤ 家人·治家有序</span>
           <span class="theme-gua-chip" onclick="showGua(16)">䷇ 比·亲附合作</span>
           <span class="theme-gua-chip" onclick="showGua(58)">䷅ 讼·争讼冲突</span>
+          <span class="theme-gua-chip" onclick="showGua(11)">䷵ 归妹·名分关系</span>
+          <span class="theme-gua-chip" onclick="showGua(27)">䷹ 兑·喜悦和悦</span>
+          <span class="theme-gua-chip" onclick="showGua(24)">䷬ 萃·聚集汇合</span>
+          <span class="theme-gua-chip" onclick="showGua(51)">䷼ 中孚·诚信感通</span>
         </div>
       </div>
 
@@ -701,13 +714,63 @@
           <span class="theme-gua-chip" onclick="showGua(38)">䷑ 蛊·整治积弊</span>
           <span class="theme-gua-chip" onclick="showGua(31)">䷪ 夬·果断决断</span>
           <span class="theme-gua-chip" onclick="showGua(19)">䷻ 节·节制适度</span>
-          <span class="theme-gua-chip" onclick="showGua(36)">䷳ 艮·知止</span>
+          <span class="theme-gua-chip" onclick="showGua(36)">䷳ 艮·知止适时</span>
           <span class="theme-gua-chip" onclick="showGua(22)">䷯ 井·稳定滋养</span>
+          <span class="theme-gua-chip" onclick="showGua(59)">䷉ 履·小心践行</span>
+          <span class="theme-gua-chip" onclick="showGua(41)">䷔ 噬嗑·咬合决断</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge zhuan">进退卦</span>
+          <span class="theme-title">进退行止类 · 何去何从</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(60)">䷠ 遁·退避隐遁</span>
+          <span class="theme-gua-chip" onclick="showGua(15)">䷡ 大壮·强盛守正</span>
+          <span class="theme-gua-chip" onclick="showGua(23)">䷄ 需·等待时机</span>
+          <span class="theme-gua-chip" onclick="showGua(40)">䷢ 晋·晋升前进</span>
+          <span class="theme-gua-chip" onclick="showGua(3)">䷒ 临·监临面对</span>
+          <span class="theme-gua-chip" onclick="showGua(6)">䷭ 升·上升进取</span>
+          <span class="theme-gua-chip" onclick="showGua(9)">䷲ 震·震动警醒</span>
+          <span class="theme-gua-chip" onclick="showGua(50)">䷺ 涣·涣散凝聚</span>
+          <span class="theme-gua-chip" onclick="showGua(55)">䷈ 小畜·小有蓄积</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge guan">修身卦</span>
+          <span class="theme-title">修身养德类 · 内在成长</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(0)">䷁ 坤·厚德载物</span>
+          <span class="theme-gua-chip" onclick="showGua(33)">䷚ 颐·养身养德</span>
+          <span class="theme-gua-chip" onclick="showGua(34)">䷃ 蒙·启蒙学习</span>
+          <span class="theme-gua-chip" onclick="showGua(37)">䷕ 贲·文饰修饰</span>
+          <span class="theme-gua-chip" onclick="showGua(45)">䷝ 离·附丽光明</span>
+          <span class="theme-gua-chip" onclick="showGua(48)">䷓ 观·观察体悟</span>
+          <span class="theme-gua-chip" onclick="showGua(54)">䷸ 巽·巽顺渐入</span>
+          <span class="theme-gua-chip" onclick="showGua(46)">䷱ 鼎·鼎新养人</span>
+          <span class="theme-gua-chip" onclick="showGua(30)">䷛ 大过·非常之举</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge xiong">特殊卦</span>
+          <span class="theme-title">特殊情境类 · 不期而遇</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(62)">䷫ 姤·不期而遇</span>
+          <span class="theme-gua-chip" onclick="showGua(30)">䷛ 大过·栋桡之危</span>
         </div>
       </div>
 
       <div class="tip-box gold" style="margin-top:16px;">
-        <b>学习建议：</b>先学5个核心卦建立框架——乾（总纲·刚健）、坤（总纲·柔顺）、泰（吉之极）、否（凶之极）、复（转机之机）。这5个卦学会了，周易的吉凶转化逻辑就通了。
+        <b>学习建议：</b>先学5个核心卦建立框架——<b>乾</b>（总纲·刚健）、<b>坤</b>（总纲·柔顺）、<b>泰</b>（吉之极·通达）、<b>否</b>（凶之极·闭塞）、<b>复</b>（转机·一阳来复）。这5个学会，周易的吉凶转化逻辑就通了。<br><br>
+        <span style="color:var(--red);">⚠️ 读卦提醒：</span>卦象只是<b>大方向指引</b>，告诉你目前处于什么态势。具体情况因人而异，爻辞是前人在类似处境下的经验总结，供你参考思考。<b>望多加思考，以己自解。</b>
       </div>
 
       <h3 class="section-title">64卦总览矩阵</h3>
@@ -717,6 +780,16 @@
 
     <!-- 用卦 -->
     <div class="section" id="sec-apply">
+      <div style="background:linear-gradient(135deg,#fff8e7 0%,#fcebeb 100%);border:1px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;">
+        <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:6px;">🙏 读卦须知 · 重要提醒</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8;">
+          卦象只是<b>大方向的指引</b>，告诉你目前处于什么态势、什么阶段。<br>
+          具体情况因人而异——同样的卦，不同的人处境不同，解读也不同。<br>
+          <b>爻辞是前人在类似处境下的经验总结</b>，供你参考思考，不是预言。<br>
+          周易的真正价值：通过卦象看清自己的"位"，<b>望多加思考，以己自解</b>。
+        </div>
+      </div>
+
       <div class="hero">
         <div class="hero-symbol">䷿</div>
         <div class="hero-title">用卦 · 占卜与解卦</div>
@@ -792,7 +865,8 @@
       </div>
 
       <div class="tip-box green" style="margin-top:16px;">
-        <b>用卦心法：</b>周易不是算命，是借卦象反观自身处境。"易"有三义：变易（一切在变）、不易（规律不变）、简易（大道至简）。占卦是为了看清自己所处的"位"，顺势而为，不是趋吉避凶的投机。<b>心诚则灵，不诚不占。</b>
+        <b>用卦心法：</b>周易不是算命，是借卦象反观自身处境。"易"有三义：变易（一切在变）、不易（规律不变）、简易（大道至简）。占卦是为了看清自己所处的"位"，顺势而为，不是趋吉避凶的投机。<br><br>
+        <span style="color:var(--gold-dark);font-weight:600;">📌 核心提醒：</span>卦象只指大方向，具体情况依个人而定。爻辞让你看到前人在类似处境中如何应对，供你思考借鉴。<b>望多加思考，以己自解。</b>心诚则灵，不诚不占。
       </div>
     </div>
   </div>
@@ -1036,6 +1110,74 @@ const guaComment={
 61:'与天下人同心，广阔天地——胸怀要大，不要局限于身边的小圈子',
 62:'不期而遇，一女敌五男——偶然的相遇可能是机会也可能是陷阱，要有警觉',
 63:'天行健，君子以自强不息——最好的状态，但要记住：飞龙在天之后，下一步就是亢龙有悔'
+};
+
+// ========== 64卦×6爻 白话注释（每条爻辞的现代解读）==========
+const yaoComment = {
+  0:['踩到霜就知道冰冻要来了——小事已现征兆，防患于未然','正直、方正、宏大——做人根基要正，自然有人信服','内含美质但不炫耀——有才华不张扬，等待时机','扎紧口袋不说话——危险时闭嘴保身，言多必失','穿黄衣最吉祥——中和谦下、不争不抢，反而得利','龙战于野——阴极阳生，两股势力冲突，远离为上'],
+  1:['走不远就回来——刚偏离正道就纠正，这是最好的习惯','停下来休息再出发——知止而后能进，不要硬撑','反复犹豫不定——一而再再而三地犯错，说明方向有问题','独自行正道——周围人都错了，你坚持对的方向','踏实回归本源——厚积薄发，回归初心才有真力量','迷途不知返——执迷不悟，越走越远'],
+  2:['出兵要有纪律——任何行动都要先立规矩，否则必乱','统帅在中军指挥得当——核心领导靠谱，团队就稳','军队可能战败——即使正义之战也可能受挫，要有心理准备','暂时撤退待命——打不过就撤，保存实力比面子重要','猎获了猎物——抓住机会有所收获，但不要贪心','君王颁布赏罚命令——论功行赏的时刻到了'],
+  3:['感召式管理——用人格魅力去影响人，而不是命令','同样用感召但更温和——不同阶段用不同的方式','甜言蜜语笼络人心——靠嘴皮子管理，不可长久','亲临一线监督——管理者必须深入现场才能了解实情','智慧型管理——靠洞察力预判形势，而非事后补救','敦厚诚恳地面对——最终拼的是人品和诚意'],
+  4:['谦虚再谦虚——越是底层越要低调，这是基础','出名后仍谦虚——有了成绩更要收敛，不然招嫉妒','勤劳且谦虚——付出很多还不邀功，最有福报','发挥谦虚的作用——不仅自己谦，还能影响别人','不富裕也不羡慕邻居——内心满足，不攀比','名声在外仍谦虚——越成功越要谦，这才是真谦'],
+  5:['光明受伤时快速撤离——发现苗头不对马上退','伤及左腿但还能行动——受了点伤，但不致命','光明被遮蔽时南征有利——主动出击寻找出路','进入黑暗腹地——已经陷入困境，需要内部坚守','像箕子一样装疯避祸——极端环境下明哲保身','完全黑暗——最坏的情况，什么都看不见时别妄动'],
+  6:['允许稳步上升——起步虽慢但方向对了','诚信祭祀也能获福——心意到了比形式重要','上升如入空城——阻力很小，一路畅通','君王在岐山祭享——得到贵人或上级认可','保持正道就吉——升到一定程度后关键是守正','盲目上升——升过头了，该停不停必有祸'],
+  7:['拔茅草连根拔起——志同道合的人一起行动，力量倍增','包容万物——胸怀宽广，容纳不同的人和事','没有永远平坦的路——顺境中也要警惕危机','翩翩飞来——好运接连不断，但要知道珍惜','帝王嫁妹——强强联合的大好事','城墙倒塌进护城河——泰极否来，盛极而衰的信号'],
+  8:['得意忘形地享受快乐——刚开始就要警惕沉迷','坚如磐石不为所动——快乐中保持清醒最重要','仰视别人等待快乐——把自己的快乐寄托在别人身上，不稳','别人因你而快乐——你的存在让人愉悦，这很好','长期快乐会生病——乐极生悲，太安逸反伤身','沉迷享乐昏暗不明——彻底迷失在欲望中，危险'],
+  9:['雷声震惊——突如其来的事让你惊慌，这很正常','雷声越来越猛——第二波冲击来了，比第一次更强','震动中慢慢恢复——开始适应变化，不再那么害怕','震得动弹不得——被打击到瘫软，需要时间恢复','震荡中来回往复——局势不明朗，忽上忽下很折磨人','震得四处索寻——极度恐慌中到处找依靠，要稳住心神'],
+  10:['解除困难无咎——问题正在自然化解，不用急','田里抓到三只狐狸——意外收获，清除隐患','背着东西坐车——身份和位置不匹配，容易被人针对','解开束缚拇指——摆脱牵制的机会来了','君子真正解脱——从根本上的困境中脱身','射杀高处的隼——精准解决关键问题，一击即中'],
+  11:['妹妹做妾出嫁——地位低，只能接受现实','眼不好却能看见——虽然条件差但有独特的价值','以妾的身份等待——耐心等时机成熟','婚期延误——好事多磨，不要太急','帝王嫁妹妹——虽然是侧室但地位尊贵','竹筐空无一物——付出了但没有回报'],
+  12:['鸟高飞会有凶险——能力不够却想做大事，危险','越过祖辈——有点冒进，但问题不大','不过分防范也无咎——有些风险可以承受','没有过错——守好本分就不会有事','乌云密密却不下雨——酝酿很久但没结果','没遇上帮助——想做的事缺乏外部支持'],
+  13:['遇到匹配的主人——找到了对的人或平台','诚信感动他人——真诚是打开局面的钥匙','丰盛到遮蔽阳光——太好了反而看不清真相','房屋被遮蔽——表面光鲜实际有隐患','美好事物到来——转机出现了，好消息将至','房子太大太空——过度扩张导致空虚'],
+  14:['一味追求恒久——一开始就想永久，反而难持久','后悔消失——调整心态后事情顺利了','不能持之以恒——三分钟热度是大忌','打猎一无所获——努力了但没有回报，需要反思方法','持守正道——找到正确的方法并坚持下去','动荡不安的坚持——环境变了还在死守旧法'],
+  15:['脚趾强壮——力量刚出现，还不够用','坚守正道就吉——力量小时守正是关键','小人滥用力量——有能力但没品德，很危险','坚守正道吉——力量增长中，守住本心','羊在边界走失——优势在不知不觉中失去','公羊撞篱笆——用力过猛把自己困住了'],
+  16:['带着诚意亲近对方——建立关系的第一步是真诚','从内部亲近——自己人之间天然信任','亲近错的人——跟错了人，越亲近越麻烦','向外亲近——拓展外部关系，机会更多','光明正大地亲近——公开透明的关系最稳固','亲近没有头领——盲目依附，没有主见'],
+  17:['原地徘徊不前——万事开头难，这是正常的','进退两难——既想前进又怕失败，纠结中','追鹿没有向导——盲目行动，缺乏规划','骑马徘徊不前——资源有了但不敢投入','困顿中难以施力——有劲使不出，被各种因素限制','哭泣不止血泪斑斑——绝望到极点，但也意味着触底'],
+  18:['掉进深坑——困境刚刚开始，还没意识到严重性','坑里有危险——看清了危险但还没找到出路','前坑后坑——一个接一个的困难，应接不暇','一壶酒两碗簋——简朴中保持礼仪和体面','水坑还没满——快看到希望了，再加把劲','被绳索捆绑——最困难的时刻，需要外力救援'],
+  19:['不出家门——谨慎到极致，不轻易行动','不出院门——还是谨慎，但可以小范围活动','不知道节制——放任自流，开始失控','安于节制——找回平衡，生活回到正轨','甘愿节制——从被动约束变成主动选择','过度节制——对自己太苛刻，适得其反'],
+  20:['往前走艰难，退回来有声誉——此路不通就换方向','大臣多次遭遇困境——反复碰壁说明方向有问题','前进困难退回来——继续尝试只会更糟','困难中有朋友来帮你——不是一个人在战斗','非常困难但朋友来了——关键时刻援手到了','艰难前行终有大收获——坚持到最后就有回报'],
+  21:['拉住车轮不让走——事情刚开始就要稳住','丢失了车帘——小损失，提醒你小心','商王伐鬼方——长期奋战三年才胜，贵在坚持','衣服破了——细节出了问题，要及时修补','东边邻居杀牛——仪式隆重不如心意真诚','头弄湿了危险——最后关头大意，功亏一篑'],
+  22:['井底淤泥不能吃——基础坏了，一切无从谈起','井口太小只能钓小鱼——格局太小，成不了大事','井水清澈却没人喝——有价值但不被人知','修整井壁——提升自己的硬件设施','井水清凉甘甜——终于被人认可和使用了','井口不要盖住——有成果要分享，不要藏私'],
+  23:['在郊外等待——时机未到，安心等待就好','在沙滩上等待——稍微靠近了一点','在泥泞中等待——环境变差了，但还没到危险程度','在血泊中等待——遇到了危险和伤害','在酒食中等待——享受等待的过程','掉进洞穴——等太久了反而出了问题'],
+  24:['诚意没能坚持到底——做事虎头蛇尾','被人引导则吉——迷茫时需要指路人','聚集时叹息——人多但各怀心思，不团结','大吉无咎——团结一致就能成功','占据正当位置——名正言言顺地主导局面','叹息流泪——聚集后的分离，不舍但难免'],
+  25:['官府有变通——规则变了，跟着变','跟随小人——选错跟随对象，因小失大','跟随大人——跟对人，方向就对了','追随而有收获——付出得到了回报','被美好的事物吸引——找到了值得追随的目标','被拘系阻止——好东西不是你想留就能留的'],
+  26:['屁股卡在木桩上——寸步难行的困境','困在酒食中——连吃喝都成了负担','被困在石头上——硬碰硬只会更惨','困在车里——有资源但无法使用','鼻子被割耳朵被砍——受到极大伤害和羞辱','困在藤蔓中——越挣扎缠得越紧'],
+  27:['和睦相处就吉——和气生财，和气生一切','带着诚意喜悦——真诚的快乐最能感染人','讨好来的喜悦——刻意迎合换来的快乐不长','商量着喜悦——共同参与比单向取悦好','剥蚀中的喜悦——环境差也要保持乐观','引诱来的喜悦——诱惑带来的快乐背后有代价'],
+  28:['感应到脚趾——心动了，但还很微弱','感应到小腿——开始行动，但还不太稳定','感应到大腿——情感加深，开始不由自主','心思往来不定——最纠结的阶段，患得患失','感应到背部——感觉变得迟钝麻木','感应到嘴脸——情绪完全写在脸上，掩饰不住'],
+  29:['用黄牛皮绑牢固——变革前先把现有局面稳住','时机到了才开始改——不急不躁，等到最佳窗口','贸然前进有危险——变革需要循序渐进','悔恨消除——变革开始见效了','大人像老虎一样蜕变——大人物的改变影响巨大','君子像豹子一样蜕变——普通人的改变也值得尊重'],
+  30:['垫上白茅再放物品——极其谨慎恭敬的态度','枯杨长出新芽——老树发新枝，绝处逢生','房梁弯曲——承重过大，结构出了问题','房梁隆起——得到支撑，情况好转','枯杨开花——回光返照的好迹象','过河淹没了头顶——冒险过了头，损失巨大'],
+  31:['脚趾前端强壮——冲动想行动，但时机未到','警惕呼号——发现问题及时警告大家','颧骨强壮——个人能力强但要注意配合','屁股没肉坐不住——位置不稳定','决断果断坚决——该出手时就出手','没有呼号最终有凶——沉默到底等于放弃机会'],
+  32:['床从脚下开始剥落——衰败从底部开始，防微杜渐','床板剥落——破坏在蔓延，速度加快','剥落而无咎——顺应变化，不抵抗反而没事','床面剥落——已经影响到日常生活了','鱼贯而入有序剥落——组织性的衰退，有规律可循','大的果实没人吃——最后剩下的就是最好的机会'],
+  33:['舍弃灵龟却羡慕别人的食物——放着天赋不用去学别人','颠倒了颐养之道——方向完全搞反了','违背颐养原则——方法错误，越养越差','颠倒颐养反而吉利——因祸得福，歪打正着','违背常理去养——不走寻常路，有风险也有机会','由人供养——依赖别人提供资源'],
+  34:['启发蒙昧——教育要从基础开始','包容蒙昧——给成长的空间和时间','不要娶这样的女子——不适合的人就不要强求','困在蒙昧中——自身也需要学习和进步','儿童蒙昧吉利——新手有新手的优势，敢想敢试','严厉教育蒙昧——有时候当头棒喝才是最好的启蒙'],
+  35:['赶紧停下——发现问题立刻刹车','坚守正道——停下之后要守正不动','三人同行损一人——团队中人多了反而效率低','减损疾病——去掉不好的东西就是增益','有人来增益——减损到一定程度自然有补充','不减也不增——恰到好处，维持现状最好'],
+  36:['脚趾停住——从最小的事情开始控制','小腿停住——控制范围扩大了一点','腰部停住——控制到关键部位了','身体停住——全面自我控制','嘴巴停住——管住嘴是最难的','敦厚地停住——彻底的定力和自律'],
+  37:['修饰脚趾——从小地方开始美化','修饰胡须——注重外在形象','修饰得润泽光泽——过度修饰反而显得虚假','修饰得素白朴实——返璞归真才是高级','修饰山丘家园——环境的改善','白色修饰没有咎——朴素本身就是一种美'],
+  38:['整顿父亲的积弊——接手前辈的问题','整顿母亲的积弊——处理家庭内部的矛盾','再次整顿父亲的积弊——问题比想象中更深','宽容对待父亲的积弊——有些事不必太较真','又一次整顿——持续改进的过程','不服务于王侯——整顿完成，归隐田园'],
+  39:['有危险但利于停止——先别动了，观察一下','车轴脱落——前进的工具出了问题','良马奔腾——时机对了就全力冲刺','小牛角上装横木——提前预防风险','阉割过的猪牙——化凶为吉的手段','走在天上宽阔的道路——一切准备就绪，大道坦荡'],
+  40:['晋升如草木摧折——晋升路上有挫折','晋升中充满忧愁——往上走从来不容易','获得众人信任——群众基础是晋升的关键','像鼫鼠一样晋升——没实力却爬高位，不稳','悔恨消除——晋升之路开始顺畅','晋升到了顶角——到了最高点，下一步怎么办'],
+  41:['脚枷伤到了脚趾——初次犯错，惩罚轻','咬伤皮肤和鼻子——犯错程度加深了','咬腊肉——问题变复杂了，需要更多耐心','咬带骨的肉——最难处理的部分来了','咬干肉——坚持到底就能解决','枷锁伤了耳朵——不听劝告的后果'],
+  42:['尾巴湿了——刚开始就遇到了困难','车轮被拉住——进展受阻','还没渡河就前进危险——条件不具备别硬来','坚守正道就吉——做好本分的事','君子的光辉——内在的光芒挡不住','诚信饮酒——成功后适度庆祝'],
+  43:['悔恨消除——分歧是可以化解的','在巷子里遇见主人——意外之喜','看见车子被拖拽——合作中出现矛盾','孤独乖离——被孤立的感觉','悔恨消除——沟通后理解加深','看见猪背着泥——荒诞的景象，不要当真'],
+  44:['旅途中琐事烦心——出门在外小事多','旅店安顿下来——暂时安稳了','旅店失火——刚安稳又出意外','旅居某处——重新安定下来','射野鸡——旅途中小有收获','鸟巢被焚毁——最后的庇护所也没了'],
+  45:['脚步错乱——开始时有点混乱','黄色附丽大吉——中正的位置最好','太阳西斜时的光明——好时光过去了','突然到来——变化总是猝不及防','泪如雨下——情绪释放的时刻','出征讨伐——行动的时候到了'],
+  46:['鼎翻了——彻底颠覆旧秩序','鼎里有实物——开始装入新内容','鼎耳坏了——沟通渠道出问题了','鼎足折断——支撑体系崩溃了','鼎耳金黄——修复成功，焕然一新','鼎玉铉——最高级的配置状态'],
+  47:['不与人交恶——初期保持低调','用大车载物——开始积累资源和成果','被天子宴请——得到高层认可','不要过于盛大——成功后要低调','以诚待人——诚信是最好的社交','上天保佑——做到极致后好运自来'],
+  48:['儿童视角观察——看得浅但很纯真','从缝隙偷看——视野有限，信息不全','观察自己的人生——向内审视很重要','观察国家风光——眼界打开了，格局大了','再次审视人生——螺旋式上升的认知','观察他人的生活——通过别人认识自己'],
+  49:['有利于做大事——时机正好，可以大展拳脚','有人来帮助你——外部支持到了','把增益用于救急——好资源要用在刀刃上','中间道路告知公家——走正道公开透明','以诚信恩惠于人——给予比索取更有意义','没有人再来增益——到极限了，该输出不该再输入'],
+  50:['用壮马拯救——迅速脱离危险的境地','奔向依托之处——找到一个可靠的落脚点','散开自身——放下包袱和身份','散开群体——从集体中独立出来','散发出浩大声势——影响力扩大了','流出的血消散了——付出的代价终于被消化'],
+  51:['安居就吉——稳定是福的基础','鹤鸣叫在阴处——有才华不怕没人知道','遇到对手——竞争让你更强','月近满而不盈——最好的状态是接近圆满','诚信紧密相连——信任关系的最高境界','声音响彻天空——名声传播到了极点'],
+  52:['鸿雁落到水边——刚开始，还在岸边','鸿雁落到大石头——站稳了脚跟','鸿雁落到陆地——离开了舒适区','鸿雁落到树上——新的高度和视野','鸿雁落到丘陵——更进一步','鸿雁落到高山——到达了最高点'],
+  53:['家中设立规矩——治家从立规矩开始','不随意行事——家里也要有章法','家人嗷嗷抱怨——严格管理初期的反应','家庭致富——管理出效益','君王到家——家族兴旺的象征','威信建立——治家的最终目标是形成家风'],
+  54:['进退犹豫——巽顺的初始状态是犹豫','躲在床底下——过分谦卑了','皱着眉头顺从——心里不服但表面服从','悔恨消除——调整态度后好了','坚守正道就吉——顺从也要有底线','又躲到床底下——又回到了过度谦卑的状态'],
+  55:['回到原来的路——回到正道','被牵引回来——有人把你拉回正轨','夫妻反目——内部矛盾爆发了','有诚信存积——积累信任的过程','紧密连接——关系更加牢固','雨下了又停——经历风雨后又平静了'],
+  56:['拔茅草——排除障碍，清理环境','包容接纳——敞开胸怀接纳不同','包含羞耻——接纳也包括接纳不好的部分','有天命安排——有些事是注定的发展过程','停止闭塞——坏局面开始好转','彻底倾覆闭塞——否极泰来，大反转'],
+  57:['不妄动就吉——不做多余的事','不种地却有收获——意外的惊喜','无妄之灾——飞来横祸，不是你的错','可以守正——灾后恢复正常','无妄之病——小毛病不要紧','胡作非为有灾殃——自找的就怪不得别人'],
+  58:['不长久纠缠——小事不要纠缠太久','官司打不赢——有些仗是不值得打的','吃老本——依靠过去的积累','还是打不赢——换策略吧','诉讼大胜——赢了官司但输了人情','被赐予腰带——表面胜利实则羞辱'],
+  59:['朴素的践行——保持本色的行动','平坦的大道——正路永远是通畅的','眼睛不好却能看——用心比用眼更重要','踩老虎尾巴——危险的处境','果断前行——关键时候要敢于决策','回头看走过的路——复盘总结经验'],
+  60:['尾巴被卡住——想逃但逃不掉','用黄牛皮绑住——被牢牢拴住','隐遁中生病——逃避是有代价的','好的隐遁——明智的撤退','最佳的隐遁——完美的退出','肥遁无不利——全身而退的最佳方案'],
+  61:['与人在门口同心——初步的合作意向','与宗族内的人同心——小范围的合作','伏兵在草莽——暗中积蓄力量','登上城墙——占据有利位置','先哭后笑——经历挫折后成功','与人在郊野同心——广阔天地下的合作'],
+  62:['系在金属刹车器上——一开始就要控制住','厨房里有鱼——意外的小收获','屁股没肉坐不住——环境不稳定','鱼跑了——到手的东西丢了','用杞树叶包瓜——保护好自己的成果','撞到了角落——发展到了尽头'],
+  63:['潜藏的龙不要用——蓄力期，不要急着表现','龙出现在田野——开始被人注意到','整天勤奋努力——成长期的必备功课','跃或在深渊——面临重大抉择','飞龙在天——事业巅峰期','龙飞得太高会有悔——盛极而衰的转折点']
 };
 
 // ========== 测卦场景数据库（40卦，覆盖主要人生情境）==========
@@ -1765,6 +1907,22 @@ function renderYaoBuilder() {
       <span style="font-size:12px;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};width:28px;">${isYang ? '阳' : '阴'}</span>
     </div>`;
   }
+  // 初爻下方填充：爻位速查 + 操作提示
+  html += `<div style="margin-top:8px;width:200px;">
+    <div style="font-size:11px;color:var(--text3);text-align:center;margin-bottom:6px;padding:4px 0;border-top:1px dashed var(--border2);">📍 爻位速查</div>
+    <div style="display:flex;flex-direction:column;gap:3px;font-size:10px;color:var(--text2);">
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>初爻</span><span style="color:var(--green);">萌芽·起步</span></div>
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>二爻</span><span style="color:var(--green);">成长·亮相</span></div>
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>三爻</span><span style="color:#b8860b;">考验·反复</span></div>
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>四爻</span><span style="color:var(--blue);">进退·抉择</span></div>
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>五爻</span><span style="color:var(--gold);">鼎盛·收获</span></div>
+      <div style="display:flex;justify-content:space-between;padding:2px 4px;background:var(--card2);border-radius:4px;"><span>上爻</span><span style="color:var(--red);">极点·转折</span></div>
+    </div>
+    <div style="margin-top:8px;padding:8px;background:var(--gold-light);border-radius:6px;font-size:10px;color:var(--gold-dark);line-height:1.5;text-align:center;">
+      👆 点击任意爻切换阴阳<br>
+      🎲 随机起卦看不同组合
+    </div>
+  `;
   builder.innerHTML = html;
 
   // 计算上下卦和卦ID
@@ -1820,15 +1978,22 @@ function renderYaoBuilder() {
             for (let i = 5; i >= 0; i--) {
               const isUpper = i >= 3;
               const isYang = builderYao[i] === 1;
-              rows += `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:6px;border-left:3px solid ${isUpper ? 'var(--blue)' : 'var(--green)'};background:${isUpper ? 'var(--blue-light)' : 'var(--green-light)'};font-size:12px;">
-                <span style="font-weight:600;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};min-width:32px;white-space:nowrap;">${names[i]}</span>
-                <span style="color:var(--text1);line-height:1.5;">${isYang ? '⚊' : '⚋'} ${g.yao[i] || ''}</span>
+              const yaoPlain = (yaoComment[guaId] && yaoComment[guaId][i]) ? yaoComment[guaId][i] : '';
+              rows += `<div style="padding:6px 8px;border-radius:6px;border-left:3px solid ${isUpper ? 'var(--blue)' : 'var(--green)'};background:${isUpper ? 'var(--blue-light)' : 'var(--green-light)'};font-size:12px;">
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <span style="font-weight:600;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};min-width:32px;white-space:nowrap;">${names[i]}</span>
+                  <span style="color:var(--ink);line-height:1.5;font-weight:500;">${isYang ? '⚊' : '⚋'} ${g.yao[i] || ''}</span>
+                </div>
+                ${yaoPlain ? `<div style="color:var(--text2);line-height:1.5;margin-top:4px;padding-left:40px;font-size:11px;">💬 ${yaoPlain}</div>` : ''}
               </div>`;
             }
             return rows;
           })()}
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;">每爻是一个<span style="color:var(--gold-dark);">不同的位置/阶段</span>：<b>初爻</b>=事情开端，<b>二爻</b>=崭露头角，<b>三爻</b>=承上启下，<b>四爻</b>=近君多惧，<b>五爻</b>=君位掌权，<b>上爻</b>=物极必反</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;padding:10px;background:var(--gold-light);border-radius:8px;border-left:3px solid var(--gold);">
+          <b style="color:var(--gold-dark);">📖 如何读六爻辞：</b>每爻代表事情发展的<b>一个阶段</b>——<b>初爻</b>=开端萌芽，<b>二爻</b>=崭露头角，<b>三爻</b>=反复考验，<b>四爻</b>=进退抉择，<b>五爻</b>=鼎盛收获，<b>上爻</b>=物极必反。<br>
+          <span style="color:var(--red);">⚠️ 爻辞是前人遇到类似处境时的经验总结，供你参考思考，不是预言。具体决策要结合自身情况，以己自解。</span>
+        </div>
       </div>` : ''}
     </div>
   `;
