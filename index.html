@@ -3,13 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#412402">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="周易64卦">
-<link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="icon" type="image/png" href="./icon-192.png">
 <title>周易64卦 · 学卦完整版</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -530,14 +523,65 @@
         坎=水/中男/耳/豕/险陷 · 离=火/中女/目/雉/附丽 · 艮=山/少男/手/狗/止 · 兑=泽/少女/口/羊/喜悦
       </div>
 
-      <h3 class="section-title">五、六十四卦 · 八卦相荡</h3>
+      <h3 class="section-title">五、从6爻到64卦 · 上下卦怎么分</h3>
+      <div class="tip-box gold" style="margin-bottom:16px;">
+        <b>核心规则（必记）：</b><br>
+        起卦时，从初爻（第1爻）开始向上摇6次，得到6根爻。<br>
+        • <b>第1~3爻</b>（下方三根）→ 组成<b style="color:var(--green)">下卦</b>（内卦）<br>
+        • <b>第4~6爻</b>（上方三根）→ 组成<b style="color:var(--blue)">上卦</b>（外卦）<br>
+        • 上卦×8 + 下卦 = 卦的编号（0-63）<br>
+        • 卦名读法：<b>上卦自然 + 下卦自然 + 卦名</b>（如：坤上乾下=地天泰）
+      </div>
+
+      <!-- 互动演示：点击爻切换阴阳，实时显示上下卦和卦名 -->
+      <div id="yaoBuilderWrap" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:14px;text-align:center;">🎯 互动演示：点击每根爻切换阴阳，看卦是怎么合成的</div>
+        <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
+          <!-- 六爻构建器 -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;" id="yaoBuilder">
+            <!-- JS动态生成 -->
+          </div>
+          <!-- 实时解读 -->
+          <div id="yaoReading" style="flex:1;min-width:200px;background:var(--bg);border-radius:12px;padding:16px;font-size:14px;">
+            <!-- JS动态更新 -->
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:12px;">
+          <button onclick="resetYaoBuilder()" style="background:var(--ink);color:#fac775;border:none;border-radius:8px;padding:8px 20px;cursor:pointer;font-size:13px;">🔄 重置</button>
+          <button onclick="randomYaoBuilder()" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;cursor:pointer;font-size:13px;margin-left:8px;">🎲 随机起卦</button>
+        </div>
+      </div>
+
+      <!-- 铜钱法阴阳规则说明 -->
+      <div class="formula-card" style="margin-bottom:16px;">
+        <div class="title">铜钱法阴阳判断规则</div>
+        <div class="formula-line" style="border-left:3px solid var(--gold);">3枚全正面 → <b>老阳 ⚊</b> <span class="explain">动爻，阳将变阴；概率12.5%</span></div>
+        <div class="formula-line" style="border-left:3px solid var(--gold-dark);">2正1反 → <b>少阳 ⚊</b> <span class="explain">静爻，阳爻；概率37.5%</span></div>
+        <div class="formula-line" style="border-left:3px solid var(--blue);">1正2反 → <b>少阴 ⚋</b> <span class="explain">静爻，阴爻；概率37.5%</span></div>
+        <div class="formula-line" style="border-left:3px solid #555;">3枚全反面 → <b>老阴 ⚋</b> <span class="explain">动爻，阴将变阳；概率12.5%</span></div>
+        <div style="font-size:12px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <b>记忆口诀：</b>正面多=阳（2正或3正→阳爻），反面多=阴（2反或3反→阴爻）<br>
+          <b>动爻：</b>老阳/老阴因"物极必反"会变成对立面，得出"变卦"，代表趋势走向
+        </div>
+      </div>
+
+      <!-- 起卦完整流程 -->
+      <div class="tip-box" style="margin-bottom:16px;">
+        <b>完整起卦流程（铜钱法）：</b><br>
+        ① 心中默想所问之事 → ② 摇3枚铜钱，记录结果（这是<b>初爻</b>，第1爻，最底部）<br>
+        ③ 再摇，记第2爻 → ... → ⑥ 第6次，记第6爻（最顶部）<br>
+        ⑦ 1~3爻合成<b style="color:var(--green)">下卦</b>，查八卦表得卦名 → ⑧ 4~6爻合成<b style="color:var(--blue)">上卦</b>，查八卦表得卦名<br>
+        ⑨ 上卦+下卦 → 查64卦表，得本卦 → ⑩ 动爻翻转 → 得变卦（趋势）
+      </div>
+
+      <h3 class="section-title">六、六十四卦矩阵 · 八卦相荡</h3>
       <div class="matrix-info">64卦=8上卦×8下卦。横轴=上卦（外卦），纵轴=下卦（内卦）。点击任意卦查看详情。</div>
       <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
       <div class="tip-box">
         <b>读卦规则：</b>先读上卦自然，再读下卦自然，最后卦名。泰卦=上坤(地)+下乾(天)="地天泰"；否卦=上乾(天)+下坤(地)="天地否"。
       </div>
 
-      <h3 class="section-title">六、爻位命名 · 初九六二怎么来的</h3>
+      <h3 class="section-title">七、爻位命名 · 初九六二怎么来的</h3>
       <div class="matrix-info">每卦6爻，从下到上叫：初·二·三·四·五·上。阳爻用"九"，阴爻用"六"。</div>
       <div class="yao-table">
         <div class="yao-row header">
@@ -558,7 +602,7 @@
         <b>爻位吉凶倾向：</b>二五为中美位（多吉），初三四为危位（多凶吝），上为亢位（易悔）。
       </div>
 
-      <h3 class="section-title">七、易有三义 · 理解周易的钥匙</h3>
+      <h3 class="section-title">八、易有三义 · 理解周易的钥匙</h3>
       <div class="tip-box green">
         <b>变易：</b>世间万物无时无刻不在变化，唯一不变的就是"变"本身。<br>
         <b>不易：</b>变化的规律是不变的——物极必反、阴阳转化、循环往复。<br>
@@ -566,7 +610,7 @@
         <b>理解这三义，才算真正入门周易。</b>占卦不是算命，是借卦象看清自己所处的"位"，顺势而为。
       </div>
 
-      <h3 class="section-title">八、承乘比应 · 爻际关系（进阶）</h3>
+      <h3 class="section-title">九、承乘比应 · 爻际关系（进阶）</h3>
       <div class="tip-box">
         <b>承：</b>下爻对上爻的关系（阴承阳=顺，阳承阴=逆）<br>
         <b>乘：</b>上爻对下爻的关系（阴乘阳=柔凌刚，多凶）<br>
@@ -1474,22 +1518,27 @@ function simulateDivine() {
     simulateDivine();
     return;
   }
-  // 模拟3枚铜钱
+  // 模拟3枚铜钱（正面=阳=1，反面=阴=0）
   const coins = [Math.random()<0.5, Math.random()<0.5, Math.random()<0.5];
-  const heads = coins.filter(c => c).length;
-  let yao, isOld;
-  if (heads === 3) { yao = 1; isOld = true; }      // 老阳
-  else if (heads === 2) { yao = 1; isOld = false; } // 少阴
-  else if (heads === 1) { yao = 0; isOld = false; } // 少阳
-  else { yao = 0; isOld = true; }                    // 老阴
+  const heads = coins.filter(c => c).length; // 正面数
+  let yao, isOld, typeName;
+  // 正确的铜钱法规则：
+  // 3正(3正0反) = 老阳 ⚊ 动爻（重阳将变，最强阳）
+  // 2正1反     = 少阳 ⚊ 静爻（阳爻，正常阳）
+  // 1正2反     = 少阴 ⚋ 静爻（阴爻，正常阴）
+  // 0正(3反)   = 老阴 ⚋ 动爻（重阴将变，最强阴）
+  if      (heads === 3) { yao = 1; isOld = true;  typeName = '老阳(动爻)'; }
+  else if (heads === 2) { yao = 1; isOld = false; typeName = '少阳(静爻)'; }
+  else if (heads === 1) { yao = 0; isOld = false; typeName = '少阴(静爻)'; }
+  else                  { yao = 0; isOld = true;  typeName = '老阴(动爻)'; }
   divineYao.push({ yao, isOld });
   divineCount++;
   if (divineCount === 6) {
     showDivineResult();
   } else {
     const sym = yao === 1 ? '⚊' : '⚋';
-    const type = isOld ? (yao===1?'老阳(动)':'老阴(动)') : (yao===1?'少阴':'少阳');
-    alert('第' + divineCount + '爻：' + sym + ' ' + type + '\n（' + heads + '正' + (3-heads) + '反）\n\n还需摇' + (6-divineCount) + '次');
+    const posName = ['初','二','三','四','五','上'][divineCount - 1];
+    alert('第' + divineCount + '爻（' + posName + '爻）\n' + sym + ' ' + typeName + '\n（' + heads + '正' + (3-heads) + '反）\n\n还需摇' + (6-divineCount) + '次\n—— 第1爻在最下方，逐层往上堆叠 ——');
   }
 }
 
@@ -1622,21 +1671,93 @@ function renderResults(query) {
   }).join('');
 }
 
+// ========== 互动爻构建器（认卦→如何分上下卦） ==========
+// 八卦编码：0=坤 1=震 2=坎 3=兑 4=艮 5=离 6=巽 7=乾（bit0=初爻）
+const trigramNatureMap = ['坤地','震雷','坎水','兑泽','艮山','离火','巽风','乾天'];
+const trigramSymbolMap = ['☷','☳','☵','☱','☶','☲','☴','☰'];
+
+// 当前6爻状态（0=阴 1=阳），索引0=初爻（最下），索引5=上爻（最上）
+let builderYao = [1, 0, 1, 0, 1, 0]; // 默认泰卦
+
+function renderYaoBuilder() {
+  const builder = document.getElementById('yaoBuilder');
+  if (!builder) return;
+
+  // 从上到下渲染（视觉上第6爻在顶）
+  let html = '';
+  for (let i = 5; i >= 0; i--) {
+    const isYang = builderYao[i] === 1;
+    const isUpper = i >= 3; // 4-6爻=上卦
+    const label = ['初','二','三','四','五','上'][i] + '爻';
+    const divider = i === 3 ? '<div style="width:160px;border-top:2px dashed var(--border2);margin:6px 0;text-align:center;font-size:11px;color:var(--text3);position:relative;"><span style="background:var(--card);padding:0 6px;position:relative;top:-9px;">↑上卦 / 下卦↓</span></div>' : '';
+    html += divider;
+    html += `<div onclick="toggleBuilderYao(${i})" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid ${isUpper ? 'var(--blue)' : 'var(--green)'};background:${isUpper ? 'var(--blue-light)' : 'var(--green-light)'};width:200px;transition:all .15s;" title="点击切换阴阳">
+      <span style="font-size:11px;color:var(--text3);width:24px;text-align:right;">${label}</span>
+      <span style="font-size:28px;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};flex:1;text-align:center;letter-spacing:2px;">${isYang ? '⚊' : '⚋'}</span>
+      <span style="font-size:12px;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};width:28px;">${isYang ? '阳' : '阴'}</span>
+    </div>`;
+  }
+  builder.innerHTML = html;
+
+  // 计算上下卦和卦ID
+  const lowerId = builderYao[0] + builderYao[1]*2 + builderYao[2]*4;
+  const upperId = builderYao[3] + builderYao[4]*2 + builderYao[5]*4;
+  const guaId = lowerId + upperId * 8;
+  const g = guaDB[guaId];
+
+  const reading = document.getElementById('yaoReading');
+  if (!reading) return;
+  reading.innerHTML = `
+    <div style="margin-bottom:12px;">
+      <div style="font-size:13px;color:var(--text3);margin-bottom:4px;">上卦（第4~6爻）</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:28px;">${trigramSymbolMap[upperId]}</span>
+        <div>
+          <div style="font-weight:600;color:var(--blue);">${trigramNatureMap[upperId]}</div>
+          <div style="font-size:12px;color:var(--text3);">编码：${upperId}（${builderYao[5]}${builderYao[4]}${builderYao[3]}）</div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);margin-bottom:12px;padding-top:12px;">
+      <div style="font-size:13px;color:var(--text3);margin-bottom:4px;">下卦（第1~3爻）</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:28px;">${trigramSymbolMap[lowerId]}</span>
+        <div>
+          <div style="font-weight:600;color:var(--green);">${trigramNatureMap[lowerId]}</div>
+          <div style="font-size:12px;color:var(--text3);">编码：${lowerId}（${builderYao[2]}${builderYao[1]}${builderYao[0]}）</div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:2px solid var(--gold);padding-top:12px;text-align:center;">
+      <div style="font-size:42px;margin-bottom:4px;">${g ? g.s : '?'}</div>
+      <div style="font-size:20px;font-weight:700;color:var(--gold-dark);">${g ? g.n : '?'}卦</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:4px;">${g ? trigramNatureMap[upperId].slice(0,1) + '上' + trigramNatureMap[lowerId].slice(0,1) + '下' : ''}</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:6px;">ID = ${lowerId} + ${upperId}×8 = ${guaId}</div>
+      ${g ? `<div style="font-size:12px;color:var(--text2);margin-top:8px;padding:8px;background:var(--gold-light);border-radius:8px;">${g.ci}</div>` : ''}
+    </div>
+  `;
+}
+
+function toggleBuilderYao(idx) {
+  builderYao[idx] = builderYao[idx] === 1 ? 0 : 1;
+  renderYaoBuilder();
+}
+
+function resetYaoBuilder() {
+  builderYao = [1, 0, 1, 0, 1, 0]; // 乾上坤下=泰
+  renderYaoBuilder();
+}
+
+function randomYaoBuilder() {
+  builderYao = Array.from({length:6}, () => Math.random() < 0.5 ? 1 : 0);
+  renderYaoBuilder();
+}
+
 // ========== 初始化 ==========
 buildBagua();
 buildMatrix('matrix');
 buildMatrix('matrix2');
-
-// ========== PWA Service Worker 注册 ==========
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js').then(function(reg) {
-      console.log('周易64卦 SW 注册成功，支持离线使用');
-    }).catch(function(err) {
-      console.warn('SW 注册失败（不影响使用）:', err);
-    });
-  });
-}
+renderYaoBuilder();
 </script>
 </body>
 </html>
