@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#412402">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="周易64卦">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<title>周易64卦 · 学卦完整版</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #f5f3ee;
+    --card: #fffdf5;
+    --card2: #fafaf5;
+    --border: #e5e2d8;
+    --border2: #d4d1c7;
+    --text: #2c2c2a;
+    --text2: #5f5e5a;
+    --text3: #888;
+    --gold: #ba7517;
+    --gold-dark: #412402;
+    --gold-light: #fff8e7;
+    --ink: #1a1a1a;
+    --blue: #185fa5;
+    --blue-light: #f0f4fa;
+    --green: #0f6e56;
+    --green-light: #e1f5ee;
+    --red: #a32d2d;
+    --red-light: #fcebeb;
+  }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    padding-bottom: 70px;
+  }
+  @media (min-width: 768px) { body { padding-bottom: 0; } }
+
+  /* 顶部导航 */
+  .nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo {
+    font-family: "Songti SC", "STSong", serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gold-dark);
+  }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab {
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text2);
+    transition: all 0.15s;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+  }
+  .nav-tab.active {
+    background: var(--ink);
+    color: #fac775;
+  }
+  .nav-tab:hover:not(.active) {
+    background: var(--gold-light);
+    color: var(--gold-dark);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  @media (max-width: 600px) { .container { padding: 14px; } }
+
+  /* 子Tab */
+  .sub-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sub-tab {
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text3);
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .sub-tab.active {
+    color: var(--gold-dark);
+    border-bottom-color: var(--gold);
+    font-weight: 500;
+  }
+  .sub-tab .num {
+    display: inline-block;
+    width: 20px; height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: var(--border);
+    color: var(--text2);
+    border-radius: 50%;
+    font-size: 11px;
+    margin-right: 6px;
+  }
+  .sub-tab.active .num { background: var(--gold); color: #fff; }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* 通用元素 */
+  h3.section-title {
+    font-size: 17px; font-weight: 500; color: var(--ink);
+    margin: 24px 0 12px;
+    padding-left: 12px;
+    border-left: 3px solid var(--gold);
+  }
+  h3.section-title:first-child { margin-top: 0; }
+
+  .tip-box {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    padding: 14px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #0c447c;
+    margin: 12px 0;
+  }
+  .tip-box.gold {
+    background: var(--gold-light);
+    border-left-color: var(--gold);
+    color: var(--gold-dark);
+  }
+  .tip-box.green {
+    background: var(--green-light);
+    border-left-color: var(--green);
+    color: var(--green);
+  }
+  .tip-box b { color: var(--ink); }
+
+  .hero {
+    text-align: center;
+    padding: 28px 20px 20px;
+    margin-bottom: 20px;
+  }
+  .hero-symbol {
+    font-size: 64px; color: var(--gold-dark);
+    font-family: "Songti SC", serif; line-height: 1; margin-bottom: 10px;
+  }
+  .hero-title { font-size: 22px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .hero-sub { font-size: 13px; color: var(--text3); }
+  @media (max-width: 600px) {
+    .hero-symbol { font-size: 52px; }
+    .hero-title { font-size: 19px; }
+  }
+
+  /* 阴阳爻 */
+  .yao-demo {
+    display: flex; gap: 24px; justify-content: center;
+    padding: 20px; background: var(--card);
+    border-radius: 12px; border: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  .yao-item { text-align: center; }
+  .yao-glyph {
+    font-size: 44px; color: var(--gold-dark);
+    font-family: "Songti SC", serif; line-height: 1; margin-bottom: 8px;
+  }
+  .yao-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .yao-meaning { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  /* 八卦网格 */
+  .bagua-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; margin-bottom: 12px;
+  }
+  @media (max-width: 600px) { .bagua-grid { grid-template-columns: repeat(2, 1fr); } }
+  .bagua-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px; text-align: center;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .bagua-item:hover, .bagua-item:active {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(186,117,23,0.1);
+  }
+  .bagua-symbol { font-size: 30px; color: var(--gold-dark); font-family: "Songti SC", serif; margin-bottom: 4px; line-height: 1; }
+  .bagua-name { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .bagua-nature { font-size: 11px; color: var(--gold); margin-top: 2px; }
+  .bagua-trick { font-size: 10px; color: var(--text3); margin-top: 3px; font-style: italic; }
+
+  /* 口诀卡 */
+  .formula-card {
+    background: var(--ink); color: #fac775;
+    border-radius: 12px; padding: 20px; margin: 12px 0;
+  }
+  .formula-card .title { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .formula-line {
+    font-family: "Songti SC", serif; font-size: 15px; line-height: 2.2; color: #fac775;
+  }
+  .formula-line .explain { color: #888; font-size: 12px; font-family: inherit; margin-left: 8px; }
+
+  /* 矩阵 */
+  .matrix-info {
+    background: var(--gold-light); border-left: 3px solid var(--gold);
+    padding: 12px 14px; border-radius: 4px; font-size: 13px;
+    color: var(--gold-dark); margin-bottom: 12px;
+  }
+  .matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 16px; }
+  .matrix {
+    display: grid;
+    grid-template-columns: 56px repeat(8, minmax(52px, 1fr));
+    gap: 2px; background: var(--border); padding: 2px;
+    border-radius: 8px; min-width: 480px;
+  }
+  .matrix-cell {
+    background: var(--card); padding: 8px 4px; text-align: center;
+    font-size: 17px; color: var(--gold-dark);
+    font-family: "Songti SC", serif; cursor: pointer;
+    transition: all 0.1s; line-height: 1.2;
+  }
+  .matrix-cell.header { background: var(--ink); color: #fac775; font-size: 12px; font-family: inherit; cursor: default; }
+  .matrix-cell:hover:not(.header), .matrix-cell:active:not(.header) {
+    background: var(--gold-light); transform: scale(1.08); z-index: 1;
+  }
+  .matrix-cell .name { font-size: 9px; color: var(--text3); font-family: inherit; display: block; margin-top: 2px; }
+
+  /* 爻位表 */
+  .yao-table {
+    width: 100%; background: var(--card); border-radius: 12px;
+    border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px;
+  }
+  .yao-row { display: grid; grid-template-columns: 90px 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .yao-row:last-child { border-bottom: none; }
+  .yao-row.header { background: var(--ink); color: #fac775; font-size: 12px; }
+  .yao-cell { padding: 11px 14px; font-size: 13px; border-right: 1px solid var(--border); }
+  .yao-cell:last-child { border-right: none; }
+  .yao-row.header .yao-cell { border-right-color: #333; }
+
+  /* 卡片网格 */
+  .card-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px; margin-bottom: 16px;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.15s;
+  }
+  .card:hover, .card:active { border-color: var(--gold); box-shadow: 0 4px 12px rgba(186,117,23,0.08); }
+  .card-icon { font-size: 30px; color: var(--gold-dark); margin-bottom: 6px; line-height: 1; }
+  .card-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .card-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .card-meta { font-size: 11px; color: var(--gold); margin-top: 8px; font-weight: 500; }
+
+  /* 主题分类卡 */
+  .theme-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 12px;
+  }
+  .theme-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .theme-badge {
+    padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  }
+  .theme-badge.ji { background: var(--green-light); color: var(--green); }
+  .theme-badge.xiong { background: var(--red-light); color: var(--red); }
+  .theme-badge.zhuan { background: var(--gold-light); color: var(--gold-dark); }
+  .theme-badge.guan { background: var(--blue-light); color: var(--blue); }
+  .theme-title { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .theme-guas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .theme-gua-chip {
+    padding: 4px 10px; background: var(--card2); border: 1px solid var(--border2);
+    border-radius: 14px; font-size: 12px; color: var(--text2); cursor: pointer;
+    transition: all 0.1s;
+  }
+  .theme-gua-chip:hover, .theme-gua-chip:active { background: var(--gold-light); border-color: var(--gold); color: var(--gold-dark); }
+
+  /* 占卜模拟器 */
+  .divine-sim {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; margin-bottom: 16px;
+  }
+  .divine-btn {
+    width: 100%; padding: 14px; background: var(--ink); color: #fac775;
+    border: none; border-radius: 10px; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: background 0.15s; font-family: inherit;
+  }
+  .divine-btn:hover { background: #333; }
+  .divine-result {
+    margin-top: 16px; padding: 16px; background: var(--gold-light);
+    border-radius: 10px; border: 1px solid var(--gold);
+    display: none;
+  }
+  .divine-result.show { display: block; animation: fadeIn 0.4s; }
+  .divine-symbol { font-size: 48px; color: var(--gold-dark); font-family: "Songti SC", serif; text-align: center; margin-bottom: 8px; line-height: 1; }
+  .divine-name { font-size: 18px; font-weight: 500; color: var(--ink); text-align: center; margin-bottom: 4px; }
+  .divine-ci { font-size: 13px; color: var(--text2); text-align: center; margin-top: 8px; font-style: italic; }
+  .divine-yao { margin-top: 12px; }
+  .divine-yao-line {
+    display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    border-bottom: 1px dashed var(--border2);
+  }
+  .divine-yao-line:last-child { border: none; }
+  .divine-yao-pos { width: 50px; font-size: 12px; color: var(--text3); }
+  .divine-yao-glyph { width: 30px; font-size: 20px; color: var(--gold-dark); font-family: "Songti SC", serif; text-align: center; }
+  .divine-yao-name { width: 50px; font-size: 12px; font-weight: 500; color: var(--ink); }
+  .divine-yao-ci { flex: 1; font-size: 11px; color: var(--text2); font-style: italic; }
+
+  /* 案例卡 */
+  .case-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-bottom: 10px;
+  }
+  .case-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .case-gua { display: inline-block; padding: 2px 8px; background: var(--gold-light); border: 1px solid var(--gold); color: var(--gold-dark); border-radius: 10px; font-size: 11px; margin-right: 8px; }
+  .case-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* 模态框 */
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5); z-index: 1000;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card); border-radius: 16px; padding: 28px;
+    max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .modal-close {
+    float: right; cursor: pointer; font-size: 24px; color: var(--text3);
+    line-height: 1; border: none; background: none;
+  }
+  .modal-title { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .modal-sub { font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+
+  /* 测卦页 */
+  .search-box {
+    display: flex; gap: 10px; margin-bottom: 12px;
+  }
+  .search-input {
+    flex: 1; padding: 14px 16px; border: 1px solid var(--border2);
+    border-radius: 10px; font-size: 15px; font-family: inherit;
+    background: var(--card2); transition: border-color 0.15s;
+  }
+  .search-input:focus { outline: none; border-color: var(--gold); background: #fff; }
+  .search-btn {
+    padding: 0 24px; background: var(--ink); color: #fac775;
+    border: none; border-radius: 10px; cursor: pointer;
+    font-size: 14px; font-weight: 500; font-family: inherit;
+  }
+  .preset-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .preset-tag {
+    padding: 6px 12px; background: var(--card); border: 1px solid var(--border2);
+    border-radius: 16px; cursor: pointer; font-size: 12px;
+    color: var(--text2); transition: all 0.15s;
+  }
+  .preset-tag:hover, .preset-tag:active { background: var(--gold-light); border-color: var(--gold); color: var(--gold-dark); }
+
+  .results { display: flex; flex-direction: column; gap: 14px; }
+  .result-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; position: relative;
+  }
+  .result-card.top { border-color: var(--gold); background: linear-gradient(180deg, #fffdf5 0%, #fff 100%); }
+  .match-badge {
+    position: absolute; top: 14px; right: 14px;
+    padding: 3px 10px; background: var(--gold-light); border: 1px solid var(--gold);
+    color: var(--gold-dark); border-radius: 12px; font-size: 11px; font-weight: 500;
+  }
+  .gua-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+  .gua-symbol-lg { font-size: 48px; line-height: 1; color: var(--gold-dark); font-family: "Songti SC", serif; }
+  .gua-meta { flex: 1; padding-top: 4px; }
+  .gua-name-lg { font-size: 20px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .gua-struct { font-size: 12px; color: var(--text3); }
+
+  .info-block { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; }
+  .info-block.scene { background: var(--card2); border-left: 3px solid var(--border2); }
+  .info-block.advice { background: var(--blue-light); border-left: 3px solid var(--blue); }
+  .info-block.warning { background: var(--red-light); border-left: 3px solid var(--red); }
+  .info-block.yao { background: var(--green-light); border-left: 3px solid var(--green); }
+  .info-block .label { font-size: 11px; font-weight: 500; margin-bottom: 3px; display: block; }
+  .info-block.scene .label { color: var(--text2); }
+  .info-block.advice .label { color: var(--blue); }
+  .info-block.warning .label { color: var(--red); }
+  .info-block.yao .label { color: var(--green); }
+
+  .keywords-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .kw-chip { padding: 2px 8px; background: var(--gold-light); border: 1px solid #fac775; color: var(--gold-dark); border-radius: 10px; font-size: 11px; }
+  .kw-chip.matched { background: var(--gold-dark); color: #fac775; }
+
+  /* 计算过程 */
+  .calc-process {
+    background: var(--ink); color: #ccc; border-radius: 12px;
+    padding: 16px; margin-bottom: 16px; font-size: 12px; font-family: "SF Mono", "Consolas", monospace; line-height: 1.8;
+    display: none;
+  }
+  .calc-process.show { display: block; animation: fadeIn 0.3s; }
+  .calc-process .calc-title { color: #fac775; font-size: 13px; margin-bottom: 8px; font-family: inherit; }
+  .calc-step { color: #aaa; }
+  .calc-step .hi { color: #fac775; }
+  .calc-score { color: #6dca7a; }
+
+  .empty { text-align: center; padding: 50px 20px; color: var(--text3); font-size: 14px; }
+  .empty .icon { font-size: 48px; opacity: 0.3; margin-bottom: 12px; font-family: "Songti SC", serif; color: var(--gold-dark); }
+
+  /* 公式说明卡 */
+  .formula-explain {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 16px;
+  }
+  .formula-explain .fe-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .formula-explain .fe-step { font-size: 13px; color: var(--text2); margin: 8px 0; padding-left: 20px; position: relative; }
+  .formula-explain .fe-step::before { content: ''; position: absolute; left: 6px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .formula-explain .fe-step code { background: var(--gold-light); color: var(--gold-dark); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .formula-explain .fe-demo { background: var(--ink); color: #fac775; border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 12px; font-family: "SF Mono","Consolas",monospace; line-height: 1.8; }
+
+  /* 手机底部Tab */
+  .mobile-tabbar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 8px; z-index: 100;
+  }
+  .mobile-tab {
+    flex: 1; text-align: center; padding: 8px; cursor: pointer;
+    color: var(--text3); font-size: 12px; border: none; background: none; font-family: inherit;
+  }
+  .mobile-tab.active { color: var(--gold-dark); }
+  .mobile-tab .icon { font-size: 20px; display: block; margin-bottom: 2px; }
+  @media (max-width: 768px) {
+    .mobile-tabbar { display: flex; }
+    .nav-tabs { display: none; }
+  }
+
+  .footer-note {
+    text-align: center; padding: 24px; color: var(--text3);
+    font-size: 12px; margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">周易六十四卦</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchMain('learn', this)">学卦</button>
+    <button class="nav-tab" onclick="switchMain('divine', this)">测卦</button>
+  </div>
+</nav>
+
+<div class="container" id="mainContainer">
+
+  <!-- ============ 学卦板块 ============ -->
+  <div id="learnSection">
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="switchSub('recognize', this)"><span class="num">1</span>认卦</button>
+      <button class="sub-tab" onclick="switchSub('study', this)"><span class="num">2</span>学卦</button>
+      <button class="sub-tab" onclick="switchSub('apply', this)"><span class="num">3</span>用卦</button>
+    </div>
+
+    <!-- 认卦 -->
+    <div class="section active" id="sec-recognize">
+      <div class="hero">
+        <div class="hero-symbol">䷀</div>
+        <div class="hero-title">认卦 · 从零认识周易基本元素</div>
+        <div class="hero-sub">阴阳 · 八卦 · 六十四卦 · 爻位命名 · 易有三义</div>
+      </div>
+
+      <h3 class="section-title">一、阴阳二爻 · 万象之始</h3>
+      <div class="yao-demo">
+        <div class="yao-item">
+          <div class="yao-glyph">⚊</div>
+          <div class="yao-label">阳爻</div>
+          <div class="yao-meaning">刚·动·天·男·奇</div>
+        </div>
+        <div class="yao-item">
+          <div class="yao-glyph">⚋</div>
+          <div class="yao-label">阴爻</div>
+          <div class="yao-meaning">柔·静·地·女·偶</div>
+        </div>
+      </div>
+      <div class="tip-box gold">
+        <b>核心理解：</b>周易用两个最简单的符号模拟万物。阳爻是实线（⚊），阴爻是断线（⚋）。电脑的0和1，周易的阴和阳，本质是同一套二进制思维。莱布尼茨正是受周易启发创立二进制。
+      </div>
+
+      <h3 class="section-title">二、八卦 · 万物之象</h3>
+      <div class="matrix-info">八卦=3爻组合，共8种（2³=8）。每卦对应一种自然现象：天地水火风雷山泽。点击查看详情。</div>
+      <div class="bagua-grid" id="baguaGrid"></div>
+
+      <h3 class="section-title">三、八卦口诀 · 朱熹《八卦取象歌》</h3>
+      <div class="formula-card">
+        <div class="title">一秒记住八个卦的形状</div>
+        <div class="formula-line">乾三连<span class="explain">☰ 三条实线连着</span></div>
+        <div class="formula-line">坤六断<span class="explain">☷ 六段断开的小线</span></div>
+        <div class="formula-line">震仰盂<span class="explain">☳ 像仰放的盂（底实上空）</span></div>
+        <div class="formula-line">艮覆碗<span class="explain">☶ 像倒扣的碗（顶实下空）</span></div>
+        <div class="formula-line">离中虚<span class="explain">☲ 中间是虚的（阴爻）</span></div>
+        <div class="formula-line">坎中满<span class="explain">☵ 中间是满的（阳爻）</span></div>
+        <div class="formula-line">兑上缺<span class="explain">☱ 上面缺一口（阴爻）</span></div>
+        <div class="formula-line">巽下断<span class="explain">☴ 下面断开（阴爻）</span></div>
+      </div>
+
+      <h3 class="section-title">四、八卦属性 · 比类取象</h3>
+      <div class="tip-box">
+        <b>八卦不止对应自然，还能类比万物：</b><br>
+        乾=天/父/首/马/金/刚健 · 坤=地/母/腹/牛/土/柔顺 · 震=雷/长男/足/龙/木/动 · 巽=风/长女/股/鸡/木/入<br>
+        坎=水/中男/耳/豕/险陷 · 离=火/中女/目/雉/附丽 · 艮=山/少男/手/狗/止 · 兑=泽/少女/口/羊/喜悦
+      </div>
+
+      <h3 class="section-title">五、六十四卦 · 八卦相荡</h3>
+      <div class="matrix-info">64卦=8上卦×8下卦。横轴=上卦（外卦），纵轴=下卦（内卦）。点击任意卦查看详情。</div>
+      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+      <div class="tip-box">
+        <b>读卦规则：</b>先读上卦自然，再读下卦自然，最后卦名。泰卦=上坤(地)+下乾(天)="地天泰"；否卦=上乾(天)+下坤(地)="天地否"。
+      </div>
+
+      <h3 class="section-title">六、爻位命名 · 初九六二怎么来的</h3>
+      <div class="matrix-info">每卦6爻，从下到上叫：初·二·三·四·五·上。阳爻用"九"，阴爻用"六"。</div>
+      <div class="yao-table">
+        <div class="yao-row header">
+          <div class="yao-cell">位置</div>
+          <div class="yao-cell">阳爻名</div>
+          <div class="yao-cell">阴爻名</div>
+        </div>
+        <div class="yao-row"><div class="yao-cell">第1爻（最下）</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">初九</div><div class="yao-cell" style="color:var(--blue);">初六</div></div>
+        <div class="yao-row"><div class="yao-cell">第2爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九二</div><div class="yao-cell" style="color:var(--blue);">六二</div></div>
+        <div class="yao-row"><div class="yao-cell">第3爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九三</div><div class="yao-cell" style="color:var(--blue);">六三</div></div>
+        <div class="yao-row"><div class="yao-cell">第4爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九四</div><div class="yao-cell" style="color:var(--blue);">六四</div></div>
+        <div class="yao-row"><div class="yao-cell">第5爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九五</div><div class="yao-cell" style="color:var(--blue);">六五</div></div>
+        <div class="yao-row"><div class="yao-cell">第6爻（最上）</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">上九</div><div class="yao-cell" style="color:var(--blue);">上六</div></div>
+      </div>
+      <div class="tip-box gold">
+        <b>记忆口诀：</b>初上"位前数后"（初九、上九），二至五"数前位后"（九二、九五）。<br>
+        <b>为何用九和六？</b>奇数为阳，9是最大阳数；偶数为阴，6是老阴之数。<br>
+        <b>爻位吉凶倾向：</b>二五为中美位（多吉），初三四为危位（多凶吝），上为亢位（易悔）。
+      </div>
+
+      <h3 class="section-title">七、易有三义 · 理解周易的钥匙</h3>
+      <div class="tip-box green">
+        <b>变易：</b>世间万物无时无刻不在变化，唯一不变的就是"变"本身。<br>
+        <b>不易：</b>变化的规律是不变的——物极必反、阴阳转化、循环往复。<br>
+        <b>简易：</b>大道至简，用阴阳两个符号就能模拟万物变化。<br>
+        <b>理解这三义，才算真正入门周易。</b>占卦不是算命，是借卦象看清自己所处的"位"，顺势而为。
+      </div>
+
+      <h3 class="section-title">八、承乘比应 · 爻际关系（进阶）</h3>
+      <div class="tip-box">
+        <b>承：</b>下爻对上爻的关系（阴承阳=顺，阳承阴=逆）<br>
+        <b>乘：</b>上爻对下爻的关系（阴乘阳=柔凌刚，多凶）<br>
+        <b>比：</b>相邻两爻的关系（阴阳相比=和谐）<br>
+        <b>应：</b>初与四、二与五、三与上的对应关系（阴阳相应=吉，同为阳/阴=无应）<br>
+        <b>这是判断爻辞吉凶的重要依据。</b>
+      </div>
+    </div>
+
+    <!-- 学卦 -->
+    <div class="section" id="sec-study">
+      <div class="hero">
+        <div class="hero-symbol">䷊</div>
+        <div class="hero-title">学卦 · 按主题分类学习</div>
+        <div class="hero-sub">吉卦 · 凶卦 · 转机卦 · 关系卦 · 行事卦</div>
+      </div>
+
+      <h3 class="section-title">主题分类 · 按人生情境学</h3>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge ji">吉卦</span>
+          <span class="theme-title">顺境成功类 · 得此卦多吉</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(63)">䷀ 乾·刚健进取</span>
+          <span class="theme-gua-chip" onclick="showGua(7)">䷊ 泰·天地交泰</span>
+          <span class="theme-gua-chip" onclick="showGua(47)">䷍ 大有·丰盛</span>
+          <span class="theme-gua-chip" onclick="showGua(4)">䷎ 谦·谦逊（全吉）</span>
+          <span class="theme-gua-chip" onclick="showGua(8)">䷏ 豫·安乐</span>
+          <span class="theme-gua-chip" onclick="showGua(13)">䷶ 丰·盛大</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge xiong">凶卦</span>
+          <span class="theme-title">逆境警示类 · 得此卦当慎</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(56)">䷋ 否·闭塞不通</span>
+          <span class="theme-gua-chip" onclick="showGua(32)">䷖ 剥·剥落衰退</span>
+          <span class="theme-gua-chip" onclick="showGua(26)">䷮ 困·困窘受困</span>
+          <span class="theme-gua-chip" onclick="showGua(5)">䷣ 明夷·光明受伤</span>
+          <span class="theme-gua-chip" onclick="showGua(44)">䷷ 旅·漂泊在外</span>
+          <span class="theme-gua-chip" onclick="showGua(12)">䷽ 小过·宜小不宜大</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge zhuan">转机卦</span>
+          <span class="theme-title">低谷转机类 · 否极泰来</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(1)">䷗ 复·一阳来复</span>
+          <span class="theme-gua-chip" onclick="showGua(10)">䷧ 解·险难解除</span>
+          <span class="theme-gua-chip" onclick="showGua(29)">䷰ 革·变革</span>
+          <span class="theme-gua-chip" onclick="showGua(57)">䷘ 无妄·守正不妄</span>
+          <span class="theme-gua-chip" onclick="showGua(49)">䷩ 益·增益</span>
+          <span class="theme-gua-chip" onclick="showGua(52)">䷴ 渐·循序渐进</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge guan">关系卦</span>
+          <span class="theme-title">人际情感类 · 处理关系</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(28)">䷞ 咸·感应（爱情）</span>
+          <span class="theme-gua-chip" onclick="showGua(14)">䷟ 恒·持久</span>
+          <span class="theme-gua-chip" onclick="showGua(53)">䷤ 家人·治家</span>
+          <span class="theme-gua-chip" onclick="showGua(43)">䷥ 睽·乖违</span>
+          <span class="theme-gua-chip" onclick="showGua(16)">䷇ 比·亲附合作</span>
+          <span class="theme-gua-chip" onclick="showGua(58)">䷅ 讼·争讼冲突</span>
+        </div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-header">
+          <span class="theme-badge ji">行事卦</span>
+          <span class="theme-title">做事方法类 · 如何行动</span>
+        </div>
+        <div class="theme-guas">
+          <span class="theme-gua-chip" onclick="showGua(2)">䷆ 师·用兵组织</span>
+          <span class="theme-gua-chip" onclick="showGua(25)">䷐ 随·随顺变通</span>
+          <span class="theme-gua-chip" onclick="showGua(38)">䷑ 蛊·整治积弊</span>
+          <span class="theme-gua-chip" onclick="showGua(31)">䷪ 夬·果断决断</span>
+          <span class="theme-gua-chip" onclick="showGua(19)">䷻ 节·节制适度</span>
+          <span class="theme-gua-chip" onclick="showGua(36)">䷳ 艮·知止</span>
+          <span class="theme-gua-chip" onclick="showGua(22)">䷯ 井·稳定滋养</span>
+        </div>
+      </div>
+
+      <div class="tip-box gold" style="margin-top:16px;">
+        <b>学习建议：</b>先学5个核心卦建立框架——乾（总纲·刚健）、坤（总纲·柔顺）、泰（吉之极）、否（凶之极）、复（转机之机）。这5个卦学会了，周易的吉凶转化逻辑就通了。
+      </div>
+
+      <h3 class="section-title">64卦总览矩阵</h3>
+      <div class="matrix-info">点击任意卦进入详情</div>
+      <div class="matrix-wrap"><div class="matrix" id="matrix2"></div></div>
+    </div>
+
+    <!-- 用卦 -->
+    <div class="section" id="sec-apply">
+      <div class="hero">
+        <div class="hero-symbol">䷿</div>
+        <div class="hero-title">用卦 · 占卜与解卦</div>
+        <div class="hero-sub">起卦 · 解卦 · 占卜模拟 · 实战案例</div>
+      </div>
+
+      <h3 class="section-title">一、占卜方法</h3>
+      <div class="card-grid">
+        <div class="card" onclick="showModal('铜钱法','取三枚铜钱（或硬币），同时摇掷，记正反面：\n\n• 3正 = 老阳 ⚊（阳爻，动）\n• 2正1反 = 少阴 ⚊（阳爻，静）\n• 1正2反 = 少阳 ⚋（阴爻，静）\n• 3反 = 老阴 ⚋（阴爻，动）\n\n重复6次，从下往上排，得6爻成卦。\n\n老阳老阴为动爻，阴阳互变得变卦。')">
+          <div class="card-icon">🪙</div>
+          <div class="card-title">铜钱法（推荐）</div>
+          <div class="card-desc">3枚硬币摇6次，简单易行，最适合新手</div>
+          <div class="card-meta">点击查看详细 →</div>
+        </div>
+        <div class="card" onclick="showModal('蓍草法','古法正统，用50根蓍草（或牙签）经多次分合得出每爻。\n\n步骤简化版：\n1. 取50根，取出1根不用（象征太极）\n2. 49根随机分两份（象征天地）\n3. 取右份中1根放左（象征人）\n4. 左份4根一组数余数\n5. 右份同样4根一组数余数\n6. 余下的放一边，重复3次得1爻\n\n完整得6爻需18次操作，耗时约30分钟。\n古人认为蓍草法最灵验，因过程本身蕴含天地人之理。')">
+          <div class="card-icon">🌱</div>
+          <div class="card-title">蓍草法（古法）</div>
+          <div class="card-desc">50根蓍草分合18次，正统但复杂</div>
+          <div class="card-meta">点击查看详细 →</div>
+        </div>
+        <div class="card" onclick="showModal('数字起卦法','任意想3个数字（或看时间/车牌号取3数）。\n\n规则：\n• 前2位数相加 ÷ 8，余数=上卦（0当8）\n• 3位数各自相加 ÷ 8，余数=下卦（0当8）\n• 3数总和 ÷ 6，余数=动爻位置（0当6）\n\n例：心想385\n• 上卦=(3+8)÷8=1余3→巽(风)\n• 下卦=(3+8+5)÷8=2余0→坤(地)\n• 动爻=(3+8+5)÷6=2余4→第4爻\n\n得风地观卦，第4爻动。')">
+          <div class="card-icon">🔢</div>
+          <div class="card-title">数字起卦</div>
+          <div class="card-desc">任意3位数，快速起卦</div>
+          <div class="card-meta">点击查看详细 →</div>
+        </div>
+        <div class="card" onclick="showModal('时间起卦法','用当前时间起卦。\n\n规则：\n• 年数=农历年份地支序号（子1丑2...亥12）\n• 月数=农历月份\n• 日数=农历日数\n• 时数=时辰序号（子1丑2...亥12）\n\n上卦=(年+月+日)÷8余数\n下卦=(年+月+日+时)÷8余数\n动爻=(年+月+日+时)÷6余数\n\n此法源于梅花易数，邵康节所创。')">
+          <div class="card-icon">🕐</div>
+          <div class="card-title">时间起卦</div>
+          <div class="card-desc">梅花易数法，取年月日时</div>
+          <div class="card-meta">点击查看详细 →</div>
+        </div>
+      </div>
+
+      <h3 class="section-title">二、解卦三步法</h3>
+      <div class="tip-box gold">
+        <b>第一步：看卦辞（总体指引）</b><br>
+        卦辞是这一卦的总体判断。比如得泰卦，总体通达；得否卦，总体闭塞。<br><br>
+        <b>第二步：看动爻爻辞（具体指引）</b><br>
+        若占卜时有动爻（老阳老阴），看该爻爻辞。比如泰卦九三"无平不陂，无往不复"——提醒盛极必衰。<br><br>
+        <b>第三步：看变卦（趋势走向）</b><br>
+        动爻阴阳互变后得变卦，代表趋势。本卦=现状，变卦=走向。<br><br>
+        <b>原则：</b>一爻动以爻辞为主；多爻动以卦辞为主结合动爻；无动爻以卦辞为主。
+      </div>
+
+      <h3 class="section-title">三、占卜模拟器 · 铜钱法</h3>
+      <div class="divine-sim">
+        <button class="divine-btn" onclick="simulateDivine()">🎯 摇卦起卦（点击6次）</button>
+        <div class="divine-result" id="divineResult">
+          <div class="divine-symbol" id="divineSymbol"></div>
+          <div class="divine-name" id="divineName"></div>
+          <div class="divine-ci" id="divineCi"></div>
+          <div class="divine-yao" id="divineYao"></div>
+        </div>
+      </div>
+
+      <h3 class="section-title">四、实战案例</h3>
+      <div class="case-card">
+        <div class="case-title"><span class="case-gua">䷴ 渐卦</span>创业者占得渐卦</div>
+        <div class="case-text">某创业者问"项目能否成"，得渐卦。渐卦讲"循序渐进"，鸿雁逐步上岸。解：项目能成，但不能急，要像大雁一样一步一个脚印。果然6个月后项目稳定盈利。启示：渐卦的核心是"稳步"，不是"慢"，是每步都到位。</div>
+      </div>
+      <div class="case-card">
+        <div class="case-title"><span class="case-gua">䷰ 革卦</span>跳槽者占得革卦</div>
+        <div class="case-text">某人想跳槽问吉凶，得革卦。革卦讲"变革"，"己日乃孚"——要等时机成熟才变。解：可以跳，但不是现在，要等到"己日"（合适时机）。3个月后猎头主动联系，薪资翻倍。启示：革卦的"变"不是乱变，是顺势而变。</div>
+      </div>
+      <div class="case-card">
+        <div class="case-title"><span class="case-gua">䷣ 明夷卦</span>职场受挫者占得明夷</div>
+        <div class="case-text">某人在公司被排挤，占得明夷卦。明夷=光明受伤，"利艰贞"——利于艰难守正。解：当下应"内文明而外柔顺"，收敛锋芒，保身为上。半年后跳槽成功，原公司也出了问题。启示：明夷不是凶，是教你在黑暗中如何自处。</div>
+      </div>
+      <div class="case-card">
+        <div class="case-title"><span class="case-gua">䷗ 复卦</span>低谷期占得复卦</div>
+        <div class="case-text">某人事业低谷迷茫，占得复卦。复卦=一阳来复，"七日来复"——转机必来。解：已经到底了，转机就在眼前，抓住初现的希望。1个月后确实迎来新机会。启示：复卦是周易中最有希望的卦之一，"不远复，元吉"。</div>
+      </div>
+
+      <div class="tip-box green" style="margin-top:16px;">
+        <b>用卦心法：</b>周易不是算命，是借卦象反观自身处境。"易"有三义：变易（一切在变）、不易（规律不变）、简易（大道至简）。占卦是为了看清自己所处的"位"，顺势而为，不是趋吉避凶的投机。<b>心诚则灵，不诚不占。</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 测卦板块 ============ -->
+  <div id="divineSection" style="display:none;">
+    <div class="hero">
+      <div class="hero-symbol">䷂</div>
+      <div class="hero-title">测卦 · 关键词计算卦象</div>
+      <div class="hero-sub">输入当下处境或心境，本地公式计算匹配卦象与解决办法</div>
+    </div>
+
+    <div class="formula-explain">
+      <div class="fe-title">🧮 本地计算公式说明</div>
+      <div class="fe-step">输入文本 → <code>分词提取</code>（直接命中标签 + 同义词扩展 + 二字滑窗）</div>
+      <div class="fe-step">每个关键词 → 遍历64卦标签库，命中则该卦 <code>得分 +1</code></div>
+      <div class="fe-step">同义词命中 → 该卦 <code>得分 +0.5</code>（弱匹配权重低）</div>
+      <div class="fe-step">所有卦按得分降序排列 → 取 <code>Top 3</code> 展示</div>
+      <div class="fe-step">得分相同 → 按卦序优先（周易原典顺序）</div>
+      <div class="fe-demo">示例：「想跳槽换工作」\n→ 分词：[跳槽→决断, 换工作→改变/变革]\n→ 夬卦(31) 命中[决断] 得1分\n→ 革卦(29) 命中[变革/改变] 得2分 ✅最匹配\n→ 无妄(57) 命中[守正] 得1分</div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput"
+             placeholder="例如：迷茫、想跳槽、刚起步、被压制、转机..."
+             onkeydown="if(event.key==='Enter') doSearch()">
+      <button class="search-btn" onclick="doSearch()">测卦</button>
+    </div>
+    <div class="preset-tags">
+      <span class="preset-tag" onclick="quickSearch('迷茫，不知道方向')">迷茫不知方向</span>
+      <span class="preset-tag" onclick="quickSearch('想跳槽换工作')">想跳槽</span>
+      <span class="preset-tag" onclick="quickSearch('刚起步，万事开头难')">刚起步</span>
+      <span class="preset-tag" onclick="quickSearch('等待机会')">等待机会</span>
+      <span class="preset-tag" onclick="quickSearch('被压制，看不到光')">被压制</span>
+      <span class="preset-tag" onclick="quickSearch('转机，看到希望')">转机</span>
+      <span class="preset-tag" onclick="quickSearch('面临重大抉择')">重大抉择</span>
+      <span class="preset-tag" onclick="quickSearch('团队冲突')">团队冲突</span>
+      <span class="preset-tag" onclick="quickSearch('事业巅峰')">事业巅峰</span>
+      <span class="preset-tag" onclick="quickSearch('需要变革')">需要变革</span>
+      <span class="preset-tag" onclick="quickSearch('积弊太多要整治')">积弊整治</span>
+      <span class="preset-tag" onclick="quickSearch('感情问题')">感情问题</span>
+    </div>
+
+    <div class="calc-process" id="calcProcess"></div>
+
+    <div class="results" id="results">
+      <div class="empty">
+        <div class="icon">䷀</div>
+        输入关键词或点击上方标签，开始测卦
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    周易64卦 · 学卦完整版 v3.0 · 数据已全面复核<br>
+    学卦（认卦/学卦/用卦）+ 测卦 · 适配PC与手机
+  </div>
+</div>
+
+<!-- 模态框 -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-sub" id="modalSub"></div>
+    <div id="modalContent" style="font-size:13px;color:var(--text2);line-height:1.8;white-space:pre-line;"></div>
+  </div>
+</div>
+
+<!-- 手机底部Tab -->
+<div class="mobile-tabbar">
+  <button class="mobile-tab active" onclick="switchMain('learn', document.querySelectorAll('.nav-tab')[0])">
+    <span class="icon">📖</span>学卦
+  </button>
+  <button class="mobile-tab" onclick="switchMain('divine', document.querySelectorAll('.nav-tab')[1])">
+    <span class="icon">🎯</span>测卦
+  </button>
+</div>
+
+<script>
+// ========== 八卦编码表 ==========
+// 编码规则：bit0=初爻(最下)，阳=1阴=0
+// 0=坤(000) 1=震(001) 2=坎(010) 3=兑(011) 4=艮(100) 5=离(101) 6=巽(110) 7=乾(111)
+const trigramNames = ['坤','震','坎','兑','艮','离','巽','乾'];
+const trigramSymbols = ['☷','☳','☵','☱','☶','☲','☴','☰'];
+const trigramNatures = ['地','雷','水','泽','山','火','风','天'];
+
+// 八卦展示数据（独立于编码顺序，按传统乾兑离震巽坎艮坤排列展示）
+const baguaData = [
+  { sym:'☰', name:'乾', nature:'天', trick:'乾三连', attr:'健（刚健）', family:'父亲', detail:'三阳爻，象征天。属性刚健不息。对应西北、金、马、首。' },
+  { sym:'☱', name:'兑', nature:'泽', trick:'兑上缺', attr:'悦（喜悦）', family:'少女', detail:'下二阳上一阴，象征泽。属性喜悦。对应西方、金、羊、口。' },
+  { sym:'☲', name:'离', nature:'火', trick:'离中虚', attr:'丽（附丽）', family:'中女', detail:'上下阳中阴，象征火。属性附丽光明。对应南方、火、雉、目。' },
+  { sym:'☳', name:'震', nature:'雷', trick:'震仰盂', attr:'动（震动）', family:'长男', detail:'下阳上二阴，象征雷。属性震动奋起。对应东方、木、龙、足。' },
+  { sym:'☴', name:'巽', nature:'风', trick:'巽下断', attr:'入（进入）', family:'长女', detail:'下阴上二阳，象征风。属性渐入。对应东南、木、鸡、股。' },
+  { sym:'☵', name:'坎', nature:'水', trick:'坎中满', attr:'陷（险陷）', family:'中男', detail:'上下阴中阳，象征水。属性险陷。对应北方、水、豕、耳。' },
+  { sym:'☶', name:'艮', nature:'山', trick:'艮覆碗', attr:'止（停止）', family:'少男', detail:'下二阴上一阳，象征山。属性停止。对应东北、土、狗、手。' },
+  { sym:'☷', name:'坤', nature:'地', trick:'坤六断', attr:'顺（柔顺）', family:'母亲', detail:'三阴爻，象征地。属性柔顺承载。对应西南、土、牛、腹。' }
+];
+
+// ========== 64卦核心数据 ==========
+// ID = 下卦 + 上卦×8，范围0-63，每个ID唯一对应一个卦
+// 已全面复核：0-63无重复无遗漏
+const guaDB = {
+  // 下卦=坤(0)
+  0:{ n:'坤', s:'䷁', ci:'元亨，利牝马之贞', mean:'柔顺承载，厚德载物', yao:['履霜坚冰至','直方大','含章可贞','括囊','黄裳元吉','龙战于野'] },
+  1:{ n:'复', s:'䷗', ci:'亨，出入无疾，朋来无咎', mean:'一阳来复，转机', yao:['不远复','休复','频复','中行独复','敦复','迷复凶'] },
+  2:{ n:'师', s:'䷆', ci:'贞，丈人吉无咎', mean:'用兵需正当', yao:['师出以律','在师中','师或舆尸','师左次','田有禽','大君有命'] },
+  3:{ n:'临', s:'䷒', ci:'元亨利贞，至于八月有凶', mean:'监临面对', yao:['咸临','咸临','甘临','至临','知临','敦临'] },
+  4:{ n:'谦', s:'䷎', ci:'亨，君子有终', mean:'谦虚有善终（全吉）', yao:['谦谦君子','鸣谦','劳谦','撝谦','不富以其邻','鸣谦'] },
+  5:{ n:'明夷', s:'䷣', ci:'利艰贞', mean:'光明受伤，韬晦', yao:['明夷于飞','明夷夷于左股','明夷于南狩','入于左腹','箕子之明夷','不明晦'] },
+  6:{ n:'升', s:'䷭', ci:'元亨，用见大人', mean:'上升进取', yao:['允升','孚乃利用禴','升虚邑','王用亨于岐山','贞吉','冥升'] },
+  7:{ n:'泰', s:'䷊', ci:'小往大来，吉亨', mean:'天地交泰，通达', yao:['拔茅茹','包荒','无平不陂','翩翩','帝乙归妹','城复于隍'] },
+  // 下卦=震(1)
+  8:{ n:'豫', s:'䷏', ci:'利建侯行师', mean:'安乐和悦', yao:['鸣豫','介于石','盱豫','由豫','贞疾','冥豫'] },
+  9:{ n:'震', s:'䷲', ci:'亨，震来虩虩', mean:'震动警醒', yao:['震来虩虩','震来厉','震苏苏','震遂泥','震往来厉','震索索'] },
+  10:{ n:'解', s:'䷧', ci:'利西南，无所往', mean:'险难解除', yao:['无咎','田获三狐','负且乘','解而拇','君子维有解','公用射隼'] },
+  11:{ n:'归妹', s:'䷵', ci:'征凶，无攸利', mean:'归妹不正', yao:['归妹以娣','眇能视','归妹以须','归妹愆期','帝乙归妹','女承筐无实'] },
+  12:{ n:'小过', s:'䷽', ci:'亨，可小事不可大事', mean:'小过宜慎', yao:['飞鸟以凶','过其祖','弗过防之','无咎','密云不雨','弗遇过之'] },
+  13:{ n:'丰', s:'䷶', ci:'亨，王假之', mean:'丰盛极盛', yao:['遇其配主','有孚发若','丰其沛','丰其蔀','来章','丰其屋'] },
+  14:{ n:'恒', s:'䷟', ci:'亨，无咎，利贞', mean:'持之以恒', yao:['浚恒','悔亡','不恒其德','田无禽','恒其德','振恒凶'] },
+  15:{ n:'大壮', s:'䷡', ci:'利贞', mean:'大壮守正', yao:['壮于趾','贞吉','小人用壮','贞吉','丧羊于易','羝羊触藩'] },
+  // 下卦=坎(2)
+  16:{ n:'比', s:'䷇', ci:'吉，原筮元永贞', mean:'亲附选对人', yao:['有孚比之','比之自内','比之匪人','外比之','显比','比之无首'] },
+  17:{ n:'屯', s:'䷂', ci:'元亨利贞，勿用有攸往', mean:'初创艰难，利建侯', yao:['磐桓','屯如邅如','即鹿无虞','乘马班如','屯其膏','泣血涟如'] },
+  18:{ n:'坎', s:'䷜', ci:'习坎，有孚维心亨', mean:'重险陷溺', yao:['习坎入坎','坎有险','来之坎坎','樽酒簋贰','坎不盈','系用徽纆'] },
+  19:{ n:'节', s:'䷻', ci:'亨，苦节不可贞', mean:'节制适度', yao:['不出户庭','不出门庭','不节若','安节','甘节','苦节贞凶'] },
+  20:{ n:'蹇', s:'䷦', ci:'利西南，不利东北', mean:'行路艰难', yao:['往蹇来誉','王臣蹇蹇','往蹇来反','往蹇来连','大蹇朋来','往蹇来硕'] },
+  21:{ n:'既济', s:'䷾', ci:'亨小，利贞，初吉终乱', mean:'已成需守成', yao:['曳其轮','妇丧其茀','高宗伐鬼方','繻有衣袽','东邻杀牛','濡其首厉'] },
+  22:{ n:'井', s:'䷯', ci:'改邑不改井', mean:'稳定滋养', yao:['井泥不食','井谷射鲋','井渫不食','井甃','井冽寒泉','井收勿幕'] },
+  23:{ n:'需', s:'䷄', ci:'有孚，光亨贞吉', mean:'等待时机', yao:['需于郊','需于沙','需于泥','需于血','需于酒食','入于穴'] },
+  // 下卦=兑(3)
+  24:{ n:'萃', s:'䷬', ci:'亨，王假有庙', mean:'聚集汇合', yao:['有孚不终','引吉','萃如嗟如','大吉无咎','萃有位','赍咨涕洟'] },
+  25:{ n:'随', s:'䷐', ci:'元亨利贞，无咎', mean:'随顺变通', yao:['官有渝','系小子','系丈夫','随有获','孚于嘉','拘系之'] },
+  26:{ n:'困', s:'䷮', ci:'亨，贞，大人吉', mean:'困窘有志难伸', yao:['臀困于株木','困于酒食','困于石','困于金车','劓刖','困于葛藟'] },
+  27:{ n:'兑', s:'䷹', ci:'亨，利贞', mean:'喜悦和悦', yao:['和兑吉','孚兑吉','来兑','商兑未宁','孚于剥','引兑'] },
+  28:{ n:'咸', s:'䷞', ci:'亨，利贞，取女吉', mean:'相互感应', yao:['咸其拇','咸其腓','咸其股','憧憧往来','咸其脢','咸其辅颊舌'] },
+  29:{ n:'革', s:'䷰', ci:'己日乃孚，元亨利贞', mean:'变革改变', yao:['巩用黄牛','己日乃革','征凶贞厉','悔亡有孚','大人虎变','君子豹变'] },
+  30:{ n:'大过', s:'䷛', ci:'栋桡，利有攸往，亨', mean:'大过需非常之举', yao:['藉用白茅','枯杨生稊','栋桡','栋隆','枯杨生华','过涉灭顶'] },
+  31:{ n:'夬', s:'䷪', ci:'扬于王庭，孚号有厉', mean:'果断决断', yao:['壮于前趾','惕号','壮于頄','臀无肤','苋陆夬夬','无号终有凶'] },
+  // 下卦=艮(4)
+  32:{ n:'剥', s:'䷖', ci:'不利有攸往', mean:'剥落衰退', yao:['剥床以足','剥床以辨','剥之无咎','剥床以肤','贯鱼','硕果不食'] },
+  33:{ n:'颐', s:'䷚', ci:'贞吉，观颐，自求口实', mean:'养身养德', yao:['舍尔灵龟','颠颐','拂颐','颠颐吉','拂经','由颐厉吉'] },
+  34:{ n:'蒙', s:'䷃', ci:'亨，匪我求童蒙', mean:'蒙昧待启蒙', yao:['发蒙','包蒙','勿用取女','困蒙','童蒙吉','击蒙'] },
+  35:{ n:'损', s:'䷨', ci:'有孚元吉', mean:'减损有度', yao:['已事遄往','利贞','三人行','损其疾','或益之','弗损益之'] },
+  36:{ n:'艮', s:'䷳', ci:'艮其背，不获其身', mean:'知止适时', yao:['艮其趾','艮其腓','艮其限','艮其身','艮其辅','敦艮吉'] },
+  37:{ n:'贲', s:'䷕', ci:'亨，小利有攸往', mean:'文饰修饰', yao:['贲其趾','贲其须','贲如濡如','贲如皤如','贲于丘园','白贲无咎'] },
+  38:{ n:'蛊', s:'䷑', ci:'元亨，利涉大川', mean:'整治积弊', yao:['干父之蛊','干母之蛊','干父之蛊','裕父之蛊','干父之蛊','不事王侯'] },
+  39:{ n:'大畜', s:'䷙', ci:'利贞，不家食吉', mean:'大有所蓄', yao:['有厉利已','舆说輹','良马逐','童牛之牿','豮豕之牙','何天之衢'] },
+  // 下卦=离(5)
+  40:{ n:'晋', s:'䷢', ci:'康侯用锡马蕃庶', mean:'晋升前进', yao:['晋如摧如','晋如愁如','众允','晋如鼫鼠','悔亡','晋其角'] },
+  41:{ n:'噬嗑', s:'䷔', ci:'亨，利用狱', mean:'咬合决断', yao:['屦校灭趾','噬肤灭鼻','噬腊肉','噬干胏','噬干肉','何校灭耳'] },
+  42:{ n:'未济', s:'䷿', ci:'亨，小狐汔济', mean:'未成将成', yao:['濡其尾','曳其轮','未济征凶','贞吉','君子之光','有孚于饮酒'] },
+  43:{ n:'睽', s:'䷥', ci:'小事吉', mean:'乖违背离', yao:['悔亡','遇主于巷','见舆曳','睽孤','悔亡','见豕负涂'] },
+  44:{ n:'旅', s:'䷷', ci:'小亨，旅贞吉', mean:'旅居在外', yao:['旅琐琐','旅即次','旅焚其次','旅于处','射雉','鸟焚其巢'] },
+  45:{ n:'离', s:'䷝', ci:'利贞，亨，畜牝牛吉', mean:'附丽光明', yao:['履错然','黄离元吉','日昃之离','突如其来如','出涕沱若','王用出征'] },
+  46:{ n:'鼎', s:'䷱', ci:'元吉，亨', mean:'鼎新养人', yao:['鼎颠趾','鼎有实','鼎耳革','鼎折足','鼎黄耳','鼎玉铉'] },
+  47:{ n:'大有', s:'䷍', ci:'元亨', mean:'大有所获，丰盛', yao:['无交害','大车以载','公用亨于天子','匪其彭','厥孚交如','自天佑之'] },
+  // 下卦=巽(6)
+  48:{ n:'观', s:'䷓', ci:'盥而不荐，有孚颙若', mean:'观察体悟', yao:['童观','窥观','观我生','观国之光','观我生','观其生'] },
+  49:{ n:'益', s:'䷩', ci:'利有攸往，利涉大川', mean:'增益扩展', yao:['利用为大作','或益之','益之用凶事','中行告公','有孚惠心','莫益之'] },
+  50:{ n:'涣', s:'䷺', ci:'亨，王假有庙', mean:'涣散凝聚', yao:['用拯马壮','涣奔其机','涣其躬','涣其群','涣汗其大号','涣其血'] },
+  51:{ n:'中孚', s:'䷼', ci:'豚鱼吉，利涉大川', mean:'中心诚信', yao:['虞吉','鸣鹤在阴','得敌','月几望','有孚挛如','翰音登于天'] },
+  52:{ n:'渐', s:'䷴', ci:'女归吉，利贞', mean:'循序渐进', yao:['鸿渐于干','鸿渐于磐','鸿渐于陆','鸿渐于木','鸿渐于陵','鸿渐于阿'] },
+  53:{ n:'家人', s:'䷤', ci:'利女贞', mean:'治家有序', yao:['闲有家','无攸遂','家人嗃嗃','富家','王假有家','有孚威如'] },
+  54:{ n:'巽', s:'䷸', ci:'小亨，利有攸往', mean:'巽顺渐入', yao:['进退','巽在床下','频巽','悔亡','贞吉','巽在床下'] },
+  55:{ n:'小畜', s:'䷈', ci:'亨，密云不雨', mean:'小有蓄积', yao:['复自道','牵复','夫妻反目','有孚','有孚挛如','既雨既处'] },
+  // 下卦=乾(7)
+  56:{ n:'否', s:'䷋', ci:'否之匪人，不利君子贞', mean:'天地不交，闭塞', yao:['拔茅茹','包承','包羞','有命无咎','休否','倾否先否后喜'] },
+  57:{ n:'无妄', s:'䷘', ci:'元亨利贞', mean:'守正不妄为', yao:['无妄往吉','不耕获','无妄之灾','可贞','无妄之疾','无妄行有眚'] },
+  58:{ n:'讼', s:'䷅', ci:'有孚窒惕，中吉终凶', mean:'争讼不可长', yao:['不永所事','不克讼','食旧德','不克讼','讼元吉','锡之鞶带'] },
+  59:{ n:'履', s:'䷉', ci:'履虎尾，不咥人，亨', mean:'小心践行', yao:['素履','履道坦坦','眇能视','履虎尾','夬履','视履考祥'] },
+  60:{ n:'遁', s:'䷠', ci:'亨，小利贞', mean:'退避隐遁', yao:['遁尾厉','执之用黄牛','系遁有疾','好遁','嘉遁','肥遁无不利'] },
+  61:{ n:'同人', s:'䷌', ci:'同人于野，亨', mean:'与人和同', yao:['同人于门','同人于宗','伏戎于莽','乘其墉','同人先号咷','同人于郊'] },
+  62:{ n:'姤', s:'䷫', ci:'女壮，勿用取女', mean:'不期而遇，隐患', yao:['系于金柅','包有鱼','臀无肤','包无鱼','以杞包瓜','姤其角'] },
+  63:{ n:'乾', s:'䷀', ci:'元亨利贞', mean:'刚健中正，自强不息', yao:['潜龙勿用','见龙在田，利见大人','君子终日乾乾，夕惕若厉','或跃在渊','飞龙在天，利见大人','亢龙有悔'] }
+};
+
+// ========== 测卦场景数据库（40卦，覆盖主要人生情境）==========
+const divineDB = [
+  { id:63, n:'乾', s:'䷀', order:1, tags:['刚健','进取','自强','领导','起步','主动','创造','开端','强大','父亲','事业上升'],
+    scene:'刚健进取、自强不息、主动出击的阶段',
+    advice:'像天一样刚健运行不止。当下应主动出击，发挥创造力，但注意"亢龙有悔"——极盛时勿骄傲。',
+    warning:'勿刚愎自用。九五"飞龙在天"是最佳状态，上九"亢龙有悔"警示过头必衰。',
+    keyYao:'若刚起步→初九"潜龙勿用"先蓄力；若已有成→九五"飞龙在天"全力发挥' },
+  { id:0, n:'坤', s:'䷁', order:2, tags:['柔顺','承载','配合','忍耐','包容','被动','母亲','厚德','等待','顺从','配合'],
+    scene:'柔顺承载、配合他人、厚德载物的阶段',
+    advice:'像大地一样承载一切，不争先。当下应配合他人，以柔克刚。',
+    warning:'勿失去自我。"先迷后得主"——先顺从会迷失，但最终能找到方向。',
+    keyYao:'六五"黄裳元吉"是最佳状态——中正柔顺；上六"龙战于野"警示忍让过头会爆发' },
+  { id:17, n:'屯', s:'䷂', order:3, tags:['初创','起步艰难','困难','迷茫','萌芽','新生','开荒','万事开头难','刚创业'],
+    scene:'万事开头难的初创期，动辄遇险',
+    advice:'刚萌芽的草艰难破土。当下应"利建侯"——找好靠山和同伴，勿孤军奋战。',
+    warning:'勿冒进。初九"磐桓，利居贞"——守正待时，不要急于扩张。',
+    keyYao:'初九"磐桓"守正居贞；九五"屯其膏"小贞吉大贞凶' },
+  { id:34, n:'蒙', s:'䷃', order:4, tags:['蒙昧','学习','启蒙','教育','不懂','稚嫩','求教','迷茫无知','新手','什么都不懂'],
+    scene:'蒙昧无知、需要学习启蒙的阶段',
+    advice:'"匪我求童蒙，童蒙求我"——主动求教才会得教。当下应虚心学习。',
+    warning:'勿自以为是。同一问题反复问是不敬。',
+    keyYao:'六五"童蒙吉"——像孩童般虚心则吉' },
+  { id:23, n:'需', s:'䷄', order:5, tags:['等待','耐心','蓄势','暂停','养精蓄锐','机会未到','时机未到','不急'],
+    scene:'需要等待、机会未到的阶段',
+    advice:'"需于郊"——远离危险，安心等待。当下应蓄势养精，时机未到勿强求。',
+    warning:'勿急躁冒进。"需于泥，致寇至"——在危险处等待会招祸。',
+    keyYao:'九五"需于酒食，贞吉"——在安适中等待，守正则吉' },
+  { id:58, n:'讼', s:'䷅', order:6, tags:['争讼','冲突','纠纷','诉讼','矛盾','对抗','是非','吵架','打官司','争执'],
+    scene:'与人争执、陷入纠纷的阶段',
+    advice:'"讼不可终"——争讼不能长久。当下应寻求和解，"中吉终凶"。',
+    warning:'勿把事做绝。"不克讼，归而逋"——打不赢就逃。',
+    keyYao:'九二"不克讼，归而逋"——见势不对立即撤退' },
+  { id:2, n:'师', s:'䷆', order:7, tags:['用兵','组织','团队','纪律','统帅','打仗','管理团队','带人','出征'],
+    scene:'需要组织团队、带兵打仗的阶段',
+    advice:'"师出以律"——出兵要有纪律。当下应建立规矩，选对人带队。',
+    warning:'勿无序。"师或舆尸"——指挥不当会大败。',
+    keyYao:'九二"在师中吉"——统帅居中守正则吉' },
+  { id:16, n:'比', s:'䷇', order:8, tags:['亲附','合作','结盟','依附','团队','社交','选对人','跟对人','抱团'],
+    scene:'需要亲附合作、选择盟友的阶段',
+    advice:'"比，吉"——亲附则吉。当下应选对人合作，"原筮元永贞"——慎重考察后长期跟随。',
+    warning:'勿亲附错人。"比之匪人"——跟错人会受害。',
+    keyYao:'六二"比之自内"——发自内心亲附则吉' },
+  { id:55, n:'小畜', s:'䷈', order:9, tags:['小蓄','积累','储蓄','积蓄','慢慢来','密云不雨','准备'],
+    scene:'小有蓄积、还需继续积累的阶段',
+    advice:'"密云不雨"——云还没聚够，雨暂时不会下。当下应继续积累，不急于求成。',
+    warning:'勿因小得而止步。"既雨既处"——雨下了就该停，适度蓄积。',
+    keyYao:'九三"舆说辐，夫妻反目"——内部不和会散架' },
+  { id:59, n:'履', s:'䷉', order:10, tags:['小心','践行','谨慎','如履薄冰','踩虎尾','冒险','试探'],
+    scene:'需要小心谨慎、如履薄冰的阶段',
+    advice:'"履虎尾，不咥人"——踩到虎尾巴但没被咬。当下应小心行事，虽险但能平安。',
+    warning:'勿大意。"眇能视，跛能履"——看清自己的局限。',
+    keyYao:'九二"履道坦坦，幽人贞吉"——走正道则平坦' },
+  { id:7, n:'泰', s:'䷊', order:11, tags:['通达','太平','繁荣','天地交','顺遂','和谐','巅峰','大好','通畅','顺境'],
+    scene:'天地交泰、通达繁荣的阶段',
+    advice:'"泰，小往大来，吉亨"——小事去大事来，吉。把握繁荣，但要知道"无平不陂"。',
+    warning:'勿忘衰。"城复于隍"——盛极必衰，泰极否来。',
+    keyYao:'九三"无平不陂，无往不复"——平地会变坡，艰贞无咎' },
+  { id:56, n:'否', s:'䷋', order:12, tags:['闭塞','不通','困境','隔绝','黑暗','停滞','低潮','走不通','卡住'],
+    scene:'天地不交、闭塞不通的阶段',
+    advice:'"否之匪人，不利君子贞"——闭塞之时君子难行。当下应"俭德辟难"——收敛锋芒避祸。',
+    warning:'勿强出头。小人结党，君子应守正待时。',
+    keyYao:'上九"倾否，先否后喜"——闭塞到了极点会倾覆，先苦后甜' },
+  { id:61, n:'同人', s:'䷌', order:13, tags:['同人','合作','团结','志同道合','找人','合伙','结交','社交'],
+    scene:'需要与人合作、志同道合的阶段',
+    advice:'"同人于野，亨"——在广阔处与人同心则通。当下应敞开胸怀，找志同道合者。',
+    warning:'勿结党营私。"同人于宗，吝"——只在圈子内找人则小气。',
+    keyYao:'九五"同人先号咷而后笑"——先难后易，最终同心' },
+  { id:47, n:'大有', s:'䷍', order:14, tags:['大有','丰盛','收获','富裕','事业巅峰','成功','满载','丰收'],
+    scene:'大有所获、丰盛富裕的阶段',
+    advice:'"大有，元亨"——大获则大通。当下应"遏恶扬善，顺天休命"——抑恶扬善。',
+    warning:'勿骄奢。"无交害"——不与人交恶才能保住丰收。',
+    keyYao:'六五"厥孚交如，威如，吉"——诚信威严则吉' },
+  { id:4, n:'谦', s:'䷎', order:15, tags:['谦虚','谦逊','低调','退让','不争','内敛','虚心','全吉'],
+    scene:'需要谦虚低调、退让不争的阶段',
+    advice:'"谦，亨，君子有终"——谦虚则通，君子有善终。周易唯一全吉之卦，当下应谦逊待人。',
+    warning:'谦卦无凶，但勿过度谦卑变成懦弱。',
+    keyYao:'九三"劳谦，君子有终吉"——勤劳而谦虚则吉' },
+  { id:8, n:'豫', s:'䷏', order:16, tags:['安乐','愉悦','享受','顺遂','和乐','放松','安逸'],
+    scene:'安乐和悦、顺遂愉悦的阶段',
+    advice:'"豫，利建侯行师"——安乐之时利于建立功业。当下应享受同时也做准备。',
+    warning:'勿沉溺。"冥豫"——盲目享乐则有悔。',
+    keyYao:'六二"介于石，不终日贞吉"——坚如石，不终日则吉' },
+  { id:25, n:'随', s:'䷐', order:17, tags:['随顺','变通','跟随','适应','顺势','灵活','随机应变'],
+    scene:'需要随顺变通、适应变化的阶段',
+    advice:'"随，元亨利贞，无咎"——随顺则通。当下应顺应时势，灵活变通。',
+    warning:'勿盲目随从。"系小子，失丈夫"——随错人会因小失大。',
+    keyYao:'九四"随有获，贞凶"——随顺而有获也要守正' },
+  { id:38, n:'蛊', s:'䷑', order:18, tags:['积弊','腐败','整治','整顿','积重难返','拨乱反正','清理','改革','烂摊子'],
+    scene:'积弊已深、需要整治的阶段',
+    advice:'"蛊，元亨，利涉大川"——整治积弊则大通。当下应"干父之蛊"——整顿前辈留下的烂摊子。',
+    warning:'勿急躁。"干父之蛊，有子，考无咎"——有儿子整顿则父辈无咎。',
+    keyYao:'初六"干父之蛊"——整顿前辈积弊；上九"不事王侯"——整治完成后退守' },
+  { id:3, n:'临', s:'䷒', order:19, tags:['面临','监临','面对','亲自','监督','主持','亲力亲为'],
+    scene:'需要亲自面对、监临主持的阶段',
+    advice:'"临，元亨"——亲临则大通。当下应亲自出面，"咸临"——以感召面对。',
+    warning:'勿逞强。"至于八月有凶"——好景不长，要趁势而为。',
+    keyYao:'九二"咸临，吉无不利"——以感召面对则吉' },
+  { id:48, n:'观', s:'䷓', order:20, tags:['观察','体悟','静观','审视','看清','洞察','观望','调研'],
+    scene:'需要观察体悟、静观其变的阶段',
+    advice:'"观，盥而不荐"——洗净手但不急于献祭。当下应先观察后行动。',
+    warning:'勿看表面。"童观，小人无咎，君子吝"——像孩童般看问题则君子有吝。',
+    keyYao:'九五"观我生，君子无咎"——审视自身则无咎' },
+  { id:41, n:'噬嗑', s:'䷔', order:21, tags:['咬合','决断','刑罚','处理障碍','清除障碍','咬定','执法'],
+    scene:'需要咬合决断、清除障碍的阶段',
+    advice:'"噬嗑，亨，利用狱"——咬合则通，利于用刑。当下应果断处理阻碍。',
+    warning:'勿滥用。"何校灭耳，凶"——刑罚过重则凶。',
+    keyYao:'九四"噬干胏，得金矢"——难咬但坚持则得利' },
+  { id:37, n:'贲', s:'䷕', order:22, tags:['文饰','修饰','包装','美化','装饰','形象','表面'],
+    scene:'需要修饰包装、注重形象的阶段',
+    advice:'"贲，亨，小利有攸往"——文饰则通，小利。当下应注重形象但勿过度。',
+    warning:'勿本末倒置。"白贲无咎"——最高境界是返璞归真。',
+    keyYao:'上九"白贲无咎"——返璞归真则无咎' },
+  { id:32, n:'剥', s:'䷖', order:23, tags:['剥落','衰退','侵蚀','流失','下坡路','衰退','被削弱'],
+    scene:'剥落衰退、被侵蚀的阶段',
+    advice:'"剥，不利有攸往"——剥落之时不宜前进。当下应"顺而止"——顺势停止。',
+    warning:'勿硬撑。"剥床以足"——根基被侵蚀，从小处开始崩塌。',
+    keyYao:'上九"硕果不食"——最后留一颗种子，等待重生' },
+  { id:1, n:'复', s:'䷗', order:24, tags:['回复','回归','转机','一阳来复','转折','希望','重新开始','谷底反弹','触底反弹','回暖'],
+    scene:'转机出现、一阳来复的阶段',
+    advice:'"反复其道，七日来复"——循环往复，转机必来。抓住初现的希望，稳步推进。',
+    warning:'勿操之过急。"不远复，无祗悔"——及时回头则无悔。',
+    keyYao:'初九"不远复，元吉"——刚走偏就回头，最吉' },
+  { id:57, n:'无妄', s:'䷘', order:25, tags:['守正','不妄为','顺势','自然','不侥幸','踏实','本分','不乱来'],
+    scene:'需要守正不妄为的阶段',
+    advice:'"无妄，元亨利贞"——不妄为则大通。当下应顺应自然，不存侥幸。',
+    warning:'勿妄动。"无妄之灾"——不妄为也可能有灾，但守正可化。',
+    keyYao:'六三"无妄之灾，或系之牛"——无端遭灾，守正待之' },
+  { id:39, n:'大畜', s:'䷙', order:26, tags:['大蓄','积蓄','储备','积累','厚积','蓄力','准备充分'],
+    scene:'大有所蓄、积蓄力量的阶段',
+    advice:'"大畜，利贞，不家食吉"——大蓄则利，不在家吃则吉。当下应大力积累，准备外出施展。',
+    warning:'勿停滞。"舆说輹"——车轴脱落，蓄而不行则停滞。',
+    keyYao:'上九"何天之衢，亨"——蓄满则通天大道' },
+  { id:33, n:'颐', s:'䷚', order:27, tags:['养身','养德','滋养','养生','自养','养人','饭碗','口实'],
+    scene:'需要养身养德、注重滋养的阶段',
+    advice:'"颐，贞吉，观颐，自求口实"——养则有吉，靠自己。当下应注重自养与养人。',
+    warning:'勿贪。"舍尔灵龟，观我朵颐"——放着灵龟不养，光看别人吃。',
+    keyYao:'六四"颠颐吉，虎视眈眈"——颠倒养法，向上求养则吉' },
+  { id:30, n:'大过', s:'䷛', order:28, tags:['大过','过度','超负荷','非常之举','担当','压力太大','不堪重负'],
+    scene:'大有过越、需要非常之举的阶段',
+    advice:'"大过，栋桡"——房梁弯曲。当下需非常之举支撑，"独立不惧，遁世无闷"。',
+    warning:'勿硬撑。"过涉灭顶，凶"——强行过河会灭顶。',
+    keyYao:'九三"栋桡，凶"——栋梁弯曲则凶；九四"栋隆，吉"——栋梁隆起则吉' },
+  { id:18, n:'坎', s:'䷜', order:29, tags:['险陷','困难','危险','坎坷','陷阱','重险','一波三折','水深','艰难'],
+    scene:'重险陷溺、坎坷不断的阶段',
+    advice:'"习坎，有孚维心亨"——重险之中诚信则心通。当下应"行有尚"——坚持前行。',
+    warning:'勿冒进。"入于坎窞，凶"——陷入深坑则凶。',
+    keyYao:'九二"坎有险，求小得"——险中求小得' },
+  { id:45, n:'离', s:'䷝', order:30, tags:['附丽','光明','依附','灿烂','辉煌','文明','火','耀眼'],
+    scene:'附丽光明、灿烂辉煌的阶段',
+    advice:'"离，利贞，亨"——附丽则利。当下应依附正道，发挥光明。',
+    warning:'勿过于耀眼。"突如其来如，焚如，死如，弃如"——突然而来的光明会毁灭。',
+    keyYao:'六二"黄离元吉"——中正附丽则大吉' },
+  { id:28, n:'咸', s:'䷞', order:31, tags:['感应','相互吸引','爱情','感情','心动','共鸣','恋爱','吸引','暗恋'],
+    scene:'相互感应、情感吸引的阶段',
+    advice:'"咸，亨，利贞，取女吉"——相互感应则通，守正则吉。当下应真诚感应，由感而动。',
+    warning:'勿浮躁。感应有层次，逐步深入。',
+    keyYao:'九四"憧憧往来，朋从尔思"——心神往来，朋友应你所思' },
+  { id:14, n:'恒', s:'䷟', order:32, tags:['恒久','持久','坚持','稳定','长期','守常','持续','不变','长久'],
+    scene:'需要持久坚持的阶段',
+    advice:'"恒，亨，无咎，利贞"——持之以恒则通。当下应守常道，也要顺势而动。',
+    warning:'勿僵化。"不恒其德，或承之羞"——不能坚持德行会招羞辱。',
+    keyYao:'六五"恒其德贞"——守德持久；上六"振恒凶"——动荡求恒则凶' },
+  { id:60, n:'遁', s:'䷠', order:33, tags:['退避','隐遁','撤退','退出','离开','避让','远离','躲'],
+    scene:'需要退避隐遁的阶段',
+    advice:'"遁，亨，小利贞"——退避则通。当下应"肥遁"——果断退走，不留恋。',
+    warning:'勿迟疑。"遁尾厉"——退在最后则有危险。',
+    keyYao:'上九"肥遁，无不利"——果断退走则无不利' },
+  { id:15, n:'大壮', s:'䷡', order:34, tags:['大壮','强盛','力量','壮大','气势','旺盛','蓬勃发展','势头猛'],
+    scene:'大壮强盛、力量充沛的阶段',
+    advice:'"大壮，利贞"——大壮利于守正。当下应"非礼弗履"——不以力欺人。',
+    warning:'勿逞强。"羝羊触藩，羸其角"——公羊撞篱笆，角被缠住。',
+    keyYao:'九二"贞吉"——守正则吉；九四"贞吉悔亡"——壮而守正则悔消' },
+  { id:40, n:'晋', s:'䷢', order:35, tags:['晋升','前进','上升','提拔','进步','向前','高升'],
+    scene:'晋升前进、步步高升的阶段',
+    advice:'"晋，康侯用锡马蕃庶"——晋升如康侯受赏。当下应"自昭明德"——展现自己的德行。',
+    warning:'勿急躁。"晋如鼫鼠，贞厉"——像老鼠般贪进则危。',
+    keyYao:'六五"悔亡，失得勿恤"——不患得患失则悔消' },
+  { id:5, n:'明夷', s:'䷣', order:36, tags:['明夷','韬光养晦','暗夜','受伤','压制','隐忍','光明受伤','低谷','被排挤','被打压','怀才不遇'],
+    scene:'光明受伤、需要韬光养晦的阶段',
+    advice:'"明夷，利艰贞"——光明受伤之时利于艰难守正。当下应"内文明而外柔顺"。',
+    warning:'勿锋芒毕露。"明夷于飞，垂其翼"——收敛锋芒，藏拙保身。',
+    keyYao:'初九"明夷于飞，垂其翼"——收敛锋芒；六五"箕子之明夷"——像箕子般内守' },
+  { id:53, n:'家人', s:'䷤', order:37, tags:['家人','治家','家庭','内部','管理','家事','内部治理'],
+    scene:'需要治理家庭、管理内部的阶段',
+    advice:'"家人，利女贞"——治家利于女主内。当下应"言有物而行有恒"——言行一致。',
+    warning:'勿失威严。"家人嗃嗃，悔厉吉"——过于严厉虽悔但终吉。',
+    keyYao:'九五"王假有家，勿恤吉"——以德感化家人则吉' },
+  { id:43, n:'睽', s:'䷥', order:38, tags:['乖违','背离','不合','分歧','矛盾','对立','各行其是','合不来'],
+    scene:'乖违背离、意见不合的阶段',
+    advice:'"睽，小事吉"——乖违之时小事则吉。当下应求同存异，"二女同居，其志不同行"。',
+    warning:'勿强求一致。"见豕负涂，载鬼一车"——猜疑会生幻觉。',
+    keyYao:'九四"睽孤，遇元夫，交孚，厉无咎"——孤独中遇善人则无咎' },
+  { id:20, n:'蹇', s:'䷦', order:39, tags:['蹇','艰难','行路难','前路坎坷','阻碍','步履维艰','走不动','寸步难行'],
+    scene:'前路艰难、步履维艰的阶段',
+    advice:'"蹇，利西南，不利东北"——利于走平坦之路，不利冒险。当下应"反身修德"——反省自身修德。',
+    warning:'勿强行。"往蹇来誉"——前往艰难，回来则有誉。',
+    keyYao:'六二"王臣蹇蹇"——臣子忠心耿耿地面对艰难' },
+  { id:10, n:'解', s:'䷧', order:40, tags:['解除','化解','缓解','松绑','释怀','解脱','险难解除','困境解除'],
+    scene:'险难解除、困局化解的阶段',
+    advice:'"解，利西南，无所往"——解除则利。当下应"赦过宥罪"——宽恕过失。',
+    warning:'勿拖延。"公用射隼于高墉之上"——抓住时机解决问题。',
+    keyYao:'九四"解而拇，朋至斯孚"——解开束缚，朋友以诚来' },
+  { id:35, n:'损', s:'䷨', order:41, tags:['减损','损失','放弃','割舍','让利','牺牲','减少','亏损'],
+    scene:'需要减损、有所牺牲的阶段',
+    advice:'"损，有孚元吉"——减损要有诚信则大吉。当下应"损下益上"——适度让利。',
+    warning:'勿过度。"三人行则损一人"——人多有损。',
+    keyYao:'六五"或益之十朋之龟，弗克违，元吉"——损己反而得益' },
+  { id:49, n:'益', s:'䷩', order:42, tags:['增益','扩展','壮大','增加','获益','有利','提升','增长'],
+    scene:'增益扩展、有所获得的阶段',
+    advice:'"益，利有攸往，利涉大川"——增益则利。当下应"见善则迁，有过则改"。',
+    warning:'勿贪得。"莫益之，或击之，立心勿恒，凶"——贪得无厌反受打击。',
+    keyYao:'九五"有孚惠心，勿问元吉"——以诚信惠人则大吉' },
+  { id:31, n:'夬', s:'䷪', order:43, tags:['决断','果断','去除','决裂','清除','了断','快刀斩乱麻','当机立断','跳槽'],
+    scene:'需要果断决断、清除障碍的阶段',
+    advice:'"夬"——在朝廷上公开宣布，诚信号令有危。当下应"健而说，决而和"。',
+    warning:'勿鲁莽。"壮于頄，有凶"——怒形于色则有凶。',
+    keyYao:'九三"壮于頄有凶"——怒形于色则凶；九五"苋陆夬夬"——果断去除' },
+  { id:62, n:'姤', s:'䷫', order:44, tags:['相遇','邂逅','意外','不期而遇','隐患','女壮','偶遇','缘分'],
+    scene:'不期而遇、暗藏隐患的阶段',
+    advice:'"姤，女壮，勿用取女"——相遇但女强不宜娶。当下应警惕表面美好的相遇。',
+    warning:'勿被迷惑。"系于金柅"——及时牵制，防止失控。',
+    keyYao:'九五"以杞包瓜，含章，有陨自天"——以德包容则有好降' },
+  { id:24, n:'萃', s:'䷬', order:45, tags:['聚集','汇合','集合','汇聚','凝聚','聚拢','人才'],
+    scene:'聚集汇合、凝聚人心的阶段',
+    advice:'"萃，亨，王假有庙"——聚集则通。当下应"假有庙"——以精神感召聚人。',
+    warning:'勿散乱。"赍咨涕洟"——聚而无位则悲泣。',
+    keyYao:'九四"大吉无咎"——大吉才能无咎；九五"萃有位，无咎"有位则安' },
+  { id:6, n:'升', s:'䷭', order:46, tags:['上升','进取','晋升','成长','发展','步步高升','向上'],
+    scene:'上升进取、向上发展的阶段',
+    advice:'"升，元亨，用见大人"——上升则大通。当下应"顺而巽"——顺应而渐进上升。',
+    warning:'勿急。"冥升"——盲目上升则不利，要适可而止。',
+    keyYao:'初六"允升，大吉"——获得认可而升则大吉' },
+  { id:26, n:'困', s:'䷮', order:47, tags:['困窘','困境','受困','艰难','瓶颈','有志难伸','困住','被困','无法施展'],
+    scene:'困窘受困、有志难伸的阶段',
+    advice:'"困，亨，贞，大人吉"——困而能通，大人守正则吉。当下应"有言不信"——说了没人信，不如沉默守正。',
+    warning:'勿怨天尤人。困极则要"致命遂志"——舍命达成志向。',
+    keyYao:'九五"劓刖，困于赤绂"——受刑被困，但"乃徐有说"——慢慢解脱' },
+  { id:22, n:'井', s:'䷯', order:48, tags:['稳定','滋养','井','源源不断','养人','不变','根基','持续输出'],
+    scene:'稳定滋养、源源不断的阶段',
+    advice:'"井，改邑不改井"——城邑可改井不变。当下应保持本心，"劳民劝相"——养人劝助。',
+    warning:'勿废弃。"井泥不食"——井不清理则废弃无用。',
+    keyYao:'九五"井冽寒泉食"——井水清冽甘甜，可食则吉' },
+  { id:29, n:'革', s:'䷰', order:49, tags:['变革','革命','改变','改革','转折','翻天覆地','改朝换代','换工作','转行','转型'],
+    scene:'需要大变革、彻底改变的阶段',
+    advice:'"革，己日乃孚"——变革要到恰当时机才有人信从。"汤武革命，顺乎天而应乎人"。',
+    warning:'勿轻率。"巩用黄牛之革"——不可妄动；"己日乃革之"——等到时机成熟才变。',
+    keyYao:'九四"有孚改命，吉"——以诚信改变命运则吉；九五"大人虎变"——大人如虎般变革' },
+  { id:46, n:'鼎', s:'䷱', order:50, tags:['鼎新','创新','养人','更新','确立','建立','新局面','开创新局'],
+    scene:'鼎新养人、开创新局的阶段',
+    advice:'"鼎，元吉，亨"——鼎新则大吉。当下应"正位凝命"——端正位置，凝定使命。',
+    warning:'勿折足。"鼎折足，覆公餗，其形渥，凶"——能力不足却担重任则凶。',
+    keyYao:'六五"鼎黄耳金铉，利贞"——鼎有黄耳金杠，利于守正' },
+  { id:9, n:'震', s:'䷲', order:51, tags:['震动','警醒','惊吓','突发','动荡','震荡','雷击','突发事件'],
+    scene:'震动警醒、突发变故的阶段',
+    advice:'"震，亨，震来虩虩"——震动则通。当下应"恐惧修省"——因恐惧而自省。',
+    warning:'勿惊慌。"震遂泥"——被震吓而瘫软则不利。',
+    keyYao:'初九"震来虩虩，后笑言哑哑，吉"——先惧后笑则吉' },
+  { id:36, n:'艮', s:'䷳', order:52, tags:['停止','知止','静止','停步','不动','止步','暂停','刹车','该停就停'],
+    scene:'需要知止适时、停下来的阶段',
+    advice:'"艮其背，不获其身"——止于该止之处。当下应"思不出其位"——不越位。',
+    warning:'勿妄动。"艮其腓，不拯其随，其心不快"——该动时不动也不行。',
+    keyYao:'六五"艮其辅，言有序，悔亡"——管住嘴巴则悔消' },
+  { id:52, n:'渐', s:'䷴', order:53, tags:['渐进','循序渐进','稳步','慢慢来','按部就班','稳扎稳打','不急','一步步来'],
+    scene:'循序渐进、稳步发展的阶段',
+    advice:'"渐，女归吉，利贞"——渐进则吉。当下应"居贤德善俗"——积累德行，循序渐进。',
+    warning:'勿急躁。"鸿渐于干"——大雁一步步上岸，不可跳级。',
+    keyYao:'九五"鸿渐于陵，妇三岁不孕，终莫之胜，吉"——虽慢但终能成功' },
+  { id:11, n:'归妹', s:'䷵', order:54, tags:['归妹','不正','名分','位置不对','急于求成','冒进','不合规矩'],
+    scene:'位置不正、急于求成的阶段',
+    advice:'"归妹，征凶，无攸利"——归妹出征则凶。当下应认清位置，不强行出头。',
+    warning:'勿强求。"女承筐无实"——名不副实，强求则空。',
+    keyYao:'六五"帝乙归妹，其君之袂不如其娣之袂良"——以德服人而非以貌' },
+  { id:13, n:'丰', s:'䷶', order:55, tags:['丰盛','盛大','极盛','巅峰','满','日中','事业巅峰','最盛','鼎盛'],
+    scene:'丰盛极盛、日中则昃的阶段',
+    advice:'"丰，亨，王假之"——丰盛则通。当下应"折狱致刑"——明断，但要知道"日中则昃"。',
+    warning:'盛极必衰。"丰其蔀，日中见斗"——盛中有衰象。',
+    keyYao:'六五"来章，有庆誉，吉"——引来贤才则吉' },
+  { id:44, n:'旅', s:'䷷', order:56, tags:['旅居','漂泊','在外','流浪','客居','异乡','漂泊在外','离家'],
+    scene:'旅居在外、漂泊不定的阶段',
+    advice:'"旅，小亨，旅贞吉"——旅居小事则通。当下应"明慎用刑而不留狱"——明断不留。',
+    warning:'勿贪大。"鸟焚其巢，旅人先笑后号咷"——在外贪大则先乐后悲。',
+    keyYao:'六五"射雉一矢亡，终以誉命"——小失大得' },
+  { id:54, n:'巽', s:'䷸', order:57, tags:['巽顺','渐入','渗透','柔入','低调','渗透','潜移默化','柔和'],
+    scene:'巽顺渐入、潜移默化的阶段',
+    advice:'"巽，小亨，利有攸往"——巽顺则小通。当下应"申命行事"——反复申明命令后行动。',
+    warning:'勿优柔。"巽在床下"——过度谦卑则失威。',
+    keyYao:'九五"贞吉悔亡，无不利"——守正则吉悔消' },
+  { id:27, n:'兑', s:'䷹', order:58, tags:['喜悦','和悦','开心','快乐','喜悦','欣悦','高兴','愉快'],
+    scene:'喜悦和悦、心情舒畅的阶段',
+    advice:'"兑，亨，利贞"——喜悦则通。当下应"朋友讲习"——与朋友切磋讲习。',
+    warning:'勿取悦于人。"来兑，凶"——刻意讨好则凶。',
+    keyYao:'九二"孚兑，吉，悔亡"——以诚信相悦则吉' },
+  { id:50, n:'涣', s:'䷺', order:59, tags:['涣散','凝聚','化解','疏散','重新聚合','散而复聚','化解僵局'],
+    scene:'涣散需要凝聚的阶段',
+    advice:'"涣，亨，王假有庙"——涣散则通。当下应"涣汗其大号"——如出汗般宣泄后重新凝聚。',
+    warning:'勿真散。"涣其血，去逖出，无咎"——化解流血冲突则无咎。',
+    keyYao:'九五"涣汗其大号，涣王居，无咎"——宣泄后重聚则无咎' },
+  { id:19, n:'节', s:'䷻', order:60, tags:['节制','适度','调节','限制','节约','克制','守节','节流','控制'],
+    scene:'需要节制、适度调节的阶段',
+    advice:'"节，亨。苦节不可贞"——节制则通，但过度节制不可守。当下应"制数度，议德行"。',
+    warning:'勿过度。"不出户庭，无咎"——节制得当；"苦节，贞凶"——过度则凶。',
+    keyYao:'初九"不出户庭无咎"——节制得当；上六"苦节贞凶"——过度节制则凶' },
+  { id:51, n:'中孚', s:'䷼', order:61, tags:['诚信','真诚','守信','信任','忠信','信义','诚实','靠谱'],
+    scene:'中心诚信、以诚待人的阶段',
+    advice:'"中孚，豚鱼吉，利涉大川"——诚信则吉。当下应"信及豚鱼"——诚信到连鱼猪都感动。',
+    warning:'勿虚伪。"翰音登于天，贞凶"——虚名高飞则凶。',
+    keyYao:'九二"鸣鹤在阴，其子和之"——诚信感应，有呼必应' },
+  { id:12, n:'小过', s:'䷽', order:62, tags:['小过','稍过','谨慎','低调','过犹不及','收敛','宜小不宜大','小事可成'],
+    scene:'小有过越、宜小不宜大的阶段',
+    advice:'"小过，可小事不可大事"——可小事不可大事。当下应"行过乎恭"——过度谦恭。',
+    warning:'勿自大。"飞鸟不宜上宜下"——不宜往上，往下则大吉。',
+    keyYao:'六二"过其祖遇其妣"——得中道；上六"弗遇过之凶"——过度则凶' },
+  { id:21, n:'既济', s:'䷾', order:63, tags:['已成','完成','安定','已成功','既成','圆满','守成','已达成'],
+    scene:'已经成功、需要守成的阶段',
+    advice:'"既济，初吉终乱"——初吉终乱。当下应"思患而预防之"。',
+    warning:'勿松懈。"繻有衣袽，终日戒"——成功后要终日警惕。',
+    keyYao:'九三"高宗伐鬼方，三年克之"——成功来之不易' },
+  { id:42, n:'未济', s:'䷿', order:64, tags:['未成','未完成','未来','未尽','过渡','将成','未定','还没成','在路上'],
+    scene:'尚未完成、正在过渡的阶段',
+    advice:'"未济，亨"——未成则通，还有希望。当下应"慎辨物居方"——谨慎辨别。',
+    warning:'勿半途而废。"震用伐鬼方，三年有赏"——坚持到底。',
+    keyYao:'九四"震用伐鬼方，三年有赏于大国"——坚持努力终有回报' }
+];
+
+// 同义词扩展库（输入词→标签词）
+const synonyms = {
+  '跳槽':['决断','决裂','改变','变革'],'换工作':['决断','改变','变革','跳槽'],'辞职':['决断','改变','变革'],
+  '迷茫':['蒙昧','困','困惑','困窘'],'困惑':['蒙昧','困','困窘'],'不知道方向':['蒙昧','困','困窘'],
+  '起步':['初创','起步艰难','开端','新生','刚创业'],'开始':['初创','开端','新生'],'创业':['初创','起步艰难','新生'],
+  '等待':['等待','耐心','蓄势','时机未到'],'机会':['等待','转机'],'时机':['等待','蓄势','时机未到'],
+  '压制':['明夷','剥落','困','被压制','困境','被打压'],'低潮':['否','剥','困','闭塞','低谷'],
+  '困境':['困','否','闭塞','困窘'],'瓶颈':['困','困窘','有志难伸'],'卡住':['否','闭塞','困','困窘'],
+  '转机':['复','转机','回归','希望','触底反弹'],'希望':['复','转机','回归'],'谷底':['复','转机','低谷','触底反弹'],
+  '抉择':['决断','夬'],'选择':['决断','夬'],'决定':['决断','夬','果断'],
+  '冲突':['讼','争讼','乖违','矛盾','纠纷'],'矛盾':['讼','乖违','乖违'],'吵架':['讼','争讼','冲突'],
+  '巅峰':['大有','丰','盛大','极盛'],'成功':['既济','大有','丰','已成'],'丰收':['大有','丰','丰盛'],
+  '完成':['既济','已成','圆满'],'达成':['既济','已成'],'已成功':['既济','已成','守成'],
+  '变革':['革','变革','改变','改革','转型'],'改变':['革','变革','改变','改变'],'改革':['革','变革'],
+  '积弊':['蛊','积弊','腐败','整治','烂摊子'],'腐败':['蛊','积弊'],'烂摊子':['蛊','积弊','整治'],
+  '膨胀':['小过','丰','亢','大过'],'过度':['小过','大过','过度'],'压力':['大过','困','困窘'],
+  '团队':['师','比','家人','团队','组织','聚集'],'组织':['师','团队','聚集'],
+  '感情':['咸','感应','爱情','感情'],'爱情':['咸','感应','感情'],'恋爱':['咸','感应','感情','爱情'],
+  '稳定':['恒','井','稳定','长久','持续'],'坚持':['恒','恒久','持久'],'长久':['恒','稳定','持续'],
+  '停止':['艮','停止','止步','暂停'],'暂停':['艮','停止','需','等待'],'刹车':['艮','停止','知止'],
+  '节制':['节','节制','克制','适度','控制'],'克制':['节','节制','损'],'控制':['节','节制'],
+  '损失':['损','减损','剥'],'亏损':['损','减损','损失'],'获益':['益','增益','大有','增益'],
+  '低谷':['明夷','否','困','剥','低谷'],'被打压':['明夷','困','困窘','被压制'],'怀才不遇':['明夷','困','有志难伸'],
+  '晋升':['晋','晋升','上升','高升'],'上升':['升','晋','上升','向上'],'高升':['晋','升','晋升'],
+  '诚信':['中孚','诚信','真诚','守信'],'真诚':['中孚','诚信','守信'],
+  '喜悦':['兑','喜悦','和悦','快乐','开心'],'快乐':['兑','喜悦','和悦'],
+  '漂泊':['旅','旅居','漂泊','在外','异乡'],'在外':['旅','旅居','漂泊'],
+  '聚集':['萃','聚集','汇合','凝聚'],'凝聚':['萃','聚集','涣','凝聚'],
+  '观察':['观','观察','体悟','观望','调研'],'观望':['观','观察','静观'],
+  '警醒':['震','震动','警醒','突发'],'突发':['震','震动','警醒'],
+  '渐进':['渐','渐进','循序渐进','稳步','按部就班'],'稳步':['渐','渐进','循序渐进'],
+  '退避':['遁','退避','隐遁','撤退','退出'],'退出':['遁','退避','撤退'],
+  '强大':['大壮','大壮','强盛','刚健'],'壮大':['大壮','大壮','强盛','增益'],
+  '文饰':['贲','文饰','修饰','包装','形象'],'包装':['贲','文饰','修饰'],
+  '养身':['颐','养身','养德','滋养','养生'],'滋养':['颐','井','养身','养德'],
+  '咬合':['噬嗑','咬合','决断','清除障碍'],'清除':['噬噬嗑','夬','决断','清除障碍'],
+  '创新':['鼎','鼎新','创新','新局面'],'新局面':['鼎','鼎新','创新'],
+  '涣散':['涣','涣散','化解','疏散'],'化解':['涣','解','涣散','解除'],
+  '附丽':['离','附丽','光明','辉煌'],'光明':['离','附丽','光明'],
+  '险陷':['坎','险陷','困难','坎坷','重险'],'坎坷':['坎','险陷','困难','艰难'],
+  '大过':['大过','过度','超负荷','压力太大'],'不堪重负':['大过','困','困窘','压力'],
+  '感应':['咸','感应','相互吸引','共鸣'],'心动':['咸','感应','爱情','心动'],
+  '同人':['同人','合作','团结','志同道合'],'合伙':['同人','比','合作','聚集'],
+  '随顺':['随','随顺','变通','顺势','随机应变'],'变通':['随','随顺','变通','灵活'],
+  '临':['临','面临','面对','监临','亲力亲为'],'面对':['临','面临','面对'],
+  '小畜':['小畜','积累','储蓄','积蓄'],'积累':['小畜','大畜','积累','积蓄'],
+  '履':['履','小心','谨慎','如履薄冰'],'谨慎':['履','小心','谨慎','如履薄冰'],
+  '剥':['剥','剥落','衰退','流失','下坡路'],'衰退':['剥','剥落','衰退','下坡路'],
+  '无妄':['无妄','守正','不妄为','本分','踏实'],'踏实':['无妄','守正','本分','不侥幸'],
+  '颐':['颐','养身','养德','饭碗','口实'],'饭碗':['颐','井','稳定','养身'],
+  '归妹':['归妹','不正','名分','位置不对','冒进'],'冒进':['归妹','大壮','冒进','急于求成'],
+  '睽':['睽','乖违','背离','不合','分歧'],'不合':['睽','乖违','分歧','矛盾'],
+  '升':['升','上升','进取','成长','发展'],'发展':['升','益','上升','成长','增益'],
+  '豫':['豫','安乐','愉悦','享受','安逸'],'享受':['豫','安乐','愉悦','安逸'],
+  '大有':['大有','丰盛','收获','富裕','丰收'],'富裕':['大有','丰','丰盛','收获'],
+  '比':['比','亲附','合作','结盟','抱团'],'抱团':['比','萃','聚集','结盟','合作'],
+  '谦':['谦','谦虚','谦逊','低调','内敛'],'低调':['谦','谦虚','谦逊','内敛'],
+  '师':['师','用兵','组织','纪律','统帅','带人'],'带人':['师','组织','团队','纪律'],
+  '蛊':['蛊','积弊','腐败','整治','整顿','拨乱反正'],'整顿':['蛊','整治','拨乱反正','清理'],
+  '井':['井','稳定','滋养','源源不断','持续输出'],'源源不断':['井','稳定','持续输出'],
+  '未济':['未济','未成','未完成','过渡','将成','在路上'],'在路上':['未济','未成','将成','未完成'],
+  '既济':['既济','已成','完成','安定','圆满','守成'],'守成':['既济','已成','安定','圆满'],
+  '丰':['丰','丰盛','盛大','极盛','巅峰','鼎盛'],'鼎盛':['丰','丰盛','极盛','巅峰'],
+  '小过':['小过','稍过','谨慎','低调','过犹不及'],'过犹不及':['小过','稍过','谨慎'],
+  '涣':['涣','涣散','凝聚','化解','疏散'],'疏散':['涣','涣散','化解'],
+  '中孚':['中孚','诚信','真诚','守信','信任','靠谱'],'靠谱':['中孚','诚信','守信','真诚'],
+  '兑':['兑','喜悦','和悦','开心','快乐','愉快'],'愉快':['兑','喜悦','和悦','开心'],
+  '旅':['旅','旅居','漂泊','在外','流浪','异乡'],'流浪':['旅','旅居','漂泊','在外'],
+  '巽':['巽','巽顺','渐入','渗透','潜移默化'],'渗透':['巽','巽顺','渐入','潜移默化'],
+  '鼎':['鼎','鼎新','创新','更新','建立','新局面'],'开创新局':['鼎','鼎新','创新','新局面'],
+  '震':['震','震动','警醒','惊吓','突发','动荡'],'动荡':['震','震动','突发','震荡'],
+  '艮':['艮','停止','知止','静止','停步','不动','刹车'],'该停就停':['艮','停止','知止','暂停'],
+  '解':['解','解除','化解','缓解','松绑','解脱'],'解除':['解','化解','缓解','松绑'],
+  '损':['损','减损','损失','放弃','割舍','让利'],'割舍':['损','减损','放弃','让利'],
+  '益':['益','增益','扩展','壮大','增加','提升'],'增长':['益','增益','增加','扩展'],
+  '渐':['渐','渐进','循序渐进','稳步','慢慢来','按部就班','一步步来'],'慢慢来':['渐','渐进','循序渐进','稳步'],
+  '夬':['夬','决断','果断','去除','决裂','了断','快刀斩乱麻'],'快刀斩乱麻':['夬','决断','果断','了断'],
+  '姤':['姤','相遇','邂逅','意外','不期而遇','缘分'],'邂逅':['姤','相遇','不期而遇','缘分'],
+  '萃':['萃','聚集','汇合','集合','凝聚','聚拢'],'聚拢':['萃','聚集','汇合','凝聚'],
+  '贲':['贲','文饰','修饰','包装','美化','装饰','形象'],'美化':['贲','文饰','修饰','装饰'],
+  '噬嗑':['噬嗑','咬合','决断','刑罚','处理障碍'],'执法':['噬嗑','咬合','决断','清除障碍'],
+  '观':['观','观察','体悟','静观','审视','看清','洞察','观望'],'洞察':['观','观察','审视','看清'],
+  '大畜':['大畜','大蓄','积蓄','储备','积累','厚积','蓄力'],'蓄力':['大畜','大蓄','储备','厚积','积蓄'],
+  '晋':['晋','晋升','前进','上升','提拔','进步','高升'],'提拔':['晋','晋升','上升','高升'],
+  '家人':['家人','治家','家庭','内部','管理','家事','内部治理'],'内部治理':['家人','治家','管理','内部'],
+  '同人':['同人','合作','团结','志同道合','找人','合伙'],'志同道合':['同人','合作','团结'],
+  '蒙':['蒙','蒙昧','学习','启蒙','教育','不懂','稚嫩','新手'],'新手':['蒙','蒙昧','学习','不懂','稚嫩'],
+  '需':['需','等待','耐心','蓄势','暂停','养精蓄锐'],'养精蓄锐':['需','等待','耐心','蓄势'],
+  '讼':['讼','争讼','冲突','纠纷','诉讼','矛盾','对抗','是非'],'打官司':['讼','争讼','诉讼','纠纷'],
+  '比':['比','亲附','合作','结盟','依附','选对人','跟对人'],'跟对人':['比','亲附','选对人','结盟'],
+  '临':['临','面临','监临','面对','亲自','监督','主持'],'亲力亲为':['临','面临','亲自','主持'],
+  '明夷':['明夷','韬光养晦','暗夜','受伤','压制','隐忍','低谷','被排挤'],'韬光养晦':['明夷','隐忍','光明受伤','低谷'],
+  '泰':['泰','通达','太平','繁荣','顺遂','和谐','巅峰','通畅','顺境'],'顺境':['泰','通达','繁荣','顺遂','和谐'],
+  '否':['否','闭塞','不通','困境','隔绝','黑暗','停滞','低潮','走不通'],'走不通':['否','闭塞','不通','停滞'],
+  '履':['履','小心','践行','谨慎','如履薄冰','踩虎尾','试探'],'试探':['履','小心','谨慎','如履薄冰'],
+  '同人':['同人','同人','合作','团结','志同道合','找人','合伙','结交'],'结交':['同人','合作','团结','社交'],
+  '大有':['大有','大有','丰盛','收获','富裕','事业巅峰','满载','丰收'],'满载':['大有','丰收','丰盛','收获'],
+  '随':['随','随顺','变通','跟随','适应','顺势','灵活'],'适应':['随','随顺','变通','灵活','顺势'],
+  '大壮':['大壮','大壮','强盛','力量','壮大','气势','旺盛'],'气势':['大壮','强盛','壮大','旺盛'],
+  '困':['困','困窘','困境','受困','艰难','瓶颈','有志难伸','困住','被困','无法施展'],'无法施展':['困','困窘','有志难伸','被困'],
+  '蹇':['蹇','艰难','行路难','前路坎坷','阻碍','步履维艰','走不动','寸步难行'],'寸步难行':['蹇','艰难','步履维艰','走不动']
+};
+
+// ========== 函数 ==========
+function switchMain(tab, btn) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.mobile-tab').forEach((t, i) => {
+    if ((tab === 'learn' && i === 0) || (tab === 'divine' && i === 1)) t.classList.add('active');
+  });
+  document.getElementById('learnSection').style.display = tab === 'learn' ? 'block' : 'none';
+  document.getElementById('divineSection').style.display = tab === 'divine' ? 'block' : 'none';
+  window.scrollTo(0, 0);
+}
+
+function switchSub(tab, btn) {
+  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showModal(title, content, sub) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub || '';
+  document.getElementById('modalContent').textContent = content;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// 爻位名计算：阳用九阴用六，初上"位前数后"，二至五"数前位后"
+function getYaoName(pos, isYang) {
+  const posNames = ['初','二','三','四','五','上'];
+  const num = isYang ? '九' : '六';
+  if (pos === 0) return '初' + num;
+  if (pos === 5) return num + '上';
+  return num + posNames[pos];
+}
+
+function showGua(id) {
+  const g = guaDB[id];
+  if (!g) { showModal('数据缺失', '该卦(ID:' + id + ')数据待补全'); return; }
+  const trigramInfo = getTrigrams(id);
+  let content = '卦名：' + g.n + '卦\n符号：' + g.s + '\n结构：' + trigramInfo.upper.name + '上' + trigramInfo.lower.name + '下（' + trigramInfo.upper.nature + trigramInfo.lower.nature + '）\n二进制ID：' + id + '\n\n';
+  content += '卦辞：' + g.ci + '\n卦义：' + g.mean + '\n\n';
+  content += '六爻（从下到上）：\n';
+  const yaoArr = idToYao(id);
+  for (let i = 0; i < 6; i++) {
+    const isYang = yaoArr[i] === 1;
+    content += getYaoName(i, isYang) + '：' + (g.yao[i] || '（待补）') + '\n';
+  }
+  showModal(g.n + '卦 · ' + g.s, content, trigramInfo.upper.name + '上' + trigramInfo.lower.name + '下 · ' + g.mean);
+}
+
+// ID→6爻数组（bit0=初爻/最下）
+function idToYao(id) {
+  return [0,1,2,3,4,5].map(i => (id >> i) & 1);
+}
+
+// ID→上下卦信息
+function getTrigrams(id) {
+  const yao = idToYao(id);
+  const lowerId = yao[0] + yao[1]*2 + yao[2]*4;  // 下卦 = 低3位
+  const upperId = yao[3] + yao[4]*2 + yao[5]*4;  // 上卦 = 高3位
+  return {
+    lower: { id: lowerId, name: trigramNames[lowerId], nature: trigramNatures[lowerId] },
+    upper: { id: upperId, name: trigramNames[upperId], nature: trigramNatures[upperId] }
+  };
+}
+
+function buildBagua() {
+  const container = document.getElementById('baguaGrid');
+  baguaData.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'bagua-item';
+    div.onclick = () => showModal(b.name + '卦 · ' + b.sym,
+      '自然：' + b.nature + '\n属性：' + b.attr + '\n家庭：' + b.family + '\n口诀：' + b.trick + '\n\n' + b.detail,
+      b.nature + ' · ' + b.attr);
+    div.innerHTML = '<div class="bagua-symbol">' + b.sym + '</div>' +
+      '<div class="bagua-name">' + b.name + '</div>' +
+      '<div class="bagua-nature">' + b.nature + '</div>' +
+      '<div class="bagua-trick">' + b.trick + '</div>';
+    container.appendChild(div);
+  });
+}
+
+// 构建64卦矩阵：行=下卦，列=上卦，id = 下卦 + 上卦×8
+function buildMatrix(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  let html = '<div class="matrix-cell header">下\\上</div>';
+  trigramSymbols.forEach(s => { html += '<div class="matrix-cell header">' + s + '</div>'; });
+  for (let lower = 0; lower < 8; lower++) {
+    html += '<div class="matrix-cell header">' + trigramSymbols[lower] + '</div>';
+    for (let upper = 0; upper < 8; upper++) {
+      const id = lower + (upper << 3);
+      const g = guaDB[id];
+      const sym = g ? g.s : '?';
+      const name = g ? g.n : '?';
+      html += '<div class="matrix-cell" onclick="showGua(' + id + ')" title="' + name + '卦">' + sym + '<span class="name">' + name + '</span></div>';
+    }
+  }
+  container.innerHTML = html;
+}
+
+// ========== 占卜模拟器 ==========
+let divineCount = 0;
+let divineYao = [];
+function simulateDivine() {
+  if (divineCount === 0) {
+    divineYao = [];
+    document.getElementById('divineResult').classList.remove('show');
+  }
+  if (divineCount >= 6) {
+    divineCount = 0;
+    divineYao = [];
+    document.getElementById('divineResult').classList.remove('show');
+    simulateDivine();
+    return;
+  }
+  // 模拟3枚铜钱
+  const coins = [Math.random()<0.5, Math.random()<0.5, Math.random()<0.5];
+  const heads = coins.filter(c => c).length;
+  let yao, isOld;
+  if (heads === 3) { yao = 1; isOld = true; }      // 老阳
+  else if (heads === 2) { yao = 1; isOld = false; } // 少阴
+  else if (heads === 1) { yao = 0; isOld = false; } // 少阳
+  else { yao = 0; isOld = true; }                    // 老阴
+  divineYao.push({ yao, isOld });
+  divineCount++;
+  if (divineCount === 6) {
+    showDivineResult();
+  } else {
+    const sym = yao === 1 ? '⚊' : '⚋';
+    const type = isOld ? (yao===1?'老阳(动)':'老阴(动)') : (yao===1?'少阴':'少阳');
+    alert('第' + divineCount + '爻：' + sym + ' ' + type + '\n（' + heads + '正' + (3-heads) + '反）\n\n还需摇' + (6-divineCount) + '次');
+  }
+}
+
+function showDivineResult() {
+  const id = divineYao.reduce((sum, y, i) => sum + y.yao * Math.pow(2, i), 0);
+  const g = guaDB[id];
+  const trigramInfo = getTrigrams(id);
+  document.getElementById('divineSymbol').textContent = g ? g.s : '?';
+  document.getElementById('divineName').textContent = (g ? g.n : '?') + '卦 · ' + trigramInfo.upper.name + '上' + trigramInfo.lower.name + '下';
+  document.getElementById('divineCi').textContent = g ? '卦辞：' + g.ci : '待补全';
+  const posNames = ['初','二','三','四','五','上'];
+  let yaoHtml = '';
+  for (let i = 5; i >= 0; i--) {
+    const y = divineYao[i];
+    const isYang = y.yao === 1;
+    const yaoName = getYaoName(i, isYang);
+    const mark = y.isOld ? ' ←动爻' : '';
+    yaoHtml += '<div class="divine-yao-line"><div class="divine-yao-pos">' + posNames[i] + '爻</div><div class="divine-yao-glyph">' + (isYang?'⚊':'⚋') + '</div><div class="divine-yao-name">' + yaoName + '</div><div class="divine-yao-ci">' + (g && g.yao[i] ? g.yao[i] : '') + mark + '</div></div>';
+  }
+  document.getElementById('divineYao').innerHTML = yaoHtml;
+  document.getElementById('divineResult').classList.add('show');
+}
+
+// ========== 本地关键词计算卦象 ==========
+// 第一步：分词提取关键词
+function extractKeywords(query) {
+  if (!query) return { direct: [], synonym: [] };
+  const q = query.toLowerCase().trim();
+  let direct = new Set();
+  let synonym = new Set();
+
+  // 1. 直接命中卦象标签
+  divineDB.forEach(g => {
+    g.tags.forEach(t => {
+      if (q.includes(t)) direct.add(t);
+    });
+  });
+
+  // 2. 同义词扩展
+  Object.keys(synonyms).forEach(key => {
+    if (q.includes(key)) {
+      synonyms[key].forEach(syn => {
+        // 如果同义词本身就是某个卦的标签，算直接命中
+        let isTag = false;
+        divineDB.forEach(g => { if (g.tags.includes(syn)) isTag = true; });
+        if (isTag) direct.add(syn);
+        else synonym.add(syn);
+      });
+    }
+  });
+
+  // 3. 二字滑窗分词（补充短词匹配）
+  for (let i = 0; i < q.length - 1; i++) {
+    const bigram = q.substring(i, i+2);
+    divineDB.forEach(g => {
+      if (g.tags.includes(bigram)) direct.add(bigram);
+    });
+  }
+
+  return { direct: Array.from(direct), synonym: Array.from(synonym) };
+}
+
+// 第二步：计算每个卦的得分
+function calcScores(keywords) {
+  return divineDB.map(g => {
+    const matchedDirect = g.tags.filter(t => keywords.direct.includes(t));
+    const matchedSynonym = g.tags.filter(t => keywords.synonym.includes(t));
+    const score = matchedDirect.length * 1.0 + matchedSynonym.length * 0.5;
+    return { ...g, matchedTags: [...matchedDirect, ...matchedSynonym], matchedDirect, matchedSynonym, score };
+  }).filter(g => g.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.order - b.order; // 得分相同按卦序优先
+    });
+}
+
+function doSearch() {
+  const query = document.getElementById('searchInput').value;
+  if (!query.trim()) return;
+  renderResults(query);
+}
+
+function quickSearch(text) {
+  document.getElementById('searchInput').value = text;
+  renderResults(text);
+}
+
+function renderResults(query) {
+  const keywords = extractKeywords(query);
+  const container = document.getElementById('results');
+  const calcBox = document.getElementById('calcProcess');
+
+  // 展示计算过程
+  if (keywords.direct.length === 0 && keywords.synonym.length === 0) {
+    calcBox.classList.remove('show');
+    container.innerHTML = '<div class="empty"><div class="icon">䷁</div>未找到匹配<br><span style="font-size:12px;color:#aaa;">试试更通俗的关键词，如：迷茫、跳槽、转机、困境</span></div>';
+    return;
+  }
+
+  const scored = calcScores(keywords).slice(0, 3);
+
+  // 构建计算过程展示
+  let calcHtml = '<div class="calc-title">🧮 计算过程</div>';
+  calcHtml += '<div class="calc-step">输入：<span class="hi">「' + query + '」</span></div>';
+  calcHtml += '<div class="calc-step">分词提取：直接命中 <span class="hi">[' + (keywords.direct.join(', ') || '无') + ']</span>';
+  if (keywords.synonym.length > 0) calcHtml += ' + 同义扩展 <span class="hi">[' + keywords.synonym.join(', ') + ']</span>';
+  calcHtml += '</div>';
+  calcHtml += '<div class="calc-step">遍历64卦标签库，计算得分（直接命中=1分，同义=0.5分）：</div>';
+  scored.forEach((g, i) => {
+    calcHtml += '<div class="calc-step">' + (i+1) + '. <span class="hi">' + g.n + '卦(' + g.id + ')</span> 命中[' + g.matchedTags.join(', ') + '] → 得分 <span class="calc-score">' + g.score + '</span></div>';
+  });
+  calcBox.innerHTML = calcHtml;
+  calcBox.classList.add('show');
+
+  // 渲染结果卡片
+  container.innerHTML = scored.map((g, idx) => {
+    const isTop = idx === 0;
+    const scoreLabel = Number.isInteger(g.score) ? g.score + '分' : g.score + '分';
+    return '<div class="result-card ' + (isTop ? 'top' : '') + '">' +
+      (isTop ? '<div class="match-badge">最匹配 · ' + scoreLabel + '</div>' : '<div class="match-badge" style="background:#fafaf5;border-color:#d4d1c7;color:#888;">相关度 ' + scoreLabel + '</div>') +
+      '<div class="gua-header"><div class="gua-symbol-lg">' + g.s + '</div>' +
+      '<div class="gua-meta"><div class="gua-name-lg">' + g.n + '卦</div>' +
+      '<div class="gua-struct">' + getTrigrams(g.id).upper.name + '上' + getTrigrams(g.id).lower.name + '下 · 第' + g.order + '卦</div></div></div>' +
+      '<div class="keywords-row">' + g.tags.map(t => '<span class="kw-chip ' + (g.matchedTags.includes(t)?'matched':'') + '">' + t + '</span>').join('') + '</div>' +
+      '<div class="info-block scene" style="margin-top:12px;"><span class="label">对应场景</span>' + g.scene + '</div>' +
+      '<div class="info-block advice"><span class="label">解决办法 · 卦辞指引</span>' + g.advice + '</div>' +
+      '<div class="info-block warning"><span class="label">警示</span>' + g.warning + '</div>' +
+      '<div class="info-block yao"><span class="label">关键爻 · 对号入座</span>' + g.keyYao + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ========== 初始化 ==========
+buildBagua();
+buildMatrix('matrix');
+buildMatrix('matrix2');
+
+// ========== PWA Service Worker 注册 ==========
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(reg) {
+      console.log('周易64卦 SW 注册成功，支持离线使用');
+    }).catch(function(err) {
+      console.warn('SW 注册失败（不影响使用）:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>

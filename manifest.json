@@ -1,0 +1,25 @@
+{
+  "name": "周易六十四卦 · 学卦完整版",
+  "short_name": "周易64卦",
+  "description": "学卦（认卦/学卦/用卦）+ 测卦（关键词计算卦象）",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f3ee",
+  "theme_color": "#412402",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
