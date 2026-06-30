@@ -1810,8 +1810,37 @@ function renderYaoBuilder() {
         ${g ? (builderYao.filter(y=>y===1).length > 3 ? '<span>☀️</span><span style="font-weight:600;color:var(--gold);">阳卦</span>' : builderYao.filter(y=>y===1).length < 3 ? '<span>🌙</span><span style="font-weight:600;color:var(--ink);">阴卦</span>' : '<span>☯️</span><span style="font-weight:600;color:var(--text2);">阴阳各半</span>') : ''}
         ${g ? '<span style="color:var(--text3);font-size:11px;">（' + builderYao.filter(y=>y===1).length + '阳爻 ' + (6-builderYao.filter(y=>y===1).length) + '阴爻）</span>' : ''}
       </div>` : ''}
+      ${g ? `
+      <div style="margin-top:14px;padding-top:12px;border-top:2px solid var(--border2);">
+        <div style="font-weight:600;color:var(--text1);margin-bottom:10px;font-size:14px;">📋 六爻辞（各不相同）</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${(() => {
+            const names = getYaoNames(builderYao);
+            let rows = '';
+            for (let i = 5; i >= 0; i--) {
+              const isUpper = i >= 3;
+              const isYang = builderYao[i] === 1;
+              rows += `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:6px;border-left:3px solid ${isUpper ? 'var(--blue)' : 'var(--green)'};background:${isUpper ? 'var(--blue-light)' : 'var(--green-light)'};font-size:12px;">
+                <span style="font-weight:600;color:${isYang ? 'var(--gold-dark)' : 'var(--blue)'};min-width:32px;white-space:nowrap;">${names[i]}</span>
+                <span style="color:var(--text1);line-height:1.5;">${isYang ? '⚊' : '⚋'} ${g.yao[i] || ''}</span>
+              </div>`;
+            }
+            return rows;
+          })()}
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;">每爻是一个<span style="color:var(--gold-dark);">不同的位置/阶段</span>：<b>初爻</b>=事情开端，<b>二爻</b>=崭露头角，<b>三爻</b>=承上启下，<b>四爻</b>=近君多惧，<b>五爻</b>=君位掌权，<b>上爻</b>=物极必反</div>
+      </div>` : ''}
     </div>
   `;
+}
+
+// 生成爻名：初九/六二/九三 等
+function getYaoNames(yaoArr) {
+  const pos = ['初','二','三','四','五','上'];
+  return yaoArr.map((v,i) => {
+    const num = v === 1 ? '九' : '六';
+    return (i === 0 || i === 5) ? pos[i] + num : num + pos[i]; // 初九/上六 位置在前，九二/六三 数字在前
+  });
 }
 
 function toggleBuilderYao(idx) {
