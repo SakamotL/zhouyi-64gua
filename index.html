@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>周易64卦 · 学卦完整版</title>
+<title>周易64卦 · v4.0</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
@@ -420,6 +420,79 @@
   .empty { text-align: center; padding: 50px 20px; color: var(--text3); font-size: 14px; }
   .empty .icon { font-size: 48px; opacity: 0.3; margin-bottom: 12px; font-family: "Songti SC", serif; color: var(--gold-dark); }
 
+  /* 传统起卦 */
+  .trad-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 16px;
+  }
+  .trad-title { font-size: 15px; font-weight: 600; color: var(--gold-dark); margin-bottom: 6px; }
+  .trad-desc { font-size: 12px; color: var(--text3); line-height: 1.7; margin-bottom: 14px; }
+  .trad-form {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
+  }
+  .trad-form label {
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 12px; color: var(--text2); flex: 1; min-width: 70px;
+  }
+  .trad-form input, .trad-form select {
+    padding: 10px 12px; border: 1px solid var(--border2);
+    border-radius: 8px; font-size: 14px; font-family: inherit;
+    background: var(--card2); color: var(--text); width: 100%;
+  }
+  .trad-form input:focus, .trad-form select:focus { outline: none; border-color: var(--gold); background: #fff; }
+  .trad-btns { display: flex; gap: 10px; }
+  .trad-btn {
+    padding: 10px 22px; background: var(--ink); color: #fac775;
+    border: none; border-radius: 8px; cursor: pointer;
+    font-size: 14px; font-weight: 500; font-family: inherit;
+  }
+  .trad-btn.ghost { background: var(--card2); color: var(--text2); border: 1px solid var(--border2); }
+  .trad-btn:hover { opacity: 0.9; }
+  .trad-result { animation: fadeIn 0.4s; }
+  .trad-calc {
+    background: var(--ink); color: #fac775; border-radius: 8px;
+    padding: 12px 14px; margin: 16px 0; font-size: 12px;
+    font-family: "SF Mono","Consolas",monospace; line-height: 1.9; white-space: pre-line;
+  }
+  .trad-gua {
+    background: var(--card); border: 1px solid var(--gold);
+    border-radius: 12px; padding: 20px; text-align: center;
+    background: linear-gradient(180deg, #fffdf5 0%, #fff 100%);
+  }
+  .trad-gua .tg-sym { font-size: 56px; color: var(--gold-dark); font-family: "Songti SC", serif; line-height: 1; margin-bottom: 8px; }
+  .trad-gua .tg-name { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .trad-gua .tg-struct { font-size: 12px; color: var(--text3); margin-bottom: 12px; }
+  .trad-bian {
+    margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border);
+  }
+  .trad-bian .tb-sym { font-size: 40px; color: var(--blue); font-family: "Songti SC", serif; line-height: 1; margin-bottom: 4px; }
+  .trad-bian .tb-name { font-size: 16px; font-weight: 500; color: var(--ink); }
+
+  /* 八字排盘 */
+  .bazi-form { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+  .bf-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .bf-row:last-child { margin-bottom: 0; align-items: flex-end; }
+  .bf-row label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--text2); flex: 1; min-width: 70px; }
+  .bf-row input, .bf-row select { padding: 10px 12px; border: 1px solid var(--border2); border-radius: 8px; font-size: 14px; font-family: inherit; background: var(--card2); color: var(--text); width: 100%; }
+  .bazi-pillar { display: flex; gap: 8px; background: var(--card); border: 1px solid var(--gold); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+  .bp-col { flex: 1; text-align: center; }
+  .bp-label { font-size: 12px; color: var(--text3); margin-bottom: 8px; }
+  .bp-gan { font-size: 34px; font-weight: 600; color: var(--gold-dark); line-height: 1.1; font-family: "Songti SC", serif; }
+  .bp-zhi { font-size: 34px; font-weight: 600; color: var(--ink); line-height: 1.1; font-family: "Songti SC", serif; }
+  .bp-wu { font-size: 11px; color: var(--text3); margin-top: 6px; }
+  .bazi-daymaster { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; text-align: center; }
+  .wuxing-bar { display: flex; gap: 6px; margin-top: 12px; }
+  .wx-seg { flex: 1; padding: 8px 4px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
+  .dayun-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+  .dayun-item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--card2); border-radius: 8px; font-size: 14px; }
+  .du-idx { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .du-gz { font-weight: 600; color: var(--gold-dark); font-family: "Songti SC", serif; font-size: 16px; }
+  .du-age { color: var(--text2); }
+  .du-year { color: var(--text3); margin-left: auto; font-size: 12px; }
+  .liunian-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; margin-top: 6px; }
+  .ln-item { text-align: center; padding: 8px 4px; background: var(--card2); border-radius: 8px; font-size: 12px; color: var(--text3); line-height: 1.5; }
+  .ln-item b { color: var(--ink); font-family: "Songti SC", serif; font-size: 15px; }
+
   /* 公式说明卡 */
   .formula-explain {
     background: var(--card); border: 1px solid var(--border);
@@ -430,6 +503,66 @@
   .formula-explain .fe-step::before { content: ''; position: absolute; left: 6px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
   .formula-explain .fe-step code { background: var(--gold-light); color: var(--gold-dark); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
   .formula-explain .fe-demo { background: var(--ink); color: #fac775; border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 12px; font-family: "SF Mono","Consolas",monospace; line-height: 1.8; }
+
+  /* 话术测卦 · 对话式 */
+  .divine-methods { display:flex; gap:4px; margin-bottom:20px; border-bottom:1px solid var(--border); overflow-x:auto; }
+  .divine-method {
+    padding:12px 18px; cursor:pointer; font-size:14px; color:var(--text3);
+    border:none; border-bottom:2px solid transparent; background:transparent;
+    font-family:inherit; white-space:nowrap; transition:all .15s;
+  }
+  .divine-method.active { color:var(--gold-dark); border-bottom-color:var(--gold); font-weight:500; }
+
+  .dialogue-box {
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:20px; min-height:300px; display:flex; flex-direction:column; gap:12px;
+  }
+  .dlg-msg { display:flex; gap:10px; animation:fadeIn .3s; }
+  .dlg-msg.ai { flex-direction:row; align-items:flex-start; }
+  .dlg-msg.user { flex-direction:row-reverse; align-items:flex-start; }
+  .dlg-avatar {
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; font-family:"Songti SC",serif;
+  }
+  .dlg-msg.ai .dlg-avatar { background:var(--gold-light); color:var(--gold-dark); }
+  .dlg-msg.user .dlg-avatar { background:var(--blue-light); color:var(--blue); }
+  .dlg-bubble {
+    max-width:75%; padding:12px 16px; border-radius:12px; font-size:14px; line-height:1.7;
+  }
+  .dlg-msg.ai .dlg-bubble {
+    background:var(--gold-light); color:var(--text); border-bottom-left-radius:4px;
+  }
+  .dlg-msg.user .dlg-bubble {
+    background:var(--blue-light); color:var(--text); border-bottom-right-radius:4px;
+  }
+  .dlg-options { display:flex; flex-direction:column; gap:8px; padding-left:46px; }
+  .dlg-option {
+    padding:12px 16px; background:var(--card); border:1px solid var(--border2);
+    border-radius:10px; cursor:pointer; font-size:14px; color:var(--text);
+    transition:all .15s; font-family:inherit; text-align:left; display:flex; align-items:center; gap:8px;
+  }
+  .dlg-option:hover { background:var(--gold-light); border-color:var(--gold); color:var(--gold-dark); }
+  .dlg-option .opt-icon { font-size:18px; flex-shrink:0; }
+  .dlg-option .opt-text { flex:1; }
+  .dlg-option .opt-desc { font-size:12px; color:var(--text3); margin-top:2px; }
+  .dlg-option:hover .opt-desc { color:var(--gold); }
+
+  .dlg-result {
+    background:linear-gradient(135deg,#fff8e7 0%,#fff 100%);
+    border:1px solid var(--gold); border-radius:12px; padding:20px;
+    margin-left:46px; animation:fadeIn .4s;
+  }
+  .dlg-result .result-symbol { font-size:56px; text-align:center; color:var(--gold-dark); font-family:"Songti SC",serif; margin-bottom:8px; }
+  .dlg-result .result-name { font-size:22px; font-weight:600; text-align:center; color:var(--ink); margin-bottom:4px; }
+  .dlg-result .result-struct { font-size:12px; text-align:center; color:var(--text3); margin-bottom:16px; }
+  .dlg-restart {
+    text-align:center; margin-top:16px;
+  }
+  .dlg-restart button {
+    padding:10px 28px; background:var(--ink); color:#fac775;
+    border:none; border-radius:8px; cursor:pointer; font-size:14px; font-family:inherit;
+  }
 
   /* 手机底部Tab */
   .mobile-tabbar {
@@ -460,6 +593,7 @@
   <div class="nav-logo">周易六十四卦</div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="switchMain('learn', this)">学卦</button>
+    <button class="nav-tab" onclick="switchMain('bazi', this)">八字</button>
     <button class="nav-tab" onclick="switchMain('divine', this)">测卦</button>
   </div>
 </nav>
@@ -471,15 +605,14 @@
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchSub('recognize', this)"><span class="num">1</span>认卦</button>
       <button class="sub-tab" onclick="switchSub('study', this)"><span class="num">2</span>学卦</button>
-      <button class="sub-tab" onclick="switchSub('apply', this)"><span class="num">3</span>用卦</button>
     </div>
 
-    <!-- 认卦 -->
+    <!-- 认卦（精简版） -->
     <div class="section active" id="sec-recognize">
       <div class="hero">
         <div class="hero-symbol">䷀</div>
-        <div class="hero-title">认卦 · 从零认识周易基本元素</div>
-        <div class="hero-sub">阴阳 · 八卦 · 六十四卦 · 爻位命名 · 易有三义</div>
+        <div class="hero-title">认卦 · 周易基本元素</div>
+        <div class="hero-sub">阴阳 · 八卦 · 六十四卦 · 爻位</div>
       </div>
 
       <h3 class="section-title">一、阴阳二爻 · 万象之始</h3>
@@ -496,56 +629,35 @@
         </div>
       </div>
       <div class="tip-box gold">
-        <b>核心理解：</b>周易用两个最简单的符号模拟万物。阳爻是实线（⚊），阴爻是断线（⚋）。电脑的0和1，周易的阴和阳，本质是同一套二进制思维。莱布尼茨正是受周易启发创立二进制。
+        <b>一句话理解：</b>阳爻=实线⚊，阴爻=断线⚋。周易用这两个符号模拟万物，和电脑的0与1是同一套二进制思维。
       </div>
 
-      <h3 class="section-title">二、八卦 · 万物之象</h3>
-      <div class="matrix-info">八卦=3爻组合，共8种（2³=8）。每卦对应一种自然现象：天地水火风雷山泽。点击查看详情。</div>
+      <h3 class="section-title">二、八卦 · 口诀与属性</h3>
+      <div class="matrix-info">八卦=3爻组合，共8种。每卦对应一种自然现象：天地水火风雷山泽。点击查看详情。</div>
       <div class="bagua-grid" id="baguaGrid"></div>
-
-      <h3 class="section-title">三、八卦口诀 · 朱熹《八卦取象歌》</h3>
       <div class="formula-card">
-        <div class="title">一秒记住八个卦的形状</div>
-        <div class="formula-line">乾三连<span class="explain">☰ 三条实线连着</span></div>
-        <div class="formula-line">坤六断<span class="explain">☷ 六段断开的小线</span></div>
-        <div class="formula-line">震仰盂<span class="explain">☳ 像仰放的盂（底实上空）</span></div>
-        <div class="formula-line">艮覆碗<span class="explain">☶ 像倒扣的碗（顶实下空）</span></div>
-        <div class="formula-line">离中虚<span class="explain">☲ 中间是虚的（阴爻）</span></div>
-        <div class="formula-line">坎中满<span class="explain">☵ 中间是满的（阳爻）</span></div>
-        <div class="formula-line">兑上缺<span class="explain">☱ 上面缺一口（阴爻）</span></div>
-        <div class="formula-line">巽下断<span class="explain">☴ 下面断开（阴爻）</span></div>
+        <div class="title">八卦取象歌 · 一秒记形状</div>
+        <div class="formula-line">乾三连<span class="explain">☰ 三条实线</span></div>
+        <div class="formula-line">坤六断<span class="explain">☷ 六段断开</span></div>
+        <div class="formula-line">震仰盂<span class="explain">☳ 底实上空</span></div>
+        <div class="formula-line">艮覆碗<span class="explain">☶ 顶实下空</span></div>
+        <div class="formula-line">离中虚<span class="explain">☲ 中间虚</span></div>
+        <div class="formula-line">坎中满<span class="explain">☵ 中间实</span></div>
+        <div class="formula-line">兑上缺<span class="explain">☱ 上缺口</span></div>
+        <div class="formula-line">巽下断<span class="explain">☴ 下断开</span></div>
       </div>
 
-      <h3 class="section-title">四、八卦属性 · 比类取象</h3>
-      <div class="tip-box">
-        <b>八卦不止对应自然，还能类比万物：</b><br>
-        乾=天/父/首/马/金/刚健 · 坤=地/母/腹/牛/土/柔顺 · 震=雷/长男/足/龙/木/动 · 巽=风/长女/股/鸡/木/入<br>
-        坎=水/中男/耳/豕/险陷 · 离=火/中女/目/雉/附丽 · 艮=山/少男/手/狗/止 · 兑=泽/少女/口/羊/喜悦
-      </div>
-
-      <h3 class="section-title">五、从6爻到64卦 · 上下卦怎么分</h3>
+      <h3 class="section-title">三、六爻与六十四卦 · 互动演示</h3>
       <div class="tip-box gold" style="margin-bottom:16px;">
-        <b>核心规则（必记）：</b><br>
-        起卦时，从初爻（第1爻）开始向上摇6次，得到6根爻。<br>
-        • <b>第1~3爻</b>（下方三根）→ 组成<b style="color:var(--green)">下卦</b>（内卦）<br>
-        • <b>第4~6爻</b>（上方三根）→ 组成<b style="color:var(--blue)">上卦</b>（外卦）<br>
-        • 上卦×8 + 下卦 = 卦的编号（0-63）<br>
-        • 卦名读法：<b>上卦自然 + 下卦自然 + 卦名</b>（如：坤上乾下=地天泰）
+        <b>核心规则：</b>6爻从下往上排，第1~3爻组成<b style="color:var(--green)">下卦</b>，第4~6爻组成<b style="color:var(--blue)">上卦</b>。上卦×8+下卦=卦编号（0-63）。卦名读法：上卦自然+下卦自然+卦名（如坤上乾下=地天泰）。
       </div>
 
-      <!-- 互动演示：点击爻切换阴阳，实时显示上下卦和卦名 -->
+      <!-- 互动演示 -->
       <div id="yaoBuilderWrap" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;">
-        <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:14px;text-align:center;">🎯 互动演示：点击每根爻切换阴阳，看卦是怎么合成的</div>
-        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;text-align:center;padding:4px 10px;background:var(--gold-light);border-radius:6px;">⚠️ 卦象=大方向指引 · 爻辞=前人经验参考 · 具体决策以己自解</div>
+        <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:14px;text-align:center;">🎯 点击每根爻切换阴阳，看卦怎么合成</div>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
-          <!-- 六爻构建器 -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;" id="yaoBuilder">
-            <!-- JS动态生成 -->
-          </div>
-          <!-- 实时解读 -->
-          <div id="yaoReading" style="flex:1;min-width:200px;background:var(--bg);border-radius:12px;padding:16px;font-size:14px;">
-            <!-- JS动态更新 -->
-          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;" id="yaoBuilder"></div>
+          <div id="yaoReading" style="flex:1;min-width:200px;background:var(--bg);border-radius:12px;padding:16px;font-size:14px;"></div>
         </div>
         <div style="text-align:center;margin-top:12px;">
           <button onclick="resetYaoBuilder()" style="background:var(--ink);color:#fac775;border:none;border-radius:8px;padding:8px 20px;cursor:pointer;font-size:13px;">🔄 重置</button>
@@ -553,71 +665,23 @@
         </div>
       </div>
 
-      <!-- 铜钱法阴阳规则说明 -->
-      <div class="formula-card" style="margin-bottom:16px;">
-        <div class="title">铜钱法阴阳判断规则</div>
-        <div class="formula-line" style="border-left:3px solid var(--gold);">3枚全正面 → <b>老阳 ⚊</b> <span class="explain">动爻，阳将变阴；概率12.5%</span></div>
-        <div class="formula-line" style="border-left:3px solid var(--gold-dark);">2正1反 → <b>少阳 ⚊</b> <span class="explain">静爻，阳爻；概率37.5%</span></div>
-        <div class="formula-line" style="border-left:3px solid var(--blue);">1正2反 → <b>少阴 ⚋</b> <span class="explain">静爻，阴爻；概率37.5%</span></div>
-        <div class="formula-line" style="border-left:3px solid #555;">3枚全反面 → <b>老阴 ⚋</b> <span class="explain">动爻，阴将变阳；概率12.5%</span></div>
-        <div style="font-size:12px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-          <b>记忆口诀：</b>正面多=阳（2正或3正→阳爻），反面多=阴（2反或3反→阴爻）<br>
-          <b>动爻：</b>老阳/老阴因"物极必反"会变成对立面，得出"变卦"，代表趋势走向
-        </div>
-      </div>
-
-      <!-- 起卦完整流程 -->
-      <div class="tip-box" style="margin-bottom:16px;">
-        <b>完整起卦流程（铜钱法）：</b><br>
-        ① 心中默想所问之事 → ② 摇3枚铜钱，记录结果（这是<b>初爻</b>，第1爻，最底部）<br>
-        ③ 再摇，记第2爻 → ... → ⑥ 第6次，记第6爻（最顶部）<br>
-        ⑦ 1~3爻合成<b style="color:var(--green)">下卦</b>，查八卦表得卦名 → ⑧ 4~6爻合成<b style="color:var(--blue)">上卦</b>，查八卦表得卦名<br>
-        ⑨ 上卦+下卦 → 查64卦表，得本卦 → ⑩ 动爻翻转 → 得变卦（趋势）
-      </div>
-
-      <h3 class="section-title">六、六十四卦矩阵 · 八卦相荡</h3>
-      <div class="matrix-info">64卦=8上卦×8下卦。横轴=上卦（外卦），纵轴=下卦（内卦）。点击任意卦查看详情。</div>
-      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
-      <div class="tip-box">
-        <b>读卦规则：</b>先读上卦自然，再读下卦自然，最后卦名。泰卦=上坤(地)+下乾(天)="地天泰"；否卦=上乾(天)+下坤(地)="天地否"。
-      </div>
-
-      <h3 class="section-title">七、爻位命名 · 初九六二怎么来的</h3>
-      <div class="matrix-info">每卦6爻，从下到上叫：初·二·三·四·五·上。阳爻用"九"，阴爻用"六"。</div>
+      <h3 class="section-title">四、爻位命名 · 易有三义</h3>
+      <div class="matrix-info">每卦6爻从下到上：初·二·三·四·五·上。阳爻用"九"，阴爻用"六"。</div>
       <div class="yao-table">
         <div class="yao-row header">
           <div class="yao-cell">位置</div>
           <div class="yao-cell">阳爻名</div>
           <div class="yao-cell">阴爻名</div>
         </div>
-        <div class="yao-row"><div class="yao-cell">第1爻（最下）</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">初九</div><div class="yao-cell" style="color:var(--blue);">初六</div></div>
+        <div class="yao-row"><div class="yao-cell">第1爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">初九</div><div class="yao-cell" style="color:var(--blue);">初六</div></div>
         <div class="yao-row"><div class="yao-cell">第2爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九二</div><div class="yao-cell" style="color:var(--blue);">六二</div></div>
         <div class="yao-row"><div class="yao-cell">第3爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九三</div><div class="yao-cell" style="color:var(--blue);">六三</div></div>
         <div class="yao-row"><div class="yao-cell">第4爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九四</div><div class="yao-cell" style="color:var(--blue);">六四</div></div>
         <div class="yao-row"><div class="yao-cell">第5爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">九五</div><div class="yao-cell" style="color:var(--blue);">六五</div></div>
-        <div class="yao-row"><div class="yao-cell">第6爻（最上）</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">上九</div><div class="yao-cell" style="color:var(--blue);">上六</div></div>
+        <div class="yao-row"><div class="yao-cell">第6爻</div><div class="yao-cell" style="color:var(--gold-dark);font-weight:500;">上九</div><div class="yao-cell" style="color:var(--blue);">上六</div></div>
       </div>
-      <div class="tip-box gold">
-        <b>记忆口诀：</b>初上"位前数后"（初九、上九），二至五"数前位后"（九二、九五）。<br>
-        <b>为何用九和六？</b>奇数为阳，9是最大阳数；偶数为阴，6是老阴之数。<br>
-        <b>爻位吉凶倾向：</b>二五为中美位（多吉），初三四为危位（多凶吝），上为亢位（易悔）。
-      </div>
-
-      <h3 class="section-title">八、易有三义 · 理解周易的钥匙</h3>
       <div class="tip-box green">
-        <b>变易：</b>世间万物无时无刻不在变化，唯一不变的就是"变"本身。<br>
-        <b>不易：</b>变化的规律是不变的——物极必反、阴阳转化、循环往复。<br>
-        <b>简易：</b>大道至简，用阴阳两个符号就能模拟万物变化。<br>
-        <b>理解这三义，才算真正入门周易。</b>占卦不是算命，是借卦象看清自己所处的"位"，顺势而为。
-      </div>
-
-      <h3 class="section-title">九、承乘比应 · 爻际关系（进阶）</h3>
-      <div class="tip-box">
-        <b>承：</b>下爻对上爻的关系（阴承阳=顺，阳承阴=逆）<br>
-        <b>乘：</b>上爻对下爻的关系（阴乘阳=柔凌刚，多凶）<br>
-        <b>比：</b>相邻两爻的关系（阴阳相比=和谐）<br>
-        <b>应：</b>初与四、二与五、三与上的对应关系（阴阳相应=吉，同为阳/阴=无应）<br>
-        <b>这是判断爻辞吉凶的重要依据。</b>
+        <b>易有三义：</b>变易（一切在变）· 不易（规律不变）· 简易（大道至简）。占卦不是算命，是借卦象看清自己的"位"，顺势而为。
       </div>
     </div>
 
@@ -778,36 +842,99 @@
       <div class="matrix-wrap"><div class="matrix" id="matrix2"></div></div>
     </div>
 
-    <!-- 用卦 -->
-    <div class="section" id="sec-apply">
-      <div style="background:linear-gradient(135deg,#fff8e7 0%,#fcebeb 100%);border:1px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;">
-        <div style="font-size:15px;font-weight:600;color:var(--gold-dark);margin-bottom:6px;">🙏 读卦须知 · 重要提醒</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.8;">
-          卦象只是<b>大方向的指引</b>，告诉你目前处于什么态势、什么阶段。<br>
-          具体情况因人而异——同样的卦，不同的人处境不同，解读也不同。<br>
-          <b>爻辞是前人在类似处境下的经验总结</b>，供你参考思考，不是预言。<br>
-          周易的真正价值：通过卦象看清自己的"位"，<b>望多加思考，以己自解</b>。
+  </div>
+
+  <!-- ============ 测卦板块 ============ -->
+  <div id="divineSection" style="display:none;">
+    <div class="hero">
+      <div class="hero-symbol">䷂</div>
+      <div class="hero-title">测卦 · 三种方式任选</div>
+      <div class="hero-sub">话术引导 · 关键词搜索 · 摇卦模拟</div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#fff8e7 0%,#fcebeb 100%);border:1px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:20px;text-align:center;font-size:12px;color:var(--text2);line-height:1.7;">
+      🙏 卦象是<b>大方向指引</b>，爻辞是<b>前人经验参考</b>。<b>望多加思考，以己自解。</b>
+    </div>
+
+    <div class="divine-methods">
+      <button class="divine-method active" onclick="switchDivineMethod('dialogue',this)">💬 话术测卦</button>
+      <button class="divine-method" onclick="switchDivineMethod('keyword',this)">🔍 关键词测卦</button>
+      <button class="divine-method" onclick="switchDivineMethod('coin',this)">🪙 摇卦模拟</button>
+      <button class="divine-method" onclick="switchDivineMethod('traditional',this)">📐 传统起卦</button>
+    </div>
+
+    <!-- 话术测卦 -->
+    <div id="divineMethod-dialogue">
+      <div class="dialogue-box" id="dialogueBox">
+        <!-- JS动态生成 -->
+      </div>
+    </div>
+
+    <!-- 关键词测卦 -->
+    <div id="divineMethod-keyword" style="display:none;">
+      <div class="search-box">
+        <input type="text" class="search-input" id="searchInput"
+               placeholder="例如：迷茫、想跳槽、刚起步、被压制、转机..."
+               onkeydown="if(event.key==='Enter') doSearch()">
+        <button class="search-btn" onclick="doSearch()">测卦</button>
+      </div>
+      <div class="preset-tags">
+        <span class="preset-tag" onclick="quickSearch('迷茫，不知道方向')">迷茫不知方向</span>
+        <span class="preset-tag" onclick="quickSearch('想跳槽换工作')">想跳槽</span>
+        <span class="preset-tag" onclick="quickSearch('刚起步，万事开头难')">刚起步</span>
+        <span class="preset-tag" onclick="quickSearch('等待机会')">等待机会</span>
+        <span class="preset-tag" onclick="quickSearch('被压制，看不到光')">被压制</span>
+        <span class="preset-tag" onclick="quickSearch('转机，看到希望')">转机</span>
+        <span class="preset-tag" onclick="quickSearch('面临重大抉择')">重大抉择</span>
+        <span class="preset-tag" onclick="quickSearch('团队冲突')">团队冲突</span>
+        <span class="preset-tag" onclick="quickSearch('事业巅峰')">事业巅峰</span>
+        <span class="preset-tag" onclick="quickSearch('需要变革')">需要变革</span>
+        <span class="preset-tag" onclick="quickSearch('积弊太多要整治')">积弊整治</span>
+        <span class="preset-tag" onclick="quickSearch('感情问题')">感情问题</span>
+      </div>
+      <div class="calc-process" id="calcProcess"></div>
+      <div class="results" id="results">
+        <div class="empty">
+          <div class="icon">䷀</div>
+          输入关键词或点击上方标签，开始测卦
         </div>
       </div>
+    </div>
 
-      <div class="hero">
-        <div class="hero-symbol">䷿</div>
-        <div class="hero-title">用卦 · 占卜与解卦</div>
-        <div class="hero-sub">起卦 · 解卦 · 占卜模拟 · 实战案例</div>
+    <!-- 摇卦模拟 -->
+    <div id="divineMethod-coin" style="display:none;">
+      <div class="formula-card" style="margin-bottom:16px;">
+        <div class="title">铜钱法阴阳判断规则</div>
+        <div class="formula-line" style="border-left:3px solid var(--gold);">3枚全正面 → <b>老阳 ⚊</b> <span class="explain">动爻，阳将变阴</span></div>
+        <div class="formula-line" style="border-left:3px solid var(--gold-dark);">2正1反 → <b>少阳 ⚊</b> <span class="explain">静爻，阳爻</span></div>
+        <div class="formula-line" style="border-left:3px solid var(--blue);">1正2反 → <b>少阴 ⚋</b> <span class="explain">静爻，阴爻</span></div>
+        <div class="formula-line" style="border-left:3px solid #555;">3枚全反面 → <b>老阴 ⚋</b> <span class="explain">动爻，阴将变阳</span></div>
       </div>
-
-      <h3 class="section-title">一、占卜方法</h3>
+      <div class="divine-sim">
+        <button class="divine-btn" onclick="simulateDivine()">🎯 摇卦起卦（点击6次）</button>
+        <div class="divine-result" id="divineResult">
+          <div class="divine-symbol" id="divineSymbol"></div>
+          <div class="divine-name" id="divineName"></div>
+          <div class="divine-ci" id="divineCi"></div>
+          <div class="divine-yao" id="divineYao"></div>
+        </div>
+      </div>
+      <div class="tip-box gold" style="margin-top:16px;">
+        <b>解卦三步法：</b>① 看卦辞（总体判断）→ ② 看动爻爻辞（具体指引）→ ③ 看变卦（趋势走向）。<br>
+        <b>原则：</b>一爻动以爻辞为主；多爻动以卦辞为主结合动爻；无动爻以卦辞为主。
+      </div>
+      <h3 class="section-title">占卜方法速览</h3>
       <div class="card-grid">
-        <div class="card" onclick="showModal('铜钱法','取三枚铜钱（或硬币），同时摇掷，记正反面：\n\n• 3正 = 老阳 ⚊（阳爻，动）\n• 2正1反 = 少阴 ⚊（阳爻，静）\n• 1正2反 = 少阳 ⚋（阴爻，静）\n• 3反 = 老阴 ⚋（阴爻，动）\n\n重复6次，从下往上排，得6爻成卦。\n\n老阳老阴为动爻，阴阳互变得变卦。')">
+        <div class="card" onclick="showModal('铜钱法','取三枚铜钱（或硬币），同时摇掷，记正反面：\n\n• 3正 = 老阳 ⚊（阳爻，动）\n• 2正1反 = 少阳 ⚊（阳爻，静）\n• 1正2反 = 少阴 ⚋（阴爻，静）\n• 3反 = 老阴 ⚋（阴爻，动）\n\n重复6次，从下往上排，得6爻成卦。\n\n老阳老阴为动爻，阴阳互变得变卦。')">
           <div class="card-icon">🪙</div>
           <div class="card-title">铜钱法（推荐）</div>
-          <div class="card-desc">3枚硬币摇6次，简单易行，最适合新手</div>
+          <div class="card-desc">3枚硬币摇6次，简单易行</div>
           <div class="card-meta">点击查看详细 →</div>
         </div>
-        <div class="card" onclick="showModal('蓍草法','古法正统，用50根蓍草（或牙签）经多次分合得出每爻。\n\n步骤简化版：\n1. 取50根，取出1根不用（象征太极）\n2. 49根随机分两份（象征天地）\n3. 取右份中1根放左（象征人）\n4. 左份4根一组数余数\n5. 右份同样4根一组数余数\n6. 余下的放一边，重复3次得1爻\n\n完整得6爻需18次操作，耗时约30分钟。\n古人认为蓍草法最灵验，因过程本身蕴含天地人之理。')">
+        <div class="card" onclick="showModal('蓍草法','古法正统，用50根蓍草（或牙签）经多次分合得出每爻。\n\n步骤简化版：\n1. 取50根，取出1根不用（象征太极）\n2. 49根随机分两份（象征天地）\n3. 取右份中1根放左（象征人）\n4. 左份4根一组数余数\n5. 右份同样4根一组数余数\n6. 余下的放一边，重复3次得1爻\n\n完整得6爻需18次操作，耗时约30分钟。')">
           <div class="card-icon">🌱</div>
           <div class="card-title">蓍草法（古法）</div>
-          <div class="card-desc">50根蓍草分合18次，正统但复杂</div>
+          <div class="card-desc">50根蓍草分合18次</div>
           <div class="card-meta">点击查看详细 →</div>
         </div>
         <div class="card" onclick="showModal('数字起卦法','任意想3个数字（或看时间/车牌号取3数）。\n\n规则：\n• 前2位数相加 ÷ 8，余数=上卦（0当8）\n• 3位数各自相加 ÷ 8，余数=下卦（0当8）\n• 3数总和 ÷ 6，余数=动爻位置（0当6）\n\n例：心想385\n• 上卦=(3+8)÷8=1余3→巽(风)\n• 下卦=(3+8+5)÷8=2余0→坤(地)\n• 动爻=(3+8+5)÷6=2余4→第4爻\n\n得风地观卦，第4爻动。')">
@@ -823,106 +950,119 @@
           <div class="card-meta">点击查看详细 →</div>
         </div>
       </div>
-
-      <h3 class="section-title">二、解卦三步法</h3>
-      <div class="tip-box gold">
-        <b>第一步：看卦辞（总体指引）</b><br>
-        卦辞是这一卦的总体判断。比如得泰卦，总体通达；得否卦，总体闭塞。<br><br>
-        <b>第二步：看动爻爻辞（具体指引）</b><br>
-        若占卜时有动爻（老阳老阴），看该爻爻辞。比如泰卦九三"无平不陂，无往不复"——提醒盛极必衰。<br><br>
-        <b>第三步：看变卦（趋势走向）</b><br>
-        动爻阴阳互变后得变卦，代表趋势。本卦=现状，变卦=走向。<br><br>
-        <b>原则：</b>一爻动以爻辞为主；多爻动以卦辞为主结合动爻；无动爻以卦辞为主。
-      </div>
-
-      <h3 class="section-title">三、占卜模拟器 · 铜钱法</h3>
-      <div class="divine-sim">
-        <button class="divine-btn" onclick="simulateDivine()">🎯 摇卦起卦（点击6次）</button>
-        <div class="divine-result" id="divineResult">
-          <div class="divine-symbol" id="divineSymbol"></div>
-          <div class="divine-name" id="divineName"></div>
-          <div class="divine-ci" id="divineCi"></div>
-          <div class="divine-yao" id="divineYao"></div>
-        </div>
-      </div>
-
-      <h3 class="section-title">四、实战案例</h3>
+      <h3 class="section-title">实战案例</h3>
       <div class="case-card">
         <div class="case-title"><span class="case-gua">䷴ 渐卦</span>创业者占得渐卦</div>
-        <div class="case-text">某创业者问"项目能否成"，得渐卦。渐卦讲"循序渐进"，鸿雁逐步上岸。解：项目能成，但不能急，要像大雁一样一步一个脚印。果然6个月后项目稳定盈利。启示：渐卦的核心是"稳步"，不是"慢"，是每步都到位。</div>
+        <div class="case-text">某创业者问"项目能否成"，得渐卦。渐卦讲"循序渐进"。解：项目能成，但不能急，要像大雁一步一个脚印。6个月后项目稳定盈利。启示：渐卦的核心是"稳步"，不是"慢"，是每步都到位。</div>
       </div>
       <div class="case-card">
         <div class="case-title"><span class="case-gua">䷰ 革卦</span>跳槽者占得革卦</div>
-        <div class="case-text">某人想跳槽问吉凶，得革卦。革卦讲"变革"，"己日乃孚"——要等时机成熟才变。解：可以跳，但不是现在，要等到"己日"（合适时机）。3个月后猎头主动联系，薪资翻倍。启示：革卦的"变"不是乱变，是顺势而变。</div>
+        <div class="case-text">某人想跳槽问吉凶，得革卦。革卦讲"变革"，"己日乃孚"——要等时机成熟才变。解：可以跳，但不是现在。3个月后猎头主动联系，薪资翻倍。启示：革卦的"变"不是乱变，是顺势而变。</div>
       </div>
       <div class="case-card">
         <div class="case-title"><span class="case-gua">䷣ 明夷卦</span>职场受挫者占得明夷</div>
-        <div class="case-text">某人在公司被排挤，占得明夷卦。明夷=光明受伤，"利艰贞"——利于艰难守正。解：当下应"内文明而外柔顺"，收敛锋芒，保身为上。半年后跳槽成功，原公司也出了问题。启示：明夷不是凶，是教你在黑暗中如何自处。</div>
+        <div class="case-text">某人在公司被排挤，占得明夷卦。明夷=光明受伤。解：当下应"内文明而外柔顺"，收敛锋芒，保身为上。半年后跳槽成功。启示：明夷不是凶，是教你在黑暗中如何自处。</div>
       </div>
       <div class="case-card">
         <div class="case-title"><span class="case-gua">䷗ 复卦</span>低谷期占得复卦</div>
-        <div class="case-text">某人事业低谷迷茫，占得复卦。复卦=一阳来复，"七日来复"——转机必来。解：已经到底了，转机就在眼前，抓住初现的希望。1个月后确实迎来新机会。启示：复卦是周易中最有希望的卦之一，"不远复，元吉"。</div>
+        <div class="case-text">某人事业低谷迷茫，占得复卦。复卦=一阳来复，"七日来复"——转机必来。解：已经到底了，转机就在眼前。1个月后确实迎来新机会。启示：复卦是周易中最有希望的卦之一。</div>
+      </div>
+    </div>
+
+    <!-- 传统起卦 -->
+    <div id="divineMethod-traditional" style="display:none;">
+      <div class="tip-box gold" style="margin-bottom:16px;">
+        <b>传统起卦的核心逻辑：</b>不问"你在什么情境"，而是用<b>客观数字</b>（时间/数字/外应）直接算出卦象。<br>
+        这正是梅花易数的精髓——<b>心动念起，数即刻应</b>。卦象出来后，再读卦辞爻辞。
       </div>
 
-      <div class="tip-box green" style="margin-top:16px;">
-        <b>用卦心法：</b>周易不是算命，是借卦象反观自身处境。"易"有三义：变易（一切在变）、不易（规律不变）、简易（大道至简）。占卦是为了看清自己所处的"位"，顺势而为，不是趋吉避凶的投机。<br><br>
-        <span style="color:var(--gold-dark);font-weight:600;">📌 核心提醒：</span>卦象只指大方向，具体情况依个人而定。爻辞让你看到前人在类似处境中如何应对，供你思考借鉴。<b>望多加思考，以己自解。</b>心诚则灵，不诚不占。
+      <!-- 时间起卦 -->
+      <div class="trad-block">
+        <div class="trad-title">🕐 时间起卦 · 梅花易数</div>
+        <div class="trad-desc">以年月日时起卦。古法用农历，此处用当前公历演示（传统以农历地支序号入算）。</div>
+        <div class="trad-form">
+          <label>年<input id="tYear" type="number" min="1" max="9999"></label>
+          <label>月<input id="tMonth" type="number" min="1" max="12"></label>
+          <label>日<input id="tDay" type="number" min="1" max="31"></label>
+          <label>时辰<select id="tHour"></select></label>
+        </div>
+        <div class="trad-btns">
+          <button class="trad-btn ghost" onclick="fillNowTime()">📅 用当前时间</button>
+          <button class="trad-btn" onclick="timeDivine()">🎯 起卦</button>
+        </div>
       </div>
+
+      <!-- 数字起卦 -->
+      <div class="trad-block">
+        <div class="trad-title">🔢 数字起卦 · 梅花易数</div>
+        <div class="trad-desc">取2~3个任意数字（心想/车牌/电话皆可），前两数定上卦，三数合定下卦与动爻。</div>
+        <div class="trad-form">
+          <label>数一<input id="n1" type="number"></label>
+          <label>数二<input id="n2" type="number"></label>
+          <label>数三<input id="n3" type="number" placeholder="可选"></label>
+        </div>
+        <div class="trad-btns">
+          <button class="trad-btn ghost" onclick="fillRandomNums()">🎲 随机三数</button>
+          <button class="trad-btn" onclick="numberDivine()">🎯 起卦</button>
+        </div>
+      </div>
+
+      <!-- 外应起卦 -->
+      <div class="trad-block">
+        <div class="trad-title">👁 外应起卦 · 看人识卦</div>
+        <div class="trad-desc">不需问一句话。观察当下所见所闻取数，直接得卦——此即"外应"。</div>
+        <div class="trad-form">
+          <label>外应数<input id="wNum" type="number" placeholder="如看到7物"></label>
+          <label>时辰<select id="wHour"></select></label>
+        </div>
+        <div class="trad-btns">
+          <button class="trad-btn ghost" onclick="fillNowHour('wHour')">📅 用当前时辰</button>
+          <button class="trad-btn" onclick="waiyingDivine()">🎯 起卦</button>
+        </div>
+        <div class="preset-tags" style="margin-top:10px;">
+          <span class="preset-tag" onclick="setWaiying(3)">听到3声</span>
+          <span class="preset-tag" onclick="setWaiying(7)">看到7物</span>
+          <span class="preset-tag" onclick="setWaiying(9)">数到9下</span>
+          <span class="preset-tag" onclick="setWaiyingRandom()">🎲 随机外应</span>
+        </div>
+      </div>
+
+      <div id="tradResult"></div>
     </div>
   </div>
 
-  <!-- ============ 测卦板块 ============ -->
-  <div id="divineSection" style="display:none;">
+  <!-- ============ 八字板块 ============ -->
+  <div id="baziSection" style="display:none;">
     <div class="hero">
-      <div class="hero-symbol">䷂</div>
-      <div class="hero-title">测卦 · 关键词计算卦象</div>
-      <div class="hero-sub">输入当下处境或心境，本地公式计算匹配卦象与解决办法</div>
+      <div class="hero-symbol">☯</div>
+      <div class="hero-title">八字 · 生辰排盘</div>
+      <div class="hero-sub">四柱命盘 · 五行强弱 · 命卦 · 大运流年</div>
     </div>
 
-    <div class="formula-explain">
-      <div class="fe-title">🧮 本地计算公式说明</div>
-      <div class="fe-step">输入文本 → <code>分词提取</code>（直接命中标签 + 同义词扩展 + 二字滑窗）</div>
-      <div class="fe-step">每个关键词 → 遍历64卦标签库，命中则该卦 <code>得分 +1</code></div>
-      <div class="fe-step">同义词命中 → 该卦 <code>得分 +0.5</code>（弱匹配权重低）</div>
-      <div class="fe-step">所有卦按得分降序排列 → 取 <code>Top 3</code> 展示</div>
-      <div class="fe-step">得分相同 → 按卦序优先（周易原典顺序）</div>
-      <div class="fe-demo">示例：「想跳槽换工作」\n→ 分词：[跳槽→决断, 换工作→改变/变革]\n→ 夬卦(31) 命中[决断] 得1分\n→ 革卦(29) 命中[变革/改变] 得2分 ✅最匹配\n→ 无妄(57) 命中[守正] 得1分</div>
+    <div class="tip-box gold" style="margin-bottom:16px;">
+      <b>说明：</b>输入公历出生时间即可排盘。年柱以<b>立春</b>为界，月柱以<b>节气</b>为界——这是八字的核心规则。<br>
+      命卦以你的生辰起卦（梅花易数法），与"传统起卦"逻辑同源。
     </div>
 
-    <div class="search-box">
-      <input type="text" class="search-input" id="searchInput"
-             placeholder="例如：迷茫、想跳槽、刚起步、被压制、转机..."
-             onkeydown="if(event.key==='Enter') doSearch()">
-      <button class="search-btn" onclick="doSearch()">测卦</button>
-    </div>
-    <div class="preset-tags">
-      <span class="preset-tag" onclick="quickSearch('迷茫，不知道方向')">迷茫不知方向</span>
-      <span class="preset-tag" onclick="quickSearch('想跳槽换工作')">想跳槽</span>
-      <span class="preset-tag" onclick="quickSearch('刚起步，万事开头难')">刚起步</span>
-      <span class="preset-tag" onclick="quickSearch('等待机会')">等待机会</span>
-      <span class="preset-tag" onclick="quickSearch('被压制，看不到光')">被压制</span>
-      <span class="preset-tag" onclick="quickSearch('转机，看到希望')">转机</span>
-      <span class="preset-tag" onclick="quickSearch('面临重大抉择')">重大抉择</span>
-      <span class="preset-tag" onclick="quickSearch('团队冲突')">团队冲突</span>
-      <span class="preset-tag" onclick="quickSearch('事业巅峰')">事业巅峰</span>
-      <span class="preset-tag" onclick="quickSearch('需要变革')">需要变革</span>
-      <span class="preset-tag" onclick="quickSearch('积弊太多要整治')">积弊整治</span>
-      <span class="preset-tag" onclick="quickSearch('感情问题')">感情问题</span>
-    </div>
-
-    <div class="calc-process" id="calcProcess"></div>
-
-    <div class="results" id="results">
-      <div class="empty">
-        <div class="icon">䷀</div>
-        输入关键词或点击上方标签，开始测卦
+    <div class="bazi-form">
+      <div class="bf-row">
+        <label>出生年<input id="bYear" type="number" min="1900" max="2100" value="1995"></label>
+        <label>月<input id="bMonth" type="number" min="1" max="12" value="6"></label>
+        <label>日<input id="bDay" type="number" min="1" max="31" value="15"></label>
+      </div>
+      <div class="bf-row">
+        <label>时辰<select id="baziHour"></select></label>
+        <label>性别<select id="bGender"><option value="男">男</option><option value="女">女</option></select></label>
+        <button class="trad-btn" onclick="calcBazi()">🔮 排盘</button>
       </div>
     </div>
+
+    <div id="baziResult"></div>
   </div>
 
   <div class="footer-note">
-    周易64卦 · 学卦完整版 v3.4 · 六爻白话+主题全覆盖+爻位速查<br>
-    学卦（认卦/学卦/用卦）+ 测卦 · 适配PC与手机
+    周易64卦 · v4.2 · 认卦精简+话术测卦+传统起卦+八字排盘<br>
+    学卦（认卦/学卦）+ 八字（四柱/五行/命卦/大运）+ 测卦 · 适配PC与手机
   </div>
 </div>
 
@@ -941,7 +1081,10 @@
   <button class="mobile-tab active" onclick="switchMain('learn', document.querySelectorAll('.nav-tab')[0])">
     <span class="icon">📖</span>学卦
   </button>
-  <button class="mobile-tab" onclick="switchMain('divine', document.querySelectorAll('.nav-tab')[1])">
+  <button class="mobile-tab" onclick="switchMain('bazi', document.querySelectorAll('.nav-tab')[1])">
+    <span class="icon">☯</span>八字
+  </button>
+  <button class="mobile-tab" onclick="switchMain('divine', document.querySelectorAll('.nav-tab')[2])">
     <span class="icon">🎯</span>测卦
   </button>
 </div>
@@ -1613,10 +1756,12 @@ function switchMain(tab, btn) {
   document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
   if (btn) btn.classList.add('active');
   document.querySelectorAll('.mobile-tab').forEach((t, i) => {
-    if ((tab === 'learn' && i === 0) || (tab === 'divine' && i === 1)) t.classList.add('active');
+    if ((tab === 'learn' && i === 0) || (tab === 'bazi' && i === 1) || (tab === 'divine' && i === 2)) t.classList.add('active');
   });
   document.getElementById('learnSection').style.display = tab === 'learn' ? 'block' : 'none';
+  document.getElementById('baziSection').style.display = tab === 'bazi' ? 'block' : 'none';
   document.getElementById('divineSection').style.display = tab === 'divine' ? 'block' : 'none';
+  if (tab === 'bazi') initBaziHour();
   window.scrollTo(0, 0);
 }
 
@@ -2023,11 +2168,416 @@ function randomYaoBuilder() {
   renderYaoBuilder();
 }
 
+// ========== 话术测卦 · 对话式引导系统 ==========
+const dialogueTree = {
+  start: {
+    q: '你好。测卦之前，先说说——你当下的处境更接近哪种？',
+    options: [
+      { icon:'🌟', label:'顺境成功', desc:'事业顺利、有所收获', next:'shun' },
+      { icon:'🌑', label:'逆境困难', desc:'遇到阻碍、困难重重', next:'ni' },
+      { icon:'🔄', label:'转机低谷', desc:'谷底反弹、否极泰来', next:'zhuan' },
+      { icon:'👥', label:'人际感情', desc:'合作、感情、冲突', next:'ren' },
+      { icon:'⏳', label:'等待犹豫', desc:'时机未到、方向不明', next:'deng' },
+      { icon:'🌱', label:'刚起步', desc:'新的开始、萌芽阶段', next:'qi' },
+    ]
+  },
+  shun: {
+    q: '好，顺境之中。更具体地说，你的顺境是？',
+    options: [
+      { icon:'🏆', label:'事业巅峰', desc:'如日中天、大有收获', gua:47 },
+      { icon:'太平', label:'太平通达', desc:'一切顺畅、天地交泰', gua:7 },
+      { icon:'💪', label:'刚健进取', desc:'主动出击、自强不息', gua:63 },
+      { icon:'😊', label:'安乐愉悦', desc:'顺遂和乐、享受当下', gua:8 },
+    ]
+  },
+  ni: {
+    q: '我理解。逆境之中，更具体地说——',
+    options: [
+      { icon:'🌑', label:'被压制·看不到光', desc:'光明受伤、需要隐忍', gua:5 },
+      { icon:'🔒', label:'困住·施展不开', desc:'有志难伸、被困住', gua:26 },
+      { icon:'🧗', label:'走不动·前路难', desc:'步履维艰、阻碍重重', gua:20 },
+      { icon:'🚫', label:'闭塞·不通', desc:'天地不交、停滞不前', gua:56 },
+      { icon:'📉', label:'剥落·衰退', desc:'逐步衰退、不可阻挡', gua:32 },
+      { icon:'🌊', label:'险陷·深陷其中', desc:'重险叠加、坎陷不已', gua:18 },
+    ]
+  },
+  zhuan: {
+    q: '转机将至。你感受到的是哪种转机？',
+    options: [
+      { icon:'🌱', label:'看到希望', desc:'一阳来复、转机初现', gua:1 },
+      { icon:'🔓', label:'险难解除', desc:'困难开始消解', gua:10 },
+      { icon:'🔥', label:'需要变革', desc:'旧的不去新的不来', gua:29 },
+      { icon:'📈', label:'增益扩展', desc:'损上益下、得到增益', gua:49 },
+    ]
+  },
+  ren: {
+    q: '人际关系，是周易擅长解读的领域。你的情况是？',
+    options: [
+      { icon:'💗', label:'感情·感应', desc:'心心相印、相互吸引', gua:28 },
+      { icon:'🤝', label:'合作·结盟', desc:'需要亲附、找对人', gua:16 },
+      { icon:'⚔️', label:'冲突·争讼', desc:'纠纷矛盾、是非不断', gua:58 },
+      { icon:'💞', label:'持久·稳定', desc:'关系需要长久维持', gua:14 },
+    ]
+  },
+  deng: {
+    q: '等待也是一种智慧。你等的什么？',
+    options: [
+      { icon:'⏰', label:'时机未到', desc:'需要耐心、养精蓄锐', gua:23 },
+      { icon:'❓', label:'迷茫·不懂', desc:'蒙昧无知、需要学习', gua:34 },
+      { icon:'🐯', label:'小心谨慎', desc:'如履薄冰、试探前行', gua:59 },
+      { icon:'🚪', label:'退避·隐遁', desc:'需要暂时退避', gua:60 },
+    ]
+  },
+  qi: {
+    q: '万事开头难，但也最珍贵。你的起步是？',
+    options: [
+      { icon:'🌱', label:'万事开头难', desc:'萌芽艰难、动辄遇险', gua:17 },
+      { icon:'📖', label:'需要学习', desc:'虚心求教、启蒙阶段', gua:34 },
+      { icon:'🎯', label:'蓄势待发', desc:'面临大事、需要亲临', gua:3 },
+      { icon:'🪜', label:'循序渐进', desc:'稳扎稳打、逐步发展', gua:52 },
+    ]
+  }
+};
+
+let dialogueState = { step:'start', history:[] };
+
+function switchDivineMethod(method, btn) {
+  document.querySelectorAll('.divine-method').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  ['dialogue','keyword','coin','traditional'].forEach(m => {
+    const el = document.getElementById('divineMethod-'+m);
+    if (el) el.style.display = m === method ? 'block' : 'none';
+  });
+  if (method === 'traditional') initHourSelects();
+}
+
+// ========== 传统起卦法（梅花易数） ==========
+// 传统八卦序号：乾1 兑2 离3 震4 巽5 坎6 艮7 坤8
+// 编码索引（trigramNames顺序）：坤0 震1 坎2 兑3 艮4 离5 巽6 乾7
+const tradToEnc = [0, 7, 3, 5, 1, 6, 2, 4, 0]; // index=传统序号(1-8)
+const shiChen = [
+  { name:'子时', range:'23-1', idx:1 }, { name:'丑时', range:'1-3', idx:2 },
+  { name:'寅时', range:'3-5', idx:3 }, { name:'卯时', range:'5-7', idx:4 },
+  { name:'辰时', range:'7-9', idx:5 }, { name:'巳时', range:'9-11', idx:6 },
+  { name:'午时', range:'11-13', idx:7 }, { name:'未时', range:'13-15', idx:8 },
+  { name:'申时', range:'15-17', idx:9 }, { name:'酉时', range:'17-19', idx:10 },
+  { name:'戌时', range:'19-21', idx:11 }, { name:'亥时', range:'21-23', idx:12 }
+];
+function mod8(n) { const r = ((n % 8) + 8) % 8; return r === 0 ? 8 : r; }
+function mod6(n) { const r = ((n % 6) + 6) % 6; return r === 0 ? 6 : r; }
+function hourToShiChenIdx(hour) { return Math.floor(((hour + 1) % 24) / 2) + 1; }
+
+function initHourSelects() {
+  ['tHour','wHour'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel || sel.options.length > 0) return;
+    shiChen.forEach(sc => {
+      const opt = document.createElement('option');
+      opt.value = sc.idx; opt.textContent = sc.name + '（' + sc.range + '）';
+      sel.appendChild(opt);
+    });
+    sel.value = hourToShiChenIdx(new Date().getHours());
+  });
+}
+function fillNowTime() {
+  const now = new Date();
+  document.getElementById('tYear').value = now.getFullYear();
+  document.getElementById('tMonth').value = now.getMonth() + 1;
+  document.getElementById('tDay').value = now.getDate();
+  document.getElementById('tHour').value = hourToShiChenIdx(now.getHours());
+}
+function fillNowHour(selId) {
+  document.getElementById(selId).value = hourToShiChenIdx(new Date().getHours());
+}
+function fillRandomNums() {
+  document.getElementById('n1').value = Math.floor(Math.random()*99)+1;
+  document.getElementById('n2').value = Math.floor(Math.random()*99)+1;
+  document.getElementById('n3').value = Math.floor(Math.random()*99)+1;
+}
+function setWaiying(n) {
+  document.getElementById('wNum').value = n;
+  if (!document.getElementById('wHour').value) fillNowHour('wHour');
+}
+function setWaiyingRandom() {
+  document.getElementById('wNum').value = Math.floor(Math.random()*20)+1;
+  if (!document.getElementById('wHour').value) fillNowHour('wHour');
+}
+
+// 核心：传统序号→卦ID，含变卦
+function calcTraditional(upTrad, lowTrad, movingLine) {
+  const upEnc = tradToEnc[upTrad], lowEnc = tradToEnc[lowTrad];
+  const benId = lowEnc + upEnc * 8;
+  const bianId = (movingLine >= 1 && movingLine <= 6) ? (benId ^ (1 << (movingLine - 1))) : benId;
+  return { benId, bianId, upEnc, lowEnc };
+}
+
+function renderTradResult(benId, bianId, movingLine, calcText) {
+  const ben = guaDB[benId];
+  const benTri = getTrigrams(benId);
+  let html = '<div class="trad-calc">' + calcText + '</div>';
+  html += '<div class="trad-gua">';
+  html += '<div class="tg-sym">' + (ben ? ben.s : '?') + '</div>';
+  html += '<div class="tg-name">' + (ben ? ben.n : '?') + '卦</div>';
+  html += '<div class="tg-struct">' + benTri.upper.name + '上' + benTri.lower.name + '下 · ' + benTri.upper.nature + benTri.lower.nature + '</div>';
+  html += '<div class="info-block scene"><span class="label">📜 卦辞</span>' + (ben ? ben.ci : '') + '</div>';
+  if (movingLine >= 1 && movingLine <= 6) {
+    const pos = movingLine - 1;
+    const isYang = ((benId >> pos) & 1) === 1;
+    const yaoName = getYaoName(pos, isYang);
+    html += '<div class="info-block yao"><span class="label">🔑 第' + movingLine + '爻（' + yaoName + '）</span>' + (ben && ben.yao[pos] ? ben.yao[pos] : '') + '</div>';
+  }
+  if (bianId !== benId) {
+    const bian = guaDB[bianId];
+    const bianTri = getTrigrams(bianId);
+    html += '<div class="trad-bian">';
+    html += '<div style="font-size:12px;color:var(--text3);margin-bottom:6px;">变卦 · 趋势走向</div>';
+    html += '<div class="tb-sym">' + (bian ? bian.s : '?') + '</div>';
+    html += '<div class="tb-name">' + (bian ? bian.n : '?') + '卦 · ' + bianTri.upper.name + '上' + bianTri.lower.name + '下</div>';
+    html += '<div class="info-block scene" style="margin-top:10px;"><span class="label">📜 变卦辞</span>' + (bian ? bian.ci : '') + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  const box = document.getElementById('tradResult');
+  box.innerHTML = html;
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// 时间起卦
+function timeDivine() {
+  const y = parseInt(document.getElementById('tYear').value);
+  const m = parseInt(document.getElementById('tMonth').value);
+  const d = parseInt(document.getElementById('tDay').value);
+  const h = parseInt(document.getElementById('tHour').value);
+  if (!y || !m || !d || !h) { alert('请填全年月日时，或点"用当前时间"'); return; }
+  const up = mod8(y + m + d);
+  const low = mod8(y + m + d + h);
+  const mv = mod6(y + m + d + h);
+  const r = calcTraditional(up, low, mv);
+  const calc =
+    '上卦 = (年+月+日) % 8 = (' + y + '+' + m + '+' + d + ') % 8 = ' + mod8(y+m+d) + ' → ' + trigramNames[r.upEnc] + trigramNatures[r.upEnc] + '\n' +
+    '下卦 = (…+时) % 8 = (…+' + h + ') % 8 = ' + mod8(y+m+d+h) + ' → ' + trigramNames[r.lowEnc] + trigramNatures[r.lowEnc] + '\n' +
+    '动爻 = (年+月+日+时) % 6 = ' + mod6(y+m+d+h) + ' → 第' + mv + '爻\n' +
+    '本卦 = ' + trigramNatures[r.upEnc] + trigramNatures[r.lowEnc] + (ben(r.benId)) ;
+  renderTradResult(r.benId, r.bianId, mv, calc);
+}
+
+// 数字起卦
+function numberDivine() {
+  const a = parseInt(document.getElementById('n1').value);
+  const b = parseInt(document.getElementById('n2').value);
+  const cRaw = document.getElementById('n3').value;
+  const c = (cRaw === '' || isNaN(parseInt(cRaw))) ? 0 : parseInt(cRaw);
+  if (isNaN(a) || isNaN(b)) { alert('请至少填数一和数二'); return; }
+  const up = mod8(a + b);
+  const low = mod8(a + b + c);
+  const mv = mod6(a + b + c);
+  const r = calcTraditional(up, low, mv);
+  const calc =
+    '上卦 = (数一+数二) % 8 = (' + a + '+' + b + ') % 8 = ' + mod8(a+b) + ' → ' + trigramNames[r.upEnc] + trigramNatures[r.upEnc] + '\n' +
+    '下卦 = (三数之和) % 8 = (' + a + '+' + b + '+' + c + ') % 8 = ' + mod8(a+b+c) + ' → ' + trigramNames[r.lowEnc] + trigramNatures[r.lowEnc] + '\n' +
+    '动爻 = (三数之和) % 6 = ' + mod6(a+b+c) + ' → 第' + mv + '爻\n' +
+    '本卦 = ' + trigramNatures[r.upEnc] + trigramNatures[r.lowEnc] + (ben(r.benId));
+  renderTradResult(r.benId, r.bianId, mv, calc);
+}
+
+// 外应起卦（看人识卦）
+function waiyingDivine() {
+  const w = parseInt(document.getElementById('wNum').value);
+  const h = parseInt(document.getElementById('wHour').value);
+  if (isNaN(w) || !h) { alert('请填外应数与时辰'); return; }
+  const up = mod8(w);
+  const low = mod8(h);
+  const mv = mod6(w + h);
+  const r = calcTraditional(up, low, mv);
+  const calc =
+    '上卦 = 外应数 % 8 = ' + w + ' % 8 = ' + mod8(w) + ' → ' + trigramNames[r.upEnc] + trigramNatures[r.upEnc] + '\n' +
+    '下卦 = 时辰 % 8 = ' + h + ' % 8 = ' + mod8(h) + ' → ' + trigramNames[r.lowEnc] + trigramNatures[r.lowEnc] + '\n' +
+    '动爻 = (外应+时辰) % 6 = ' + mod6(w+h) + ' → 第' + mv + '爻\n' +
+    '本卦 = ' + trigramNatures[r.upEnc] + trigramNatures[r.lowEnc] + (ben(r.benId));
+  renderTradResult(r.benId, r.bianId, mv, calc);
+}
+
+function ben(id) { const g = guaDB[id]; return g ? g.n + '卦' : '?'; }
+
+// ========== 八字命理引擎 ==========
+const GAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const ZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const GAN_WU = ['木','木','火','火','土','土','金','金','水','水'];
+const ZHI_WU = {'子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水'};
+const WU_COLOR = {'金':'#caa84a','木':'#5aa55a','水':'#3a8fd0','火':'#d4584f','土':'#b08a5e'};
+const sTermInfo = [0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
+function gzJDN(y,m,d){ if(m<=2){y-=1;m+=12;} const A=Math.floor(y/100); const B=2-A+Math.floor(A/4); return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524; }
+function dayGZ(jdn){ const idx=((jdn+49)%60+60)%60; return {gan:GAN[idx%10],zhi:ZHI[idx%12],idx,ganIdx:idx%10}; }
+function getTermDay(y,n){ const off=new Date((31556925974.7*(y-1900)+sTermInfo[n]*60000)+Date.UTC(1900,0,6,2,5)); return off.getUTCDate(); }
+function yearGZ(y,m,d){ const lc=getTermDay(y,2); let gy=y; if(m<2||(m===2&&d<lc)) gy=y-1; const idx=((gy-4)%60+60)%60; return {gan:GAN[idx%10],zhi:ZHI[idx%12],idx,ganIdx:idx%10}; }
+function monthGZ(y,m,d,yearIdx){
+  const terms=[{mo:12,da:getTermDay(y-1,22),z:0,prev:true},{mo:1,da:getTermDay(y,0),z:1},{mo:2,da:getTermDay(y,2),z:2},{mo:3,da:getTermDay(y,4),z:3},{mo:4,da:getTermDay(y,5),z:4},{mo:5,da:getTermDay(y,8),z:5},{mo:6,da:getTermDay(y,10),z:6},{mo:7,da:getTermDay(y,13),z:7},{mo:8,da:getTermDay(y,14),z:8},{mo:9,da:getTermDay(y,17),z:9},{mo:10,da:getTermDay(y,18),z:10},{mo:11,da:getTermDay(y,20),z:11},{mo:12,da:getTermDay(y,22),z:0}];
+  let zhiIdx=0; for(const t of terms){ const before=t.prev?true:(t.mo<m||(t.mo===m&&t.da<=d)); if(before) zhiIdx=t.z; }
+  const yinGan={0:2,5:2,1:4,6:4,2:6,7:6,3:8,8:8,4:0,9:0};
+  const gan=(yinGan[yearIdx%10]+((zhiIdx-2+12)%12))%10;
+  return {gan:GAN[gan],zhi:ZHI[zhiIdx],ganIdx:gan,zhiIdx};
+}
+function timeGZ(dayGanIdx,hourIdx){
+  const ziGan={0:0,5:0,1:2,6:2,2:4,7:4,3:6,8:6,4:8,9:8};
+  const zhiIdx=(hourIdx-1+12)%12; // 子=1→0 … 亥=12→11
+  const gan=(ziGan[dayGanIdx%10]+zhiIdx)%10;
+  return {gan:GAN[gan],zhi:ZHI[zhiIdx],ganIdx:gan,zhiIdx};
+}
+function termMonth(n){ const map=[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12]; return map[n]; }
+function calcDaYun(y,m,d,gender,yearIdx,monthGanIdx,monthZhiIdx){
+  const isYang = yearIdx % 2 === 0;
+  const forward = (isYang && gender==='男') || (!isYang && gender==='女');
+  const all=[];
+  all.push({y:y-1,mo:12,da:getTermDay(y-1,23)});
+  for(let n=0;n<24;n++){ all.push({y:y,mo:termMonth(n),da:getTermDay(y,n)}); }
+  all.push({y:y+1,mo:1,da:getTermDay(y+1,0)});
+  const birthDate=new Date(y,m-1,d);
+  let target=null;
+  all.forEach(t=>{ const dt=new Date(t.y,t.mo-1,t.da); if(forward){ if(dt>birthDate && (!target||dt<target)) target=dt; } else { if(dt<birthDate && (!target||dt>target)) target=dt; } });
+  if(!target) target=birthDate;
+  const diffDays=Math.max(1,Math.abs(Math.round((target-birthDate)/86400000)));
+  const startAge=Math.max(1,Math.round(diffDays/3));
+  let monthSixty=-1;
+  for(let i=0;i<60;i++){ if(GAN[i%10]===GAN[monthGanIdx] && ZHI[i%12]===ZHI[monthZhiIdx]){ monthSixty=i; break; } }
+  const steps=[];
+  for(let k=1;k<=8;k++){
+    const si = forward ? (monthSixty+k)%60 : ((monthSixty-k)%60+60)%60;
+    steps.push({ gan:GAN[si%10], zhi:ZHI[si%12], age:startAge+(k-1)*10, year:y+startAge+(k-1)*10 });
+  }
+  return { forward, startAge, diffDays, steps };
+}
+function initBaziHour(){
+  const sel=document.getElementById('baziHour');
+  if(!sel||sel.options.length>0) return;
+  shiChen.forEach(sc=>{ const o=document.createElement('option'); o.value=sc.idx; o.textContent=sc.name+'（'+sc.range+'）'; sel.appendChild(o); });
+  sel.value=hourToShiChenIdx(new Date().getHours());
+}
+function calcBazi(){
+  const y=parseInt(document.getElementById('bYear').value);
+  const m=parseInt(document.getElementById('bMonth').value);
+  const d=parseInt(document.getElementById('bDay').value);
+  const h=parseInt(document.getElementById('baziHour').value);
+  const gender=document.getElementById('bGender').value;
+  if(!y||!m||!d||!h){ alert('请填全出生年月日时辰'); return; }
+  const yg=yearGZ(y,m,d);
+  const dg=dayGZ(gzJDN(y,m,d));
+  const mg=monthGZ(y,m,d,yg.idx);
+  const tg=timeGZ(dg.idx,h);
+  const wu={金:0,木:0,水:0,火:0,土:0};
+  [yg,mg,dg,tg].forEach(p=>{ wu[GAN_WU[GAN.indexOf(p.gan)]]++; wu[ZHI_WU[p.zhi]]++; });
+  const dayMaster=GAN_WU[dg.ganIdx];
+  const up=mod8(y+m+d), low=mod8(y+m+d+h), mv=mod6(y+m+d+h);
+  const ming=calcTraditional(up,low,mv);
+  const daYun=calcDaYun(y,m,d,gender,yg.idx,mg.ganIdx,mg.zhiIdx);
+  const liuNian=[];
+  for(let i=0;i<80;i++){ const ly=y+daYun.startAge+i; const lyIdx=((ly-4)%60+60)%60; liuNian.push({age:daYun.startAge+i, year:ly, gan:GAN[lyIdx%10], zhi:ZHI[lyIdx%12]}); }
+  let html='';
+  html+='<div class="bazi-pillar">';
+  [['年',yg],['月',mg],['日',dg],['时',tg]].forEach(([lab,p])=>{
+    html+='<div class="bp-col"><div class="bp-label">'+lab+'柱</div><div class="bp-gan">'+p.gan+'</div><div class="bp-zhi">'+p.zhi+'</div><div class="bp-wu">'+GAN_WU[GAN.indexOf(p.gan)]+ZHI_WU[p.zhi]+'</div></div>';
+  });
+  html+='</div>';
+  html+='<div class="bazi-daymaster"><div style="font-size:13px;color:var(--text3);">日主（命主）</div><div style="font-size:28px;font-weight:600;color:var(--gold-dark);margin:4px 0;">'+dg.gan+' <span style="font-size:14px;color:var(--text2);">'+dayMaster+'命</span></div><div class="wuxing-bar">';
+  ['金','木','水','火','土'].forEach(w=>{ html+='<div class="wx-seg" style="background:'+WU_COLOR[w]+'22;color:'+WU_COLOR[w]+';border:1px solid '+WU_COLOR[w]+'55;">'+w+'<br><b>'+wu[w]+'</b></div>'; });
+  html+='</div></div>';
+  const ben2=guaDB[ming.benId]; const benTri=getTrigrams(ming.benId);
+  html+='<div class="trad-block"><div class="trad-title">☯ 命卦（以生辰起卦）</div><div class="trad-desc">用你的出生年月日时起卦，与"传统起卦"同源。</div><div class="trad-calc">上卦=(年+月+日)%8='+mod8(y+m+d)+' '+trigramNatures[tradToEnc[up]]+'\n下卦=(年+月+日+时)%8='+mod8(y+m+d+h)+' '+trigramNatures[tradToEnc[low]]+'\n动爻=(年+月+日+时)%6='+mv+'</div>';
+  html+='<div class="trad-gua"><div class="tg-sym">'+ben2.s+'</div><div class="tg-name">'+ben2.n+'卦</div><div class="tg-struct">'+benTri.upper.name+'上'+benTri.lower.name+'下 · '+benTri.upper.nature+benTri.lower.nature+'</div><div class="info-block scene"><span class="label">📜 卦辞</span>'+ben2.ci+'</div>';
+  if(ming.bianId!==ming.benId){ const bian=guaDB[ming.bianId]; const bt=getTrigrams(ming.bianId); html+='<div class="trad-bian"><div style="font-size:12px;color:var(--text3);margin-bottom:6px;">变卦 · 趋势</div><div class="tb-sym">'+bian.s+'</div><div class="tb-name">'+bian.n+'卦 · '+bt.upper.name+'上'+bt.lower.name+'下</div></div>'; }
+  html+='</div></div>';
+  html+='<div class="trad-block"><div class="trad-title">📈 大运（'+(daYun.forward?'顺排':'逆排')+'）</div><div class="trad-desc">距最近节气 '+daYun.diffDays+' 天 ÷ 3 ≈ <b>'+daYun.startAge+'岁</b> 起运 · 每运十年</div><div class="dayun-list">';
+  daYun.steps.forEach((s,i)=>{ html+='<div class="dayun-item"><span class="du-idx">'+(i+1)+'</span><span class="du-gz">'+s.gan+s.zhi+'</span><span class="du-age">'+s.age+'岁</span><span class="du-year">'+s.year+'年</span></div>'; });
+  html+='</div></div>';
+  html+='<div class="trad-block"><div class="trad-title">🗓 流年</div><div class="trad-desc">从起运 '+daYun.startAge+' 岁起，逐年干支</div><div class="liunian-grid">';
+  liuNian.forEach(ln=>{ html+='<span class="ln-item">'+ln.year+'<br><b>'+ln.gan+ln.zhi+'</b><br><span style="font-size:10px;color:var(--text3);">'+ln.age+'岁</span></span>'; });
+  html+='</div></div>';
+  document.getElementById('baziResult').innerHTML=html;
+  document.getElementById('baziResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderDialogue() {
+  const box = document.getElementById('dialogueBox');
+  if (!box) return;
+  let html = '';
+
+  // 渲染历史对话（AI提问 + 用户选择）
+  dialogueState.history.forEach(h => {
+    if (h.type === 'ai') {
+      html += `<div class="dlg-msg ai"><div class="dlg-avatar">易</div><div class="dlg-bubble">${h.text}</div></div>`;
+    } else if (h.type === 'user') {
+      html += `<div class="dlg-msg user"><div class="dlg-avatar">我</div><div class="dlg-bubble">${h.text}</div></div>`;
+    } else if (h.type === 'result') {
+      const g = guaDB[h.guaId];
+      const tri = getTrigrams(h.guaId);
+      const dd = divineDB.find(d => d.id === h.guaId);
+      html += `<div class="dlg-result">
+        <div class="result-symbol">${g ? g.s : '?'}</div>
+        <div class="result-name">${g ? g.n : '?'}卦</div>
+        <div class="result-struct">${tri.upper.name}上${tri.lower.name}下 · ${tri.upper.nature}${tri.lower.nature}</div>`;
+      if (g) {
+        html += `<div class="info-block scene"><span class="label">📜 卦辞</span>${g.ci}</div>`;
+      }
+      if (dd) {
+        html += `<div class="info-block advice"><span class="label">💡 对应场景</span>${dd.scene}</div>
+        <div class="info-block advice"><span class="label">🌿 解决指引</span>${dd.advice}</div>
+        <div class="info-block warning"><span class="label">⚠️ 警示</span>${dd.warning}</div>
+        <div class="info-block yao"><span class="label">🔑 关键爻</span>${dd.keyYao}</div>`;
+      }
+      html += `<div class="tip-box gold" style="margin-top:12px;font-size:12px;">卦象是大方向指引，爻辞是前人经验参考。<b>望多加思考，以己自解。</b></div>`;
+      html += `</div>`;
+      html += `<div class="dlg-restart"><button onclick="resetDialogue()">🔄 重新测卦</button></div>`;
+    }
+  });
+
+  // 渲染当前步骤（AI提问 + 可点击选项）
+  const node = dialogueTree[dialogueState.step];
+  if (node && !dialogueState.done) {
+    html += `<div class="dlg-msg ai"><div class="dlg-avatar">易</div><div class="dlg-bubble">${node.q}</div></div>`;
+    html += `<div class="dlg-options">`;
+    node.options.forEach((opt, i) => {
+      html += `<button class="dlg-option" onclick="selectDialogueOption(${i})">
+        <span class="opt-icon">${opt.icon||'·'}</span>
+        <span class="opt-text"><b>${opt.label}</b><div class="opt-desc">${opt.desc||''}</div></span>
+      </button>`;
+    });
+    html += `</div>`;
+  }
+
+  box.innerHTML = html;
+  box.scrollTop = box.scrollHeight;
+}
+
+function selectDialogueOption(idx) {
+  const node = dialogueTree[dialogueState.step];
+  if (!node || !node.options[idx]) return;
+  const opt = node.options[idx];
+
+  // 记录AI提问 + 用户选择到历史
+  dialogueState.history.push({ type:'ai', text: node.q });
+  dialogueState.history.push({ type:'user', text: opt.icon + ' ' + opt.label + (opt.desc ? ' — ' + opt.desc : '') });
+
+  if (opt.gua !== undefined) {
+    // 到达终点，显示结果
+    dialogueState.history.push({ type:'result', guaId: opt.gua });
+    dialogueState.done = true;
+  } else if (opt.next) {
+    // 进入下一步
+    dialogueState.step = opt.next;
+  }
+  renderDialogue();
+}
+
+function resetDialogue() {
+  dialogueState = { step:'start', history:[] };
+  renderDialogue();
+}
+
 // ========== 初始化 ==========
 buildBagua();
 buildMatrix('matrix');
 buildMatrix('matrix2');
 renderYaoBuilder();
+renderDialogue();
 </script>
 </body>
 </html>
